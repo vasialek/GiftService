@@ -127,6 +127,8 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\GiftController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -170,6 +172,8 @@
     <Content Include="Views\Gift\Get.cshtml" />
     <Content Include="Views\Shared\_LayoutPos.cshtml" />
     <Content Include="Views\Gift\NotFound.cshtml" />
+    <Content Include="Views\Payment\Make.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

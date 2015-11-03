@@ -12,6 +12,9 @@ namespace GiftService.Bll
         private static BllFactory _bllFactory = null;
 
         private IConfigurationBll _configurationBll = null;
+        private ISecurityBll _securityBll = null;
+        private ICommunicationBll _communicationBll = null;
+        private IPosBll _posBll = null;
         private IProductsBll _productsBll = null;
         private IPdfBll _pdfBll = null;
 
@@ -44,6 +47,31 @@ namespace GiftService.Bll
             }
         }
 
+        public ISecurityBll SecurityBll
+        {
+            get
+            {
+                if (_securityBll == null)
+                {
+                    _securityBll = new SecurityBll(CommunicationBll);
+                }
+                return _securityBll;
+            }
+        }
+
+
+        public ICommunicationBll CommunicationBll
+        {
+            get
+            {
+                if (_communicationBll == null)
+                {
+                    _communicationBll = new CommunicationBll();
+                }
+                return _communicationBll;
+            }
+        }
+
         public IProductsBll GiftsBll
         {
             get
@@ -56,6 +84,17 @@ namespace GiftService.Bll
             }
         }
 
+        public IPosBll PosBll
+        {
+            get
+            {
+                if (_posBll == null)
+                {
+                    _posBll = new PosBll(DalFactory.Current.PosDal);
+                }
+                return _posBll;
+            }
+        }
 
         public IPdfBll PdfBll
         {

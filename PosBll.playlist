@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="GiftService.Bll.UnitTests.PosBllUnitTest.Test_Extract_PosId_From_Bad_Uid" /><Add Test="GiftService.Bll.UnitTests.PosBllUnitTest.Test_Extract_PosId_From_Uid" /></Playlist>

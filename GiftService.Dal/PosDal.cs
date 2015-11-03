@@ -22,6 +22,7 @@ namespace GiftService.Dal
             p.Id = 1005;
             p.Name = "Ritos Masazai";
             p.PosUrl = new Uri("http://www.ritosmasazai.lt/");
+            p.ValidateUrl = new Uri("http://localhost:56620/Test/Validate");
             _poses.Add(p);
         }
 

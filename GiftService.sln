@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftService.Bll", "GiftServ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftService.Dal", "GiftService.Dal\GiftService.Dal.csproj", "{115CF0F1-1F83-4462-A309-9981BB23B965}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftService.Bll.UnitTests", "GiftService.Bll.UnitTests\GiftService.Bll.UnitTests.csproj", "{962AB24E-E9E7-4424-9179-F6043E8829C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{115CF0F1-1F83-4462-A309-9981BB23B965}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{115CF0F1-1F83-4462-A309-9981BB23B965}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{115CF0F1-1F83-4462-A309-9981BB23B965}.Release|Any CPU.Build.0 = Release|Any CPU
+		{962AB24E-E9E7-4424-9179-F6043E8829C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{962AB24E-E9E7-4424-9179-F6043E8829C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{962AB24E-E9E7-4424-9179-F6043E8829C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{962AB24E-E9E7-4424-9179-F6043E8829C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

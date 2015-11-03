@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\BadResponseException.cs" />
     <Compile Include="Gifts\ProductInformationModel.cs" />
+    <Compile Include="JsonModels\BaseResponse.cs" />
     <Compile Include="MySettings.cs" />
     <Compile Include="PosBdo.cs" />
     <Compile Include="ProductBdo.cs" />

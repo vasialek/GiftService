@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="GiftService.Bll.UnitTests.SecurityBllUnitTest.Test_Deny_On_Empty_ValidateUrl" /></Playlist>

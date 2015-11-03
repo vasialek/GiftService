@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="GiftService.Bll.UnitTests.CommunicationBllUnitTest.Test_Exception_On_Null_Url" /><Add Test="GiftService.Bll.UnitTests.CommunicationBllUnitTest.Test_Parse_Valid_Json" /></Playlist>

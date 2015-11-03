@@ -36,5 +36,12 @@ namespace GiftService.Models
         public bool IsPaymentProcessed { get; set; }
 
         public int ProductId { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        /// <summary>
+        /// Date of response from payment system or MinValue
+        /// </summary>
+        public DateTime PaySystemResponseAt { get; set; }
     }
 }

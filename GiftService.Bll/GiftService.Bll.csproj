@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,10 +45,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BllFactory.cs" />
+    <Compile Include="CommunicationBll.cs" />
     <Compile Include="ConfigurationBll.cs" />
     <Compile Include="PdfBll.cs" />
+    <Compile Include="PosBll.cs" />
     <Compile Include="ProductsBll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecurityBll.cs" />
     <Compile Include="TransactionsBll.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +63,9 @@
       <Project>{9869b9f4-70d1-41d5-9d0d-8aa04389c61b}</Project>
       <Name>GiftService.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
