@@ -34,7 +34,7 @@ namespace GiftService.Bll.UnitTests
         {
             _pos.ValidateUrl = null;
 
-            _securityBll.ValidatePosPaymentRequest(_pos);
+            _securityBll.ValidatePosPaymentRequest(_pos, "");
         }
 
         [TestMethod]
@@ -43,13 +43,65 @@ namespace GiftService.Bll.UnitTests
         {
             _communicationBllMock.Setup(x => x.GetJsonResponse<BaseResponse>(It.IsAny<Uri>())).Returns<BaseResponse>(null);
 
-            _securityBll.ValidatePosPaymentRequest(_pos);
+            _securityBll.ValidatePosPaymentRequest(_pos, "");
         }
 
         [TestMethod]
         public void Test_Validate_On_Positive_Response_From_Pos()
         {
-            _securityBll.ValidatePosPaymentRequest(_pos);
+            _communicationBllMock.Setup(x => x.GetJsonResponse<PaymentRequestValidationResponse>(It.IsAny<Uri>()))
+                .Returns(new PaymentRequestValidationResponse()
+                {
+                    RequestedAmountMinor = 1,
+                    ProductName = "Product name",
+                    CurrencyCode = "EUR"
+                });
+            var resp = _securityBll.ValidatePosPaymentRequest(_pos, "");
+
+            Assert.IsNotNull(resp);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(IncorrectPaymentParamersException))]
+        public void Test_Deny_Negative_Payment_RequestedAmount()
+        {
+            _communicationBllMock.Setup(x => x.GetJsonResponse<PaymentRequestValidationResponse>(It.IsAny<Uri>())).Returns(new PaymentRequestValidationResponse());
+
+            var resp = _securityBll.ValidatePosPaymentRequest(_pos, "");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(IncorrectPaymentParamersException))]
+        public void Test_Deny_Empty_Payment_ProductName()
+        {
+            _communicationBllMock.Setup(x => x.GetJsonResponse<PaymentRequestValidationResponse>(It.IsAny<Uri>()))
+                .Returns(new PaymentRequestValidationResponse()
+                {
+                    RequestedAmountMinor = 1,
+                    CurrencyCode = "EUR"
+                });
+
+            var resp = _securityBll.ValidatePosPaymentRequest(_pos, "");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(IncorrectPaymentParamersException))]
+        public void Test_Deny_Empty_Payment_CurrencyCode()
+        {
+            _communicationBllMock.Setup(x => x.GetJsonResponse<PaymentRequestValidationResponse>(It.IsAny<Uri>()))
+                .Returns(new PaymentRequestValidationResponse()
+                {
+                    RequestedAmountMinor = 1,
+                    ProductName = "Product name"
+                });
+
+            var resp = _securityBll.ValidatePosPaymentRequest(_pos, "");
+        }
+
+        [TestMethod]
+        public void Test_Payment_CurrencyCode_Is_Ok()
+        {
+            _securityBll.ValidateCurrencyCode("EUR", new PosBdo());
         }
     }
 }

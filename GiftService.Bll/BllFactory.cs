@@ -17,6 +17,7 @@ namespace GiftService.Bll
         private IPosBll _posBll = null;
         private IProductsBll _productsBll = null;
         private IPdfBll _pdfBll = null;
+        private IHelperBll _helperBll = null;
 
         private BllFactory()
         {
@@ -90,7 +91,7 @@ namespace GiftService.Bll
             {
                 if (_posBll == null)
                 {
-                    _posBll = new PosBll(DalFactory.Current.PosDal);
+                    _posBll = new PosBll(ConfigurationBll, DalFactory.Current.PosDal);
                 }
                 return _posBll;
             }
@@ -107,6 +108,20 @@ namespace GiftService.Bll
                 return _pdfBll;
             }
         }
+
+
+        public IHelperBll HelperBll
+        {
+            get
+            {
+                if (_helperBll == null)
+                {
+                    _helperBll = new HelperBll();
+                }
+                return _helperBll;
+            }
+        }
+
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GiftService.Models.JsonModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,11 +20,15 @@ namespace GiftService.Web.Controllers
         public JsonResult Validate()
         {
             string[] errors = new string[0];
-            return Json(new
+            return Json(new PaymentRequestValidationResponse
             {
                 Status = true,
                 Message = "Ok",
-                Errors = errors
+                Errors = errors,
+                RequestedAmountMinor = 666,
+                CurrencyCode = "EUR",
+                ProductName = "Massage #2",
+                ProductDescription = "Very good and sensitive"
             });
         }
     }

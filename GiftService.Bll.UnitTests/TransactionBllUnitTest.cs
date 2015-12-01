@@ -11,7 +11,7 @@ namespace GiftService.Bll.UnitTests
         [TestMethod]
         public void Test_StartTransaction()
         {
-            string posUserUid = Guid.NewGuid().ToString("N").Substring(0, 16);
+            string posUserUid = Guid.NewGuid().ToString("N");
             int posId = 1005;
 
             var t = _bll.StartTransaction(posUserUid, posId);
@@ -25,7 +25,7 @@ namespace GiftService.Bll.UnitTests
         [TestMethod]
         public void Test_StartTransaction_Times_Are_Utc()
         {
-            string posUserUid = Guid.NewGuid().ToString("N").Substring(0, 16);
+            string posUserUid = Guid.NewGuid().ToString("N");
             int posId = 1005;
 
             var t = _bll.StartTransaction(posUserUid, posId);
@@ -37,7 +37,7 @@ namespace GiftService.Bll.UnitTests
         [TestMethod]
         public void Test_StartTransaction_Payment_Is_Not_Processed()
         {
-            string posUserUid = Guid.NewGuid().ToString("N").Substring(0, 16);
+            string posUserUid = Guid.NewGuid().ToString("N");
             int posId = 1005;
 
             var t = _bll.StartTransaction(posUserUid, posId);

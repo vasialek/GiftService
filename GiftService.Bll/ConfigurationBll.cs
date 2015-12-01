@@ -22,6 +22,7 @@ namespace GiftService.Bll
             {
                 _settings = new MySettings();
                 _settings.PathToPdfStorage = "c:\\temp\\giftservice\\";
+                _settings.LengthOfPosUid = 32;
             }
             return _settings;
         }

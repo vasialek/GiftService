@@ -1,4 +1,5 @@
 ﻿using GiftService.Models;
+using GiftService.Models.Products;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -41,20 +42,50 @@ namespace GiftService.Web.Controllers
                 sb.AppendFormat("  POS URL: {0}", Request.UserHostAddress).AppendLine();
                 sb.AppendFormat("  UID from POS: `{0}`", id);
                 Logger.Info(sb.ToString());
-                
+
                 int posId = Factory.PosBll.GetPosIdFromUid(id);
                 PosBdo pos = Factory.PosBll.GetById(posId);
 
-                Logger.InfoFormat("Validating payment request: `{0}`", pos.ValidateUrl);
-                Factory.SecurityBll.ValidatePosPaymentRequest(pos);
+                var posResponse = Factory.SecurityBll.ValidatePosPaymentRequest(pos, id);
 
-                return View();
+                ProductCheckoutModel model = new ProductCheckoutModel();
+                model.ProductName = posResponse.ProductName;
+                model.ProductDuration = posResponse.ProductDuration;
+                model.ProductValidTill = Factory.HelperBll.ConvertFromUnixTimestamp(posResponse.ProductValidTillTm);
+                model.RequestedAmount = posResponse.RequestedAmountMinor / 100;
+                model.CurrencyCode = posResponse.CurrencyCode;
+                model.Locations = posResponse.Locations ?? new List<ProductServiceLocation>();
+
+                return View("Checkout", GetLayoutForPos(posId), model);
+            }
+            catch (System.Net.WebException wex)
+            {
+                Logger.Error("Probably, there is no connection with POS", wex);
+                throw;
+            }
+            catch (Newtonsoft.Json.JsonReaderException jre)
+            {
+                Logger.Error("Incorrect JSON response from POS", jre);
+                throw;
             }
             catch (Exception ex)
             {
                 Logger.Error("Error making payment for POS", ex);
-                return new RedirectResult(Url.Action("Error"));
+                //return new RedirectResult(Url.Action("Error"));
+                throw;
             }
+        }
+
+        // GET: /Payment/Checkout/UniquePaymentId
+        public ActionResult Checkout(string id)
+        {
+
+            return View("Checkout");
+        }
+
+        private string GetLayoutForPos(int posId)
+        {
+            return "_Layout_Pos_1005";
         }
     }
 

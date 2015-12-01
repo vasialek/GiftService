@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/p1005/style.css" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+
+    <div id="wrapper">
+        <header id="header">
+            <a href="http://www.ritosmasazai.lt/lt"><div class="logo f-left"></div></a>        <div class="menu-box f-left">
+                <a href="http://www.ritosmasazai.lt/lt"><div class="logo-text"></div></a>            <div>
+                    <ul class="top-menu">
+                        <li class="t-menu-left"></li>
+
+
+
+                        <li class="t-menu-center active">
+                            <a href="http://www.ritosmasazai.lt/lt/3/kodel+as%3F" class="pureCssMenui0">Kodėl aš?</a>
+                        </li>
+                        <li class="t-menu-center"><div class="t-menu-line"></div></li>
+
+
+
+
+                        <li class="t-menu-center ">
+                            <a href="http://www.ritosmasazai.lt/lt/4/akcijos" class="pureCssMenui0">Akcijos</a>
+                        </li>
+                        <li class="t-menu-center"><div class="t-menu-line"></div></li>
+
+
+
+
+                        <li class="t-menu-center ">
+                            <a href="http://www.ritosmasazai.lt/lt/5/paslaugos" class="pureCssMenui0">Paslaugos</a>
+                        </li>
+                        <li class="t-menu-center"><div class="t-menu-line"></div></li>
+
+
+
+
+                        <li class="t-menu-center ">
+                            <a href="http://www.ritosmasazai.lt/lt/6/naudojama+kosmetika" class="pureCssMenui0">Naudojama kosmetika</a>
+                        </li>
+                        <li class="t-menu-center"><div class="t-menu-line"></div></li>
+
+
+
+
+                        <li class="t-menu-center ">
+                            <a href="http://www.ritosmasazai.lt/lt/7/kainorastis" class="pureCssMenui0">Kainoraštis</a>
+                        </li>
+                        <li class="t-menu-center"><div class="t-menu-line"></div></li>
+
+
+
+
+                        <li class="t-menu-center ">
+                            <a href="http://www.ritosmasazai.lt/lt/8/dovanu+kuponai" class="pureCssMenui0">Dovanų kuponai</a>
+                        </li>
+                        <li class="t-menu-center"><div class="t-menu-line"></div></li>
+
+
+
+
+                        <li class="t-menu-center ">
+                            <a href="http://www.ritosmasazai.lt/lt/10/kontaktai" class="pureCssMenui0">Kontaktai</a>
+                        </li>
+
+
+
+
+
+
+
+                        <li class="t-menu-right"></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="clear: both"></div>
+            <div class="online-reg">
+                <a href="http://www.ritosmasazai.lt/lt/online/list"><img src="~/Content/p1005/online200.png" alt="Online registration"></a>
+            </div>
+        </header>
+        <section id="middle">
+
+            @RenderBody()
+
+
+        </section><!-- #middle-->
+    </div>
+
+    <footer id="footer">
+        <div id="copyright">
+            <a href="http://www.ritosmasazai.lt/lt">www.ritosmasazai.lt</a>         - <span>tai masažas, po kurio jautiesi lyg naujas!</span>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

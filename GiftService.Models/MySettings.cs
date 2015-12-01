@@ -8,6 +8,8 @@ namespace GiftService.Models
 {
     public class MySettings
     {
+        public int LengthOfPosUid { get; set; }
+
         public string PathToPdfStorage { get; set; }
     }
 }

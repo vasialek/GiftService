@@ -16,15 +16,21 @@ namespace GiftService.Bll
 
     public class PosBll : IPosBll
     {
+        private IConfigurationBll _configurationBll = null;
         private IPosDal _posDal = null;
 
-        public PosBll(IPosDal posDal)
+        public PosBll(IConfigurationBll configurationBll, IPosDal posDal)
         {
+            if (configurationBll == null)
+            {
+                throw new ArgumentNullException("configurationBll");
+            }
             if (posDal == null)
             {
                 throw new ArgumentNullException("posDal");
             }
 
+            _configurationBll = configurationBll;
             _posDal = posDal;
         }
 
@@ -37,9 +43,9 @@ namespace GiftService.Bll
         {
             int posId = -1;
 
-            if (posUid.Length != 16)
+            if (posUid.Length != _configurationBll.Get().LengthOfPosUid)
             {
-                throw new ArgumentException("posUid", "Length of UID from POS must be 16");
+                throw new ArgumentException("posUid", "Length of UID from POS must be " + _configurationBll.Get().LengthOfPosUid);
             }
 
             string s = String.Concat(posUid[1], posUid[4], posUid[7], posUid[10]);

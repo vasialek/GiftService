@@ -1,5 +1,6 @@
 ﻿using GiftService.Models.Exceptions;
 using GiftService.Models.JsonModels;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,22 @@ namespace GiftService.Bll
 
     public class CommunicationBll : ICommunicationBll
     {
+
+        private ILog _logger = null;
+        private ILog Logger
+        {
+            get
+            {
+                if (_logger == null)
+                {
+                    _logger = LogManager.GetLogger(GetType());
+                    log4net.Config.XmlConfigurator.Configure();
+                }
+                return _logger;
+            }
+        }
+
+
         public T GetJsonResponse<T>(Uri jsonUrl) where T : BaseResponse
         {
             if (jsonUrl == null)
@@ -33,6 +50,7 @@ namespace GiftService.Bll
 
             string resp = "";
             resp = Encoding.UTF8.GetString(ba);
+            Logger.Debug("Got payment request validation request from POS: " + resp);
             //resp = wc.DownloadString(jsonUrl);
 
             return ParseJson<T>(resp);
@@ -44,7 +62,7 @@ namespace GiftService.Bll
 
             try
             {
-                r = (T)Newtonsoft.Json.JsonConvert.DeserializeObject<BaseResponse>(json);
+                r = (T)Newtonsoft.Json.JsonConvert.DeserializeObject<T>(json);
                 return r;
             }
             catch (Exception ex)

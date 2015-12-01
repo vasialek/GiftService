@@ -53,6 +53,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -116,11 +120,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -137,6 +136,17 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\p1005\footer-bg.png" />
+    <Content Include="Content\p1005\logo-text.png" />
+    <Content Include="Content\p1005\logo.png" />
+    <Content Include="Content\p1005\online200.png" />
+    <Content Include="Content\p1005\slides-shadow.png" />
+    <Content Include="Content\p1005\style.css" />
+    <Content Include="Content\p1005\top-menu-center.png" />
+    <Content Include="Content\p1005\top-menu-center2.png" />
+    <Content Include="Content\p1005\top-menu-left.png" />
+    <Content Include="Content\p1005\top-menu-line.png" />
+    <Content Include="Content\p1005\top-menu-right.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -144,6 +154,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\checkout.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -174,6 +185,8 @@
     <Content Include="Views\Gift\NotFound.cshtml" />
     <Content Include="Views\Payment\Make.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Payment\Checkout.cshtml" />
+    <Content Include="Views\Shared\_Layout_Pos_1005.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

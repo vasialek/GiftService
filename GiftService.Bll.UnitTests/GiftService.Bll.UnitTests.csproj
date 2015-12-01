@@ -65,6 +65,7 @@
     <Compile Include="SecurityBllUnitTest.cs" />
     <Compile Include="CommunicationBllUnitTest.cs" />
     <Compile Include="TransactionBllUnitTest.cs" />
+    <Compile Include="HelperBllUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GiftService.Bll\GiftService.Bll.csproj">
