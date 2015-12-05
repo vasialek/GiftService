@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="GiftService.Bll.UnitTests.ConfigurationBllUnitTest.Test_GetDirectoryNameByUid_Empty" /><Add Test="GiftService.Bll.UnitTests.ConfigurationBllUnitTest.Test_GetDirectoryNameByUid_Bad_Length" /><Add Test="GiftService.Bll.UnitTests.ConfigurationBllUnitTest.Test_GetDirectoryNameByUid_Success" /></Playlist>

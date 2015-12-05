@@ -27,6 +27,18 @@ namespace GiftService.Models.JsonModels
 
         public string ProductDescription { get; set; }
 
+        public string PosName { get; set; }
+
+        public string PosUrl { get; set; }
+
+        public string PosAddress { get; set; }
+
+        public string PosCity { get; set; }
+
+        public string PhoneForReservation { get; set; }
+
+        public string EmailForReservation { get; set; }
+
         public IList<ProductServiceLocation> Locations { get; set; }
     }
 }

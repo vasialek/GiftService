@@ -47,8 +47,16 @@ namespace GiftService.Web.Controllers
                 PosBdo pos = Factory.PosBll.GetById(posId);
 
                 var posResponse = Factory.SecurityBll.ValidatePosPaymentRequest(pos, id);
+                if (posResponse.Status != true)
+                {
+                    Logger.ErrorFormat("POS returns false on request. " + posResponse.Message);
+                    throw new Models.Exceptions.BadResponseException(posResponse.Message);
+                }
+
+                var transaction = Factory.TransactionsBll.StartTransaction(id, posId);
 
                 ProductCheckoutModel model = new ProductCheckoutModel();
+                model.PosUserUid = id;
                 model.ProductName = posResponse.ProductName;
                 model.ProductDuration = posResponse.ProductDuration;
                 model.ProductValidTill = Factory.HelperBll.ConvertFromUnixTimestamp(posResponse.ProductValidTillTm);

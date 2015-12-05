@@ -1,8 +1,11 @@
 ﻿using GiftService.Models;
+using GiftService.Models.Exceptions;
 using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -33,7 +36,38 @@ namespace GiftService.Web.Controllers
         // GET: /Gift/Get/UniqueGiftId
         public ActionResult Get(string id)
         {
-            var model = Factory.GiftsBll.GetProductInformationByUid(id);
+            var model = new ProductInformationModel();
+
+            try
+            {
+                var jsonUrl = new Uri("http://localhost:8079/it/testgs.php?act=info&posXXXXUid=" + id);
+                Logger.InfoFormat("Requesting product info from POS: `{0}`", jsonUrl.ToString());
+                WebClient wc = new WebClient();
+                byte[] ba = wc.UploadData(jsonUrl, "POST", new byte[0]);
+                if (ba == null || ba.Length == 0)
+                {
+                    throw new BadResponseException("Validate URL returns NULL response from POS");
+                }
+
+                string resp = "";
+                resp = Encoding.UTF8.GetString(ba);
+                Logger.Debug("Got product infromation from POS: " + resp);
+
+                model.Pos = new PosBdo { Name = "Ritos masazai", PosUrl = new Uri("http://www.ritosmasazai.lt") };
+                model.Product = (ProductBdo)Newtonsoft.Json.JsonConvert.DeserializeObject<ProductBdo>(resp);
+                model.Product.ProductPrice = model.Product.ProductPrice / 100m;
+                model.Product.ValidFrom = DateTime.Now;
+                model.Product.ValidTill = model.Product.ValidFrom.AddMonths(3);
+            }
+            catch (InvalidCastException icex)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
 
             return View(model);
         }

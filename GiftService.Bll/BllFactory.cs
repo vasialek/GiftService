@@ -14,6 +14,7 @@ namespace GiftService.Bll
         private IConfigurationBll _configurationBll = null;
         private ISecurityBll _securityBll = null;
         private ICommunicationBll _communicationBll = null;
+        private ITransactionsBll _transactionsBll = null;
         private IPosBll _posBll = null;
         private IProductsBll _productsBll = null;
         private IPdfBll _pdfBll = null;
@@ -94,6 +95,18 @@ namespace GiftService.Bll
                     _posBll = new PosBll(ConfigurationBll, DalFactory.Current.PosDal);
                 }
                 return _posBll;
+            }
+        }
+
+        public ITransactionsBll TransactionsBll
+        {
+            get
+            {
+                if (_transactionsBll == null)
+                {
+                    _transactionsBll = new TransactionsBll();
+                }
+                return _transactionsBll;
             }
         }
 

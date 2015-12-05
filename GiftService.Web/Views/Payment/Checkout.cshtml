@@ -78,7 +78,7 @@
                     </tr>
                     <tr>
                         <td><img src="https://www.paysera.com/new/upload/plan_payment_types/rf54608784edf5c/Paysera_logotype_internet2.png" alt="Payser" width="100" /></td>
-                        <td><a href="#" class="gs-pay-link" data-id="ps">Pay using Payser</a></td>
+                        <td><a href="@Url.Action("Get", "Gift", new { id = Model.PosUserUid })" class="gs-pay-link" data-id="ps">Pay using Paysera</a></td>
                     </tr>
                     <tr>
                         <td><img src="https://www.paypalobjects.com/webstatic/en_US/btn/btn_buynow_pp_142x27.png" alt="PayPal" width="100" /></td>
@@ -97,7 +97,7 @@
     <script src="~/Scripts/checkout.js"></script>
     <script type="text/javascript">
 
-        Checkout.init(".gs-pay-link");
+        //Checkout.init(".gs-pay-link");
 
     </script>
 }

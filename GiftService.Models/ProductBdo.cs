@@ -35,5 +35,20 @@ namespace GiftService.Models
         public decimal ProductPrice { get; set; }
 
         public string CurrencyCode { get; set; }
+
+        public string CustomerName { get; set; }
+
+        public string PosName { get; set; }
+
+        public string PosUrl { get; set; }
+
+        public string PosAddress { get; set; }
+
+        public string PosCity { get; set; }
+
+        public string PhoneForReservation { get; set; }
+
+        public string EmailForReservation { get; set; }
+        
     }
 }

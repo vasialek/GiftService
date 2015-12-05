@@ -21,7 +21,7 @@
         </div>
     </div>
     <div id="GiftInfo" class="col-md-5">
-        <div>@Model.Product.ProductName</div>
+        <div>@Html.Raw(Model.Product.ProductName)</div>
         <div>Price: @Model.Product.ProductPrice @Model.Product.CurrencyCode</div>
         <div>
             Valid: @Model.Product.ValidFrom.ToShortDateString()

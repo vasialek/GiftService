@@ -12,6 +12,7 @@ namespace GiftService.Bll
     public interface IProductsBll
     {
         ProductInformationModel GetProductInformationByUid(string productUid);
+        void SaveProductInformationFromPos(ProductInformationModel product);
     }
 
     public class ProductsBll : IProductsBll
@@ -43,6 +44,24 @@ namespace GiftService.Bll
             model.Pos = _posDal.GetById(model.Product.PosId);
 
             return model;
+        }
+
+        public void SaveProductInformationFromPos(ProductInformationModel info)
+        {
+            if (info == null)
+            {
+                throw new ArgumentNullException("Information about product is NULL");
+            }
+            if (info.Product == null)
+            {
+                throw new ArgumentNullException("Product is NULL");
+            }
+            if (info.Pos == null)
+            {
+                throw new ArgumentNullException("POS is NULL");
+            }
+
+            var p = new ProductBdo();
         }
     }
 }
