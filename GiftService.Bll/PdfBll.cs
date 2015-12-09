@@ -55,9 +55,7 @@ namespace GiftService.Bll
         public byte[] GetProductPdf(string productUid)
         {
             var p = _productsDal.GetProductByUid(productUid);
-
             string pathToPdf = Path.Combine(_configurationBll.Get().PathToPdfStorage, "test.pdf");
-
             return File.ReadAllBytes(pathToPdf);
         }
 
@@ -69,90 +67,107 @@ namespace GiftService.Bll
             Logger.DebugFormat("  decorate PDF coupon with header: `{0}`", layout.HeaderImage);
             Logger.DebugFormat("  decorate PDF coupon with footer: `{0}`", layout.FooterImage);
 
-            // PDF images are in ~/content/p<POS_ID>/pdf/
+            //EnsurePdfDirectoryExists(productUid);
 
-            // Default is A4 document is 595 points wide and 842 pixels high with a 36 point margin all around by default.
-            var d = new Document(PageSize.A4);
+            using (var ms = new MemoryStream())
+            {
 
-            EnsurePdfDirectoryExists(productUid);
+                // PDF images are in ~/content/p<POS_ID>/pdf/
 
-            string pdfDirName = _configurationBll.GetDirectoryNameByUid(productUid);
-            string path = Path.Combine(_configurationBll.Get().PathToPdfStorage, pdfDirName, String.Concat(productUid, ".pdf"));
-            PdfWriter.GetInstance(d, new FileStream(path, FileMode.Create));
+                // Default is A4 document is 595 points wide and 842 pixels high with a 36 point margin all around by default.
+                var d = new Document(PageSize.A4);
+                PdfWriter w = PdfWriter.GetInstance(d, ms);
 
-            d.Open();
-            d.SetMargins(0, 0, 36, 36);
-            d = DecoratePdf(d, layout);
-            //d.Add(new Paragraph("Ritos masazai"));
+                d.Open();
+                d.SetMargins(0, 0, 36, 36);
+                DecoratePdf(d, layout);
+                //d.Add(new Paragraph("Ritos masazai"));
 
-            //string posUrl = "www.ritosmasazai.lt";
-            //string customerName = "Some customer";
-            //string informationToRegister = "8 652 98422";
-            //string posLocation = "Juozapavičiaus g. 9A - 174, Vilnius";
-            //string posName = "BABOR GROŽIO CENTRAS";
-            string couponBarcode = "RM123456";
+                //string posUrl = "www.ritosmasazai.lt";
+                //string customerName = "Some customer";
+                //string informationToRegister = "8 652 98422";
+                //string posLocation = "Juozapavičiaus g. 9A - 174, Vilnius";
+                //string posName = "BABOR GROŽIO CENTRAS";
+                string couponBarcode = "RM123456";
 
-            Paragraph pg;
+                Paragraph pg;
 
-            Font ordinalF = new Font(Font.FontFamily.HELVETICA, 12f, Font.NORMAL, BaseColor.BLACK);
-            Font ordinalBoldF = new Font(Font.FontFamily.HELVETICA, 11f, Font.BOLD, BaseColor.BLACK);
-            Font redF = new Font(Font.FontFamily.HELVETICA, 11f, Font.NORMAL, BaseColor.RED);
-            Font smallF = new Font(Font.FontFamily.HELVETICA, 9f, Font.NORMAL, BaseColor.BLACK);
-            Font smallRedF = new Font(Font.FontFamily.HELVETICA, 9f, Font.NORMAL, BaseColor.RED);
+                //Font ordinalF = new Font(Font.FontFamily.HELVETICA, 12f, Font.NORMAL, BaseColor.BLACK);
+                Font ordinalF = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 18, Font.NORMAL);
+                Font ordinalBoldF = new Font(Font.FontFamily.HELVETICA, 11f, Font.BOLD, BaseColor.BLACK);
+                Font redF = new Font(Font.FontFamily.HELVETICA, 11f, Font.NORMAL, BaseColor.RED);
+                Font smallF = new Font(Font.FontFamily.HELVETICA, 9f, Font.NORMAL, BaseColor.BLACK);
+                Font smallRedF = new Font(Font.FontFamily.HELVETICA, 9f, Font.NORMAL, BaseColor.RED);
 
-            pg = new Paragraph("Jus isigijote kupona", ordinalF);
-            pg.Alignment = Element.ALIGN_CENTER;
-            d.Add(pg);
-            pg = new Paragraph(p.PosUrl, smallF);
-            pg.Alignment = Element.ALIGN_CENTER;
-            d.Add(pg);
+                pg = new Paragraph("Jūs įsigijote kuponą", ordinalF);
+                pg.Alignment = Element.ALIGN_CENTER;
+                d.Add(pg);
+                pg = new Paragraph(p.PosUrl, smallF);
+                pg.Alignment = Element.ALIGN_CENTER;
+                d.Add(pg);
 
-            d.Add(new Paragraph(""));
+                d.Add(new Paragraph(""));
 
-            pg = new Paragraph(p.CustomerName, ordinalBoldF);
-            pg.Alignment = Element.ALIGN_CENTER;
-            d.Add(pg);
+                pg = new Paragraph(p.CustomerName, ordinalBoldF);
+                pg.Alignment = Element.ALIGN_CENTER;
+                d.Add(pg);
 
-            d.Add(new Paragraph(""));
+                d.Add(new Paragraph(""));
 
-            pg = new Paragraph(p.ProductName, ordinalF);
-            pg.Alignment = Element.ALIGN_CENTER;
-            d.Add(pg);
-            pg = new Paragraph(String.Concat(p.ProductPrice, " ", p.CurrencyCode));
-            pg.Alignment = Element.ALIGN_CENTER;
-            d.Add(pg);
+                pg = new Paragraph(p.ProductName, ordinalF);
+                pg.Alignment = Element.ALIGN_CENTER;
+                d.Add(pg);
+                pg = new Paragraph(String.Concat(p.ProductPrice.ToString("### ##0.00"), " ", p.CurrencyCode));
+                pg.Alignment = Element.ALIGN_CENTER;
+                d.Add(pg);
 
-            pg = new Paragraph("Privalote uzsiregistruoti:", smallF);
-            pg.Alignment = Element.ALIGN_CENTER;
-            d.Add(pg);
-            pg = new Paragraph(p.PhoneForReservation, redF);
-            pg.Alignment = Element.ALIGN_CENTER;
-            d.Add(pg);
+                pg = new Paragraph("Privalote užsiregistruoti:", smallF);
+                pg.Alignment = Element.ALIGN_CENTER;
+                d.Add(pg);
+                pg = new Paragraph(p.PhoneForReservation, redF);
+                pg.Alignment = Element.ALIGN_CENTER;
+                d.Add(pg);
 
-            d.Add(new Paragraph(""));
+                d.Add(new Paragraph(""));
 
-            pg = new Paragraph("Aptarnavimo vieta:", ordinalF);
-            pg.Alignment = Element.ALIGN_CENTER;
-            d.Add(pg);
-            pg = new Paragraph(p.PosName, ordinalF);
-            pg.Alignment = Element.ALIGN_CENTER;
-            d.Add(pg);
-            pg = new Paragraph(String.Concat(p.PosAddress, ", ", p.PosCity), ordinalF);
-            pg.Alignment = Element.ALIGN_CENTER;
-            d.Add(pg);
+                pg = new Paragraph("Aptarnavimo vieta:", ordinalF);
+                pg.Alignment = Element.ALIGN_CENTER;
+                d.Add(pg);
+                pg = new Paragraph(p.PosName, ordinalF);
+                pg.Alignment = Element.ALIGN_CENTER;
+                d.Add(pg);
+                pg = new Paragraph(String.Concat(p.PosAddress, ", ", p.PosCity), ordinalF);
+                pg.Alignment = Element.ALIGN_CENTER;
+                d.Add(pg);
 
-            d.Add(new Paragraph(""));
+                d.Add(new Paragraph(""));
 
-            pg = new Paragraph("Kuponas galioja ", smallRedF);
-            pg.Alignment = Element.ALIGN_CENTER;
-            d.Add(pg);
-            pg = new Paragraph(String.Concat(p.ValidFrom.ToShortDateString(), " - ", p.ValidTill.ToShortDateString()), smallRedF);
-            pg.Alignment = Element.ALIGN_CENTER;
-            d.Add(pg);
+                pg = new Paragraph("Kuponas galioja ", smallRedF);
+                pg.Alignment = Element.ALIGN_CENTER;
+                d.Add(pg);
+                pg = new Paragraph(p.ValidTill.ToShortDateString(), smallRedF);
+                //pg = new Paragraph(String.Concat(p.ValidFrom.ToShortDateString(), " - ", p.ValidTill.ToShortDateString()), smallRedF);
+                pg.Alignment = Element.ALIGN_CENTER;
+                d.Add(pg);
 
-            d.Close();
+                d.Close();
 
-            return null;
+                w.Flush();
+
+                return ms.ToArray();
+            }
+
+
+
+
+            //string pdfDirName = _configurationBll.GetDirectoryNameByUid(productUid);
+            ////string path = Path.Combine(_configurationBll.Get().PathToPdfStorage, pdfDirName, String.Concat(productUid, ".pdf"));
+            //string path = Path.Combine(_configurationBll.Get().PathToPdfStorage, String.Concat(productUid, ".pdf"));
+            //Logger.Info("Going to save PDF in: " + path);
+            //PdfWriter.GetInstance(d, new FileStream(path, FileMode.Create));
+
+
+            //return File.ReadAllBytes(path);
         }
 
         protected Document DecoratePdf(Document d, PosPdfLayout layout)
@@ -193,13 +208,13 @@ namespace GiftService.Bll
                 Directory.CreateDirectory(settings.PathToPdfStorage);
             }
 
-            string pdfDirName = _configurationBll.GetDirectoryNameByUid(productUid);
-            string path = Path.Combine(settings.PathToPdfStorage, pdfDirName);
-            if (Directory.Exists(path) == false)
-            {
-                Logger.InfoFormat("PDF coupon directory does not exits, creating it `{0}`", path);
-                Directory.CreateDirectory(path);
-            }
+            //string pdfDirName = _configurationBll.GetDirectoryNameByUid(productUid);
+            //string path = Path.Combine(settings.PathToPdfStorage, pdfDirName);
+            //if (Directory.Exists(path) == false)
+            //{
+            //    Logger.InfoFormat("PDF coupon directory does not exits, creating it `{0}`", path);
+            //    Directory.CreateDirectory(path);
+            //}
         }
     }
 }

@@ -12,6 +12,7 @@ namespace GiftService.Dal
 
         private IPosDal _posDal = null;
         private IProductsDal _productsDal = null;
+        private ITransactionDal _transactionDal = null;
 
         private DalFactory()
         {
@@ -23,12 +24,24 @@ namespace GiftService.Dal
             {
                 if (_dalFactory == null)
                 {
+                    AutoMapperConfigDal.RegisterMapping();
                     _dalFactory = new DalFactory();
                 }
                 return _dalFactory;
             }
         }
 
+        public ITransactionDal TransactionDal
+        {
+            get
+            {
+                if (_transactionDal == null)
+                {
+                    _transactionDal = new TransactionDal();
+                }
+                return _transactionDal;
+            }
+        }
 
         public IPosDal PosDal
         {

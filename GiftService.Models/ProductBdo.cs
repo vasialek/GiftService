@@ -24,6 +24,8 @@ namespace GiftService.Models
         /// </summary>
         public string PaySystemUid { get; set; }
 
+        public PaymentSystems PaymentSystem { get; set; }
+
         public string ProductName { get; set; }
 
         public string ProductDescription { get; set; }
@@ -37,6 +39,12 @@ namespace GiftService.Models
         public string CurrencyCode { get; set; }
 
         public string CustomerName { get; set; }
+
+        public string CustomerPhone { get; set; }
+
+        public string CustomerEmail { get; set; }
+
+        public string Remarks { get; set; }
 
         public string PosName { get; set; }
 

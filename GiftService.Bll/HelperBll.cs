@@ -11,6 +11,7 @@ namespace GiftService.Bll
     {
         DateTime UnixStart { get; }
         DateTime ConvertFromUnixTimestamp(UInt32 timestamp);
+        UInt32 GetUnixTimestamp();
     }
 
     public class HelperBll : IHelperBll
@@ -26,6 +27,11 @@ namespace GiftService.Bll
         public DateTime ConvertFromUnixTimestamp(uint timestamp)
         {
             return UnixStart.AddSeconds(timestamp);
+        }
+
+        public uint GetUnixTimestamp()
+        {
+            return (UInt32)((DateTime.UtcNow.Ticks - UnixStart.Ticks) / 10000000);
         }
     }
 }

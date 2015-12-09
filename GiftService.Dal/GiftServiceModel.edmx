@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GiftServiceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_uid" Type="nchar" MaxLength="32" Nullable="false" />
+          <Property Name="pos_id" Type="int" Nullable="false" />
+          <Property Name="pos_user_uid" Type="nchar" MaxLength="32" Nullable="false" />
+          <Property Name="pay_system_uid" Type="nchar" MaxLength="32" Nullable="false" />
+          <Property Name="product_name" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="product_description" Type="nvarchar" MaxLength="1024" />
+          <Property Name="product_price" Type="smallmoney" Nullable="false" />
+          <Property Name="currency_code" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="customer_name" Type="nvarchar" MaxLength="128" />
+          <Property Name="pos_name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="pos_url" Type="nchar" MaxLength="256" />
+          <Property Name="pos_city" Type="nvarchar" MaxLength="128" />
+          <Property Name="pos_address" Type="nvarchar" MaxLength="256" />
+          <Property Name="phone_reservation" Type="nchar" MaxLength="512" />
+          <Property Name="email_reservation" Type="nchar" MaxLength="512" />
+          <Property Name="valid_from" Type="datetime2" Precision="7" />
+          <Property Name="valid_till" Type="datetime2" Precision="7" />
+          <Property Name="customer_phone" Type="nchar" MaxLength="128" />
+          <Property Name="customer_email" Type="nchar" MaxLength="128" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="1024" />
+        </EntityType>
+        <EntityType Name="transaction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pos_id" Type="int" Nullable="false" />
+          <Property Name="product_uid" Type="nchar" MaxLength="32" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="pos_user_uid" Type="nchar" MaxLength="32" Nullable="false" />
+          <Property Name="pay_system_uid" Type="nchar" MaxLength="32" />
+          <Property Name="pay_system_id" Type="int" Nullable="false" />
+          <Property Name="is_payment_processed" Type="bit" Nullable="false" />
+          <Property Name="created_at" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="pay_system_response_at" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityContainer Name="GiftServiceModelStoreContainer">
+          <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="transaction" EntityType="Self.transaction" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GiftServiceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="transaction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pos_id" Type="Int32" Nullable="false" />
+          <Property Name="product_uid" Type="String" MaxLength="32" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="pos_user_uid" Type="String" MaxLength="32" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="pay_system_uid" Type="String" MaxLength="32" FixedLength="true" Unicode="true" />
+          <Property Name="pay_system_id" Type="Int32" Nullable="false" />
+          <Property Name="is_payment_processed" Type="Boolean" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="pay_system_response_at" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityContainer Name="GiftServiceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="transactions" EntityType="Self.transaction" />
+          <EntitySet Name="products" EntityType="GiftServiceModel.product" />
+        </EntityContainer>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_uid" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="true" />
+          <Property Name="pos_id" Type="Int32" Nullable="false" />
+          <Property Name="pos_user_uid" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="true" />
+          <Property Name="pay_system_uid" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="true" />
+          <Property Name="product_name" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="product_description" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="product_price" Type="Decimal" Nullable="false" Precision="10" Scale="4" />
+          <Property Name="currency_code" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="customer_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="pos_name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="pos_url" Type="String" MaxLength="256" FixedLength="true" Unicode="true" />
+          <Property Name="pos_city" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="pos_address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="phone_reservation" Type="String" MaxLength="512" FixedLength="true" Unicode="true" />
+          <Property Name="email_reservation" Type="String" MaxLength="512" FixedLength="true" Unicode="true" />
+          <Property Name="valid_from" Type="DateTime" Precision="7" />
+          <Property Name="valid_till" Type="DateTime" Precision="7" />
+          <Property Name="customer_phone" Type="String" MaxLength="128" FixedLength="true" Unicode="true" />
+          <Property Name="customer_email" Type="String" MaxLength="128" FixedLength="true" Unicode="true" />
+          <Property Name="remarks" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GiftServiceModelStoreContainer" CdmEntityContainer="GiftServiceEntities">
+          <EntitySetMapping Name="transactions">
+            <EntityTypeMapping TypeName="GiftServiceModel.transaction">
+              <MappingFragment StoreEntitySet="transaction">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pos_id" ColumnName="pos_id" />
+                <ScalarProperty Name="product_uid" ColumnName="product_uid" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="pos_user_uid" ColumnName="pos_user_uid" />
+                <ScalarProperty Name="pay_system_uid" ColumnName="pay_system_uid" />
+                <ScalarProperty Name="pay_system_id" ColumnName="pay_system_id" />
+                <ScalarProperty Name="is_payment_processed" ColumnName="is_payment_processed" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="pay_system_response_at" ColumnName="pay_system_response_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="GiftServiceModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="customer_email" ColumnName="customer_email" />
+                <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
+                <ScalarProperty Name="valid_till" ColumnName="valid_till" />
+                <ScalarProperty Name="valid_from" ColumnName="valid_from" />
+                <ScalarProperty Name="email_reservation" ColumnName="email_reservation" />
+                <ScalarProperty Name="phone_reservation" ColumnName="phone_reservation" />
+                <ScalarProperty Name="pos_address" ColumnName="pos_address" />
+                <ScalarProperty Name="pos_city" ColumnName="pos_city" />
+                <ScalarProperty Name="pos_url" ColumnName="pos_url" />
+                <ScalarProperty Name="pos_name" ColumnName="pos_name" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="currency_code" ColumnName="currency_code" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="product_description" ColumnName="product_description" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="pay_system_uid" ColumnName="pay_system_uid" />
+                <ScalarProperty Name="pos_user_uid" ColumnName="pos_user_uid" />
+                <ScalarProperty Name="pos_id" ColumnName="pos_id" />
+                <ScalarProperty Name="product_uid" ColumnName="product_uid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

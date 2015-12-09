@@ -27,6 +27,8 @@ namespace GiftService.Models.JsonModels
 
         public string ProductDescription { get; set; }
 
+        public int PosId { get; set; }
+
         public string PosName { get; set; }
 
         public string PosUrl { get; set; }

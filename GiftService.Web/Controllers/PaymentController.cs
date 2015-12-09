@@ -1,4 +1,6 @@
-﻿using GiftService.Models;
+﻿using AutoMapper;
+using GiftService.Models;
+using GiftService.Models.JsonModels;
 using GiftService.Models.Products;
 using log4net;
 using System;
@@ -47,21 +49,24 @@ namespace GiftService.Web.Controllers
                 PosBdo pos = Factory.PosBll.GetById(posId);
 
                 var posResponse = Factory.SecurityBll.ValidatePosPaymentRequest(pos, id);
+                posResponse.PosId = pos.Id;
                 if (posResponse.Status != true)
                 {
                     Logger.ErrorFormat("POS returns false on request. " + posResponse.Message);
                     throw new Models.Exceptions.BadResponseException(posResponse.Message);
                 }
 
-                var transaction = Factory.TransactionsBll.StartTransaction(id, posId);
+                this.Session["__Product"] = posResponse;
 
                 ProductCheckoutModel model = new ProductCheckoutModel();
+                Mapper.CreateMap<PaymentRequestValidationResponse, ProductCheckoutModel>();
+                model = Mapper.Map<ProductCheckoutModel>(posResponse);
                 model.PosUserUid = id;
-                model.ProductName = posResponse.ProductName;
-                model.ProductDuration = posResponse.ProductDuration;
+                //model.ProductName = posResponse.ProductName;
+                //model.ProductDuration = posResponse.ProductDuration;
                 model.ProductValidTill = Factory.HelperBll.ConvertFromUnixTimestamp(posResponse.ProductValidTillTm);
                 model.RequestedAmount = posResponse.RequestedAmountMinor / 100;
-                model.CurrencyCode = posResponse.CurrencyCode;
+                //model.CurrencyCode = posResponse.CurrencyCode;
                 model.Locations = posResponse.Locations ?? new List<ProductServiceLocation>();
 
                 return View("Checkout", GetLayoutForPos(posId), model);
@@ -85,10 +90,22 @@ namespace GiftService.Web.Controllers
         }
 
         // GET: /Payment/Checkout/UniquePaymentId
-        public ActionResult Checkout(string id)
+        [HttpPost]
+        public ActionResult Checkout(string id, ProductCheckoutModel checkout)
         {
+            var posResponse = Session["__Product"] as PaymentRequestValidationResponse;
+            if (posResponse == null)
+            {
+                throw new ArgumentNullException("No product information from POS in session");
+            }
 
-            return View("Checkout");
+            var product = Factory.GiftsBll.SaveProductInformationFromPos(id, posResponse, checkout);
+            var transaction = Factory.TransactionsBll.StartTransaction(id, product);
+
+            Factory.CommunicationBll.SendEmailToClientOnSuccess(product);
+
+
+            return RedirectToAction("Get", "Gift", new { id = product.PaySystemUid });
         }
 
         private string GetLayoutForPos(int posId)

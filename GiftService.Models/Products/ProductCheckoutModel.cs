@@ -13,6 +13,8 @@ namespace GiftService.Models.Products
 
         public string PaySystemUid { get; set; }
 
+        public PaymentSystems PaymentSystem { get; set; }
+
         public decimal RequestedAmount { get; set; }
 
         public string CurrencyCode { get; set; }
@@ -33,6 +35,8 @@ namespace GiftService.Models.Products
         public string CustomerEmail { get; set; }
 
         public string Remarks { get; set; }
+
+        public int LocationId { get; set; }
 
         public IEnumerable<ProductServiceLocation> Locations { get; set; }
 

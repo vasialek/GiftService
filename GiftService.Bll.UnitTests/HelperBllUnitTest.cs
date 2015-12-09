@@ -17,5 +17,14 @@ namespace GiftService.Bll.UnitTests
 
             Assert.AreEqual(_bll.UnixStart, d);
         }
+
+        [TestMethod]
+        public void Test_Get_Current_Timestamp()
+        {
+            uint tm = _bll.GetUnixTimestamp();
+            DateTime dt = _bll.ConvertFromUnixTimestamp(tm);
+
+            Assert.IsTrue((DateTime.UtcNow - dt).TotalSeconds < 1);
+        }
     }
 }

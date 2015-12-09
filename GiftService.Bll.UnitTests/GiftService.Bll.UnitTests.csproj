@@ -68,6 +68,7 @@
     <Compile Include="HelperBllUnitTest.cs" />
     <Compile Include="ConfigurationBllUnitTest.cs" />
     <Compile Include="PdfBllUnitTest.cs" />
+    <Compile Include="ProductsBllUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GiftService.Bll\GiftService.Bll.csproj">

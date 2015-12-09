@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = String.Concat(Model.Pos.Name, " - ", Model.Product.ProductName);
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>
@@ -22,10 +21,9 @@
     </div>
     <div id="GiftInfo" class="col-md-5">
         <div>@Html.Raw(Model.Product.ProductName)</div>
-        <div>Price: @Model.Product.ProductPrice @Model.Product.CurrencyCode</div>
+        <div>Price: @Model.Product.ProductPrice.ToString("N2") @Model.Product.CurrencyCode</div>
         <div>
-            Valid: @Model.Product.ValidFrom.ToShortDateString()
-            - @Model.Product.ValidTill.ToShortDateString()
+            Valid till @Model.Product.ValidTill.ToShortDateString()
         </div>
     </div>
     <div id="GiftActions" class="col-md-3">

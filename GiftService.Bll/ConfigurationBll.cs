@@ -24,8 +24,10 @@ namespace GiftService.Bll
             if (_settings == null)
             {
                 _settings = new MySettings();
-                _settings.PathToPdfStorage = "c:\\temp\\giftservice\\";
-                _settings.PathToPosContent = "c:\\_projects\\GiftService\\GiftService.Web\\Content\\";
+                //_settings.PathToPdfStorage = "c:\\temp\\giftservice\\";
+                _settings.PathToPdfStorage = "E:\\web\\dovanuku\\Content\\coupons\\";
+                _settings.PathToPosContent = "E:\\web\\dovanuku\\Content\\";
+                //_settings.PathToPosContent = "c:\\_projects\\GiftService\\GiftService.Web\\Content\\";
                 _settings.LengthOfPosUid = 32;
                 _settings.LengthOfPdfDirectoryName = 5;
             }

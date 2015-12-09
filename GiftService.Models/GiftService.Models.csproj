@@ -44,6 +44,7 @@
     <Compile Include="Exceptions\BadResponseException.cs" />
     <Compile Include="Exceptions\IncorrectPaymentParamersException.cs" />
     <Compile Include="JsonModels\PaymentRequestValidationResponse.cs" />
+    <Compile Include="PaymentSystems.cs" />
     <Compile Include="Pos\PosPdfLayout.cs" />
     <Compile Include="Products\ProductCheckoutModel.cs" />
     <Compile Include="Products\ProductInformationModel.cs" />

@@ -1,10 +1,12 @@
-﻿using GiftService.Models.Exceptions;
+﻿using GiftService.Models;
+using GiftService.Models.Exceptions;
 using GiftService.Models.JsonModels;
 using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +16,7 @@ namespace GiftService.Bll
     {
         T GetJsonResponse<T>(Uri jsonUrl) where T : BaseResponse;
         T ParseJson<T>(string json) where T : BaseResponse;
+        void SendEmailToClientOnSuccess(ProductBdo product);
     }
 
     public class CommunicationBll : ICommunicationBll
@@ -70,6 +73,68 @@ namespace GiftService.Bll
 
                 throw;
             }
+        }
+
+        public void SendEmailToClientOnSuccess(ProductBdo product)
+        {
+            try
+            {
+                Logger.Info("Sending email to client on success payment");
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.From = new MailAddress("RitosMasazai@DovanuKuponai.com", "Ritos Masazai");
+                mailMessage.To.Add(new MailAddress(product.CustomerEmail, product.CustomerName));
+                //mailMessage.To.Add(new MailAddress("proglamer@gmail.com"));
+                mailMessage.Bcc.Add(new MailAddress("proglamer@gmail.com"));
+                mailMessage.Subject = "RitosMasazai.lt - Kuponas " + product.ProductName;
+                mailMessage.Body = FormatClientEmail(product);
+                mailMessage.IsBodyHtml = true;
+
+                SmtpClient client = new SmtpClient("mail.dovanukuponai.com");
+                client.EnableSsl = false;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential("RitosMasazai@dovanukuponai.com", "7sSVYyT_8Wpz");
+                client.Send(mailMessage);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error sending e-mail to client on success payment", ex);
+                throw;
+            }
+        }
+
+        public string FormatClientEmail(ProductBdo product)
+        {
+            StringBuilder sb = new StringBuilder(@"Mielas kliente!
+
+Jūs įsigijote kuponą www.ritosmasazai.lt
+%CustomerName%
+%ProductName%
+%ProductDuration% %ProductPrice% %CurrencyCode%
+Privalote užsiregistruoti telefonu:
+8652 98422
+Salonas: 
+%PosName%
+%PosAddress%, %PosCity%
+* Kuponas galioja iki %ValidTill%
+
+<a href=""http://www.dovanukuponai.com/gift/get/%PaySystemUid%"">Daugiau informacijos</a>
+Ačiū, kad pirkote!");
+
+            sb.Replace("%CustomerName%", product.CustomerName);
+            sb.Replace("%ProductName%", product.ProductName);
+            //sb.Replace("%ProductDuration%", product.Du);
+            sb.Replace("%ProductPrice%", product.ProductPrice.ToString("### ##0.00"));
+            sb.Replace("%CurrencyCode%", product.CurrencyCode);
+            sb.Replace("%PosName%", product.PosName);
+            sb.Replace("%PosAddress%", product.PosAddress);
+            sb.Replace("%PosCity%", product.PosCity);
+            //sb.Replace("%ProductUid%", product.ProductUid);
+            sb.Replace("%PaySystemUid%", product.PaySystemUid);
+            sb.Replace("%ValidTill%", product.ValidTill.ToShortDateString());
+
+            sb.Replace(Environment.NewLine, "<br />");
+
+            return sb.ToString();
         }
     }
 }

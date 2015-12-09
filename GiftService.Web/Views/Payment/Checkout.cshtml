@@ -6,9 +6,9 @@
 }
 
 
-@using (Html.BeginForm("Checkout"))
+@using (Html.BeginForm("Checkout", "Payment", new { id = Model.PosUserUid }, FormMethod.Post, new { id = "PaymentForm" }))
 {
-
+    @Html.HiddenFor(x => Model.PaymentSystem)
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -21,7 +21,7 @@
                             {
                                 <li class="list-group-item">
                                     <label>
-                                        @Html.RadioButtonFor(x => Model.ProductName, l.Id)
+                                        @Html.RadioButtonFor(x => Model.LocationId, l.Id)
                                         @l.Name. @l.Address, @l.City
                                     </label>
                                 </li>
@@ -63,7 +63,7 @@
                 <p>Product</p>
                 <ul class="list-group">
                     <li class="list-group-item">@Html.Raw(Model.ProductName)</li>
-                    <li class="list-group-item"><span class="glyphicon glyphicon-time"></span> &nbsp; @Model.ProductDuration</li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-time"></span> &nbsp; @Model.ProductValidTill.ToShortDateString()</li>
                     <li class="list-group-item"><span class="glyphicon glyphicon-euro"></span> &nbsp;
                         <b>@Model.RequestedAmount.ToString("N2") @Model.CurrencyCode</b></li>
                 </ul>
@@ -78,11 +78,11 @@
                     </tr>
                     <tr>
                         <td><img src="https://www.paysera.com/new/upload/plan_payment_types/rf54608784edf5c/Paysera_logotype_internet2.png" alt="Payser" width="100" /></td>
-                        <td><a href="@Url.Action("Get", "Gift", new { id = Model.PosUserUid })" class="gs-pay-link" data-id="ps">Pay using Paysera</a></td>
+                        <td><a href="@Url.Action("Get", "Gift", new { id = Model.PosUserUid })" class="gs-pay-link" data-id="@((int)GiftService.Models.PaymentSystems.Paysera)">Pay using Paysera</a></td>
                     </tr>
                     <tr>
                         <td><img src="https://www.paypalobjects.com/webstatic/en_US/btn/btn_buynow_pp_142x27.png" alt="PayPal" width="100" /></td>
-                        <td><a href="#" class="gs-pay-link" data-id="pp">Pay using PayPal</a></td>
+                        <td><a href="#" class="gs-pay-link" data-id="@((int)GiftService.Models.PaymentSystems.Paypal)">Pay using PayPal</a></td>
                     </tr>
                 </table>
 
@@ -96,6 +96,12 @@
 {
     <script src="~/Scripts/checkout.js"></script>
     <script type="text/javascript">
+
+        $(".gs-pay-link").click(function (e) {
+            $("#PaymentSystem").val($(e.target).attr("data-id"));
+            $("#PaymentForm").submit();
+            e.preventDefault();
+        });
 
         //Checkout.init(".gs-pay-link");
 

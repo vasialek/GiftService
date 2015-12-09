@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="GiftService.Bll.UnitTests.ProductsBllUnitTest.Test_SaveProductInformationFromPos_Map_Response" /><Add Test="GiftService.Bll.UnitTests.ProductsBllUnitTest.Test_Incorrect_LocationId_From_Checkout" /></Playlist>

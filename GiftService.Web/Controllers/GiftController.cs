@@ -40,36 +40,23 @@ namespace GiftService.Web.Controllers
 
             try
             {
-                var jsonUrl = new Uri("http://localhost:8079/it/testgs.php?act=info&posXXXXUid=" + id);
-                Logger.InfoFormat("Requesting product info from POS: `{0}`", jsonUrl.ToString());
-                WebClient wc = new WebClient();
-                byte[] ba = wc.UploadData(jsonUrl, "POST", new byte[0]);
-                if (ba == null || ba.Length == 0)
-                {
-                    throw new BadResponseException("Validate URL returns NULL response from POS");
-                }
-
-                string resp = "";
-                resp = Encoding.UTF8.GetString(ba);
-                Logger.Debug("Got product infromation from POS: " + resp);
-
-                model.Pos = new PosBdo { Name = "Ritos masazai", PosUrl = new Uri("http://www.ritosmasazai.lt") };
-                model.Product = (ProductBdo)Newtonsoft.Json.JsonConvert.DeserializeObject<ProductBdo>(resp);
-                model.Product.ProductPrice = model.Product.ProductPrice / 100m;
-                model.Product.ValidFrom = DateTime.Now;
-                model.Product.ValidTill = model.Product.ValidFrom.AddMonths(3);
+                var transaction = Factory.TransactionsBll.GetTransactionByPaySystemUid(id);
+                model.Product = Factory.GiftsBll.GetProductByPaySystemUid(id);
+                model.Pos = Factory.PosBll.GetById(model.Product.PosId);
             }
-            catch (InvalidCastException icex)
+            catch (InvalidOperationException ioex)
             {
-                throw;
+                Logger.Error(ioex);
+                return NotFound();
             }
             catch (Exception ex)
             {
+                Logger.Error("Error getting gift coupon by payment system UID: " + id, ex);
                 throw;
             }
 
 
-            return View(model);
+            return View("Get", GetLayoutForPos(model.Pos.Id), model);
         }
 
         // GET: /Gift/Download/UniqueGiftId
@@ -88,7 +75,8 @@ namespace GiftService.Web.Controllers
         {
             try
             {
-                byte[] pdf = Factory.PdfBll.GetProductPdf(productUid);
+                //byte[] pdf = Factory.PdfBll.GetProductPdf(productUid);
+                byte[] pdf = Factory.PdfBll.GeneratProductPdf(productUid);
 
                 if (forceDownload)
                 {
@@ -113,7 +101,16 @@ namespace GiftService.Web.Controllers
         // GET: /Gift/NotFound
         public ViewResult NotFound()
         {
-            return View();
+            return View("NotFound");
+        }
+
+        private string GetLayoutForPos(int posId)
+        {
+            if (posId == 1005)
+            {
+                return "_Layout_Pos_1005";
+            }
+            return "_Layout";
         }
     }
 }

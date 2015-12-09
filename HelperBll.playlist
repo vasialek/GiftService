@@ -1,1 +1,1 @@
-<Playlist Version="1.0"><Add Test="GiftService.Bll.UnitTests.HelperBllUnitTest.Test_Convert_Zero_As_Unix_Begin" /></Playlist>
+<Playlist Version="1.0"><Add Test="GiftService.Bll.UnitTests.HelperBllUnitTest.Test_Convert_Zero_As_Unix_Begin" /><Add Test="GiftService.Bll.UnitTests.HelperBllUnitTest.Test_Get_Current_Timestamp" /></Playlist>

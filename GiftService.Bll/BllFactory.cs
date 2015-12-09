@@ -104,7 +104,7 @@ namespace GiftService.Bll
             {
                 if (_transactionsBll == null)
                 {
-                    _transactionsBll = new TransactionsBll();
+                    _transactionsBll = new TransactionsBll(DalFactory.Current.TransactionDal);
                 }
                 return _transactionsBll;
             }
