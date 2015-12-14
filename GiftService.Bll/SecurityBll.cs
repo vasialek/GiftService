@@ -15,6 +15,7 @@ namespace GiftService.Bll
     {
         PaymentRequestValidationResponse ValidatePosPaymentRequest(PosBdo pos, string posUserUid);
         void ValidateCurrencyCode(string currencyCode, PosBdo pos);
+        void ValidateUid(string uid);
     }
 
     public class SecurityBll : ISecurityBll
@@ -34,15 +35,21 @@ namespace GiftService.Bll
         }
 
         private ICommunicationBll _communicationBll = null;
+        private IConfigurationBll _configurationBll = null;
 
-        public SecurityBll(ICommunicationBll communicationBll)
+        public SecurityBll(IConfigurationBll configurationBll, ICommunicationBll communicationBll)
         {
             if (communicationBll == null)
             {
                 throw new ArgumentNullException("communicationBll");
             }
+            if (configurationBll == null)
+            {
+                throw new ArgumentNullException("configurationBll");
+            }
 
             _communicationBll = communicationBll;
+            _configurationBll = configurationBll;
         }
 
         public void ValidateCurrencyCode(string currencyCode, PosBdo pos)
@@ -97,5 +104,21 @@ namespace GiftService.Bll
             }
         }
 
+        /// <summary>
+        /// Throws exception on NULL or empty string either UID is not exactly same length as in configuration
+        /// </summary>
+        public void ValidateUid(string uid)
+        {
+            if (String.IsNullOrEmpty(uid))
+            {
+                throw new ArgumentNullException("UID should not be empty");
+            }
+
+            int len = _configurationBll.Get().LengthOfPosUid;
+            if (uid.Length != len)
+            {
+                throw new ArgumentOutOfRangeException("uid", "Length of UID should be exactly: " + len);
+            }
+        }
     }
 }

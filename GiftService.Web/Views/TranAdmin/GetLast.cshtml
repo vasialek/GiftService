@@ -1,0 +1,43 @@
+﻿@model IEnumerable<GiftService.Models.TransactionBdo>
+
+@if (Model.Count() > 0)
+{
+    foreach (var t in Model)
+    {
+        <tr>
+            <td>@t.PosId</td>
+            <td>@t.CreatedAt.ToString()</td>
+            <td>@t.PaymentStatus</td>
+            <td><a href="#" class="gs-product-info" data-product-uid="@t.ProductUid">Product info</a></td>
+            <td nowrap>
+                @t.RequestedAmount.ToString("### ##0.00") @t.RequestedCurrencyCode | @t.PaidAmount.ToString("### ##0.00") @t.PaidCurrencyCode
+            </td>
+            <td>
+                @t.PayerName @t.PayerLastName<br />
+                @t.PayerEmail<br />
+                @t.PayerPhone
+            </td>
+            <td>
+                <span class="label label-@(t.IsTestPayment ? "danger" : "success")">@t.IsTestPayment</span>
+            </td>
+            <td>@t.IsPaymentProcessed</td>
+            <td>@(t.PaySystemResponseAt == DateTime.MinValue ? "-" : t.PaySystemResponseAt.ToString())</td>
+            <td>@t.PaySystemUid</td>
+            <td></td>
+        </tr>
+    }
+} else
+{
+    <tr>
+        <td colspan="11">
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <span class="alert alert-danger">@ViewBag.ErrorMessage</span>
+            }
+            else
+            {
+                @:No transactions
+            }
+        </td>
+    </tr>
+}

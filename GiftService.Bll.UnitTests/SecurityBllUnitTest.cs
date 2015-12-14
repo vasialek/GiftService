@@ -12,6 +12,7 @@ namespace GiftService.Bll.UnitTests
     {
         private PosBdo _pos = new PosBdo();
         private Mock<ICommunicationBll> _communicationBllMock = new Mock<ICommunicationBll>();
+        private Mock<IConfigurationBll> _configBllMock = null;
         private ISecurityBll _securityBll = null;
 
         [TestInitialize]
@@ -25,7 +26,32 @@ namespace GiftService.Bll.UnitTests
 
             _communicationBllMock.Setup(x => x.GetJsonResponse<BaseResponse>(It.IsAny<Uri>())).Returns(new BaseResponse { Status = true, Message = "Faked OK message" });
 
-            _securityBll = new SecurityBll(_communicationBllMock.Object);
+            _configBllMock = new Mock<IConfigurationBll>();
+            _configBllMock.Setup(x => x.Get())
+                .Returns(() => new MySettings
+                {
+                    LengthOfPosUid = 32
+                });
+
+            _securityBll = new SecurityBll(_configBllMock.Object, _communicationBllMock.Object);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Test_Uid_Is_Not_Empty()
+        {
+            string uid = "";
+
+            _securityBll.ValidateUid(uid);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void Test_Uid_Has_Bad_Length()
+        {
+            string uid = "1".PadRight(_configBllMock.Object.Get().LengthOfPosUid + 1);
+
+            _securityBll.ValidateUid(uid);
         }
 
         [TestMethod]

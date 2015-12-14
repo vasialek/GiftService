@@ -25,15 +25,16 @@ namespace GiftService.Models.Products
 
         public DateTime ProductValidTill { get; set; }
 
-        [Display(Name = "Customer name")]
+        [Display(Name = "Vardas")]
         public string CustomerName { get; set; }
 
-        [Display(Name = "Customer phone")]
+        [Display(Name = "Tel. nr.")]
         public string CustomerPhone { get; set; }
 
-        [Display(Name = "Customer e-mail")]
+        [Display(Name = "El. pastas")]
         public string CustomerEmail { get; set; }
 
+        [Display(Name = "Pastabos")]
         public string Remarks { get; set; }
 
         public int LocationId { get; set; }

@@ -1,0 +1,126 @@
+﻿<style>
+
+    #Transactions th {
+        font-size: smaller;
+    }
+
+    #Transactions td {
+        font-size: x-small;
+    }
+
+</style>
+
+
+<div class="container">
+
+    <div class="page-header">Transaction list</div>
+    <table class="table table-bordered table-condensed table-hover" id="Transactions">
+        <tr>
+            <th>POS</th>
+            <th>Created</th>
+            <th>Status</th>
+            <th>Product name</th>
+            <th>Price<br />requested | paid</th>
+            <th>Customer info</th>
+            <th>Is test</th>
+            <th>Is paid</th>
+            <th>Payment time</th>
+            <th>Order ID / PaySystemUid</th>
+            <th></th>
+        </tr>
+        <tbody id="TransactionsBody">
+            <tr>
+                <td colspan="10">No transactions</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<div id="ProductInfoDiv">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td id="ProductName"></td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td id="ProductPrice"></td>
+        </tr>
+        <tr>
+            <td>Location:</td>
+            <td id="LocationName"></td>
+        </tr>
+    </table>
+</div>
+
+@section scripts
+{
+
+    <script type="text/javascript">
+
+        var Transactions = {
+            transactionsBlock: null,
+
+            init: function () {
+                this.transactionsBlock = $("#TransactionsBody");
+                $("#ProductInfoDiv").dialog({
+                    autoOpen: false,
+                    width: 500
+                });
+            },
+
+            loadTransactionsForPage: function (pageNr) {
+                var self = this;
+                $.ajax({
+                    url: "@Url.Action("GetLast")",
+                    method: "POST",
+                    success: function (data) {
+                        self.transactionsBlock.html(data);
+                        self.bindLinks();
+                    },
+                    error: function (x, s, e) {
+                        alert("Error loading transactions: " + e);
+                    }
+                });
+            },
+
+            loadProductInfo: function (productUid) {
+                if (productUid == "") {
+                    return;
+                }
+
+                $("#ProductName").html("");
+                $("#ProductPrice").html("");
+                $("#LocationName").html("");
+
+                $.ajax({
+                    url: "@Url.Action("GetProduct", "TranAdmin")",
+                    data: { productUid: productUid },
+                    method: "POST",
+                    success: function (data) {
+                        $("#ProductName").html(data.ProductName);
+                        $("#ProductPrice").html(data.ProductPrice);
+                        $("#LocationName").html(data.LocationName);
+                        $("#ProductInfoDiv").dialog("open");
+                    }
+                });
+            },
+
+            bindLinks: function () {
+                var self = this;
+                $(".gs-product-info").click(function (e) {
+                    e.preventDefault();
+                    self.loadProductInfo($(e.target).attr("data-product-uid"));
+                });
+            }
+        };
+
+        $(function () {
+            Transactions.init();
+            Transactions.loadTransactionsForPage(1);
+        });
+
+    </script>
+
+}

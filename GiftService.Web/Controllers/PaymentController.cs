@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GiftService.Models;
 using GiftService.Models.JsonModels;
+using GiftService.Models.Payments;
 using GiftService.Models.Products;
 using log4net;
 using System;
@@ -32,6 +33,58 @@ namespace GiftService.Web.Controllers
         public ActionResult Index()
         {
             return Content("{\"Status\":\"Ok\"}", "application/json");
+        }
+
+        // GET: /Payment/Callback
+        public ActionResult Callback()
+        {
+            Logger.Info("Got information about payment:");
+            Logger.Info(Request.RawUrl);
+            return Content("OK");
+        }
+
+        // GET: /Payment/Accept
+        public ActionResult Accept()
+        {
+            // Expected successful response
+            // ?data=b3JkZXJpZD1iZmFhZmM2MTkwMGI0NTZjODczMTBjYzg3NTZkODBhYiZhbW91bnQ9MSZjdXJyZW5jeT1FVVImY291bnRyeT1MVCZ0ZXN0PTEmcGF5bWVudD1ub3JkZWFsdCZwX2VtYWlsPWl0JTQwaW50ZXJhdGVpdGlzLmx0JnBfZmlyc3RuYW1lPUFsZWtzZWomcF9sYXN0bmFtZT1WYXNpbm92JnBfcGhvbmU9JTJCMzcwKzUrMjE2NjQ4MSZwX2NvbW1lbnQ9SnVzdCt0ZXN0K3BheW1lbnQmcF9pcD0mcF9hZ2VudD0mcF9maWxlPSZ2ZXJzaW9uPTEuNiZwcm9qZWN0aWQ9NzY0NTcmbGFuZz1saXQmcGF5dGV4dD1VJUM1JUJFc2FreW1hcytuciUzQStiZmFhZmM2MTkwMGI0NTZjODczMTBjYzg3NTZkODBhYitodHRwJTNBJTJGJTJGd3d3LmRvdmFudWt1cG9uYWkuY29tK3Byb2pla3RlLislMjhQYXJkYXYlQzQlOTdqYXMlM0ErUml0YSslQzUlQkRpYnV0aWVuJUM0JTk3JTI5Jm1fcGF5X3Jlc3RvcmVkPTkwNjg1Mjg5JnN0YXR1cz0xJnJlcXVlc3RpZD05MDY4NTI4OSZwYXlhbW91bnQ9MSZwYXljdXJyZW5jeT1FVVI%3D&ss1=66a9c204373d26b7d3f071f2f8c07722&ss2=2UkCwi6g56yfYbCd27UVR8ZW2nHz715-HZjicZcSyzYa-bqIz2lNiE6A68v90Mm4xOEAeqpGhJSOSS85KT8pXAguylpsdXYZ-E_mKXoEsa6WzsAF-KqWgJFAXeDlS7dYDNa_1UF9Pbeu7DntDyroxJQbOb65CH5fEFhXNp0g1-Y%3D
+
+            Logger.Info("Got response from payment system");
+            Logger.Info(Request.RawUrl);
+
+            var responseFromPaysera = Factory.PayseraBll.ParseData(Request["data"]);
+            var t = Factory.TransactionsBll.FinishTransaction(responseFromPaysera);
+            if (t.PaymentStatus != PaymentStatusIds.PaidOk)
+            {
+                return Bad();
+            }
+
+            return RedirectToAction("Get", "Gift", new { id = t.PaySystemUid });
+        }
+
+        // GET: /Payment/Cancel
+        public ActionResult Cancel()
+        {
+            try
+            {
+                Logger.Info("Got response from payment system to cancel transaction (by user)");
+                string paySystemUid = Session["__PaySystemUid"] as string;
+                Logger.InfoFormat("  PaySystemUid in session is `{0}`", paySystemUid);
+
+                //var responseFromPaysera = Factory.PayseraBll.ParseData(Request["data"]);
+                var t = Factory.TransactionsBll.CancelTransactionByUser(paySystemUid);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error canceling transactio", ex);
+            }
+
+            return View("Cancel", GetLayoutForPos(1005));
+        }
+
+        public ActionResult Bad()
+        {
+            return View("Bad", GetLayoutForPos(1005));
         }
 
         // GET: /Payment/Make/UniquePaymentId
@@ -89,7 +142,7 @@ namespace GiftService.Web.Controllers
             }
         }
 
-        // GET: /Payment/Checkout/UniquePaymentId
+        // POST: /Payment/Checkout/UniquePaymentId
         [HttpPost]
         public ActionResult Checkout(string id, ProductCheckoutModel checkout)
         {
@@ -102,11 +155,50 @@ namespace GiftService.Web.Controllers
             var product = Factory.GiftsBll.SaveProductInformationFromPos(id, posResponse, checkout);
             var transaction = Factory.TransactionsBll.StartTransaction(id, product);
 
-            Factory.CommunicationBll.SendEmailToClientOnSuccess(product);
+            var configuration = Factory.ConfigurationBll.Get();
 
+            //Factory.CommunicationBll.SendEmailToClientOnSuccess(product);
+            var rq = new PayseraPaymentRequest();
 
+            rq.PayseraProjectPassword = configuration.PayseraPassword;
+            rq.ProjectId = configuration.PayseraProjectId.ToString();
+
+            rq.OrderId = transaction.PaySystemUid;
+            rq.AmountToPay = posResponse.RequestedAmountMinor / 100m;
+            rq.CurrencyCode = posResponse.CurrencyCode;
+            rq.Country = PayseraPaymentRequest.Countries.LT;
+
+            rq.AcceptUrl = Url.Action("accept", "payment", null, Request.Url.Scheme);
+            rq.CancelUrl = Url.Action("cancel", "payment", null, Request.Url.Scheme);
+            rq.CallbackUrl = Url.Action("callback", "payment", null, Request.Url.Scheme);
+            //rq.AcceptUrl = "http://www.dovanukuponai.com/payment/accept/";
+            //rq.CancelUrl = "http://www.dovanukuponai.com/payment/cancel/";
+            //rq.CallbackUrl = "http://www.dovanukuponai.com/payment/callback/";
+
+            rq.CustomerName = checkout.CustomerName;
+            rq.CustomerEmail = checkout.CustomerEmail;
+            rq.CustomerPhone = checkout.CustomerPhone;
+            rq.PayText = String.Format("Apmokėjimas už [owner_name] - {0}, per [site_name], http://www.dovanukuponai.com/gift/get/[order_nr]", checkout.ProductName);
+            //rq.Language = PayseraPaymentRequest.Languages.LIT;
+            rq.IsTestPayment = configuration.UseTestPayment;
+
+            Uri paymentUri = Factory.PayseraBll.PreparePaymentLink(configuration.PayseraPaymentUrl, rq);
+            Logger.Info("Redirecting to Paysera:");
+            Logger.Info(paymentUri.ToString());
+
+            Logger.InfoFormat("  saving PaySystemUid in session in case of cancel: `{0}`", rq.OrderId);
+            Session["__PaySystemUid"] = rq.OrderId;
+
+            return Redirect(paymentUri.ToString());
             return RedirectToAction("Get", "Gift", new { id = product.PaySystemUid });
         }
+
+        //protected decimal ParseDecimal(string s)
+        //{
+        //    decimal d = 0;
+
+        //    return d;
+        //}
 
         private string GetLayoutForPos(int posId)
         {

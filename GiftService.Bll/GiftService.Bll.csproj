@@ -48,6 +48,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,6 +61,7 @@
     <Compile Include="CommunicationBll.cs" />
     <Compile Include="ConfigurationBll.cs" />
     <Compile Include="HelperBll.cs" />
+    <Compile Include="PayseraBll.cs" />
     <Compile Include="PdfBll.cs" />
     <Compile Include="PosBll.cs" />
     <Compile Include="ProductsBll.cs" />

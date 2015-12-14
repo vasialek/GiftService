@@ -144,11 +144,17 @@ namespace GiftService.Dal
             {
                 //AutoMapperConfigDal.RegisterMapping();
 
+                Mapper.CreateMap<ProductBdo, product>()
+                    .ForMember(dest => dest.phone_reservation,
+                                x => x.MapFrom(src => src.PhoneForReservation))
+                    .ForMember(dest => dest.email_reservation,
+                        orig => orig.MapFrom(x => x.EmailForReservation));
+
                 p = Mapper.Map<product>(product);
 
                 Logger.Info("Saving product:");
-                Logger.DebugFormat("  pos_user_uid:           `{0}`", p.pos_user_uid);
-                Logger.DebugFormat("  pay_system_uid:         `{0}`", p.pay_system_uid);
+                Logger.DebugFormat("  pos_user_uid:          `{0}`", p.pos_user_uid);
+                Logger.DebugFormat("  pay_system_uid:        `{0}`", p.pay_system_uid);
 
                 Logger.DebugFormat("  product_uid:           `{0}`", p.product_uid);
                 Logger.DebugFormat("  product_name:          `{0}`", p.product_name);
@@ -159,10 +165,10 @@ namespace GiftService.Dal
                 Logger.DebugFormat("  customer_name:         `{0}`", p.customer_name);
                 Logger.DebugFormat("  customer_phone:        `{0}`", p.customer_phone);
                 Logger.DebugFormat("  customer_email:        `{0}`", p.customer_email);
-                Logger.DebugFormat("  remarks:              `{0}`", p.remarks);
+                Logger.DebugFormat("  remarks:               `{0}`", p.remarks);
 
-                Logger.DebugFormat("  email_reservation:  `{0}`", p.email_reservation);
-                Logger.DebugFormat("  phone_reservation:  `{0}`", p.phone_reservation);
+                Logger.DebugFormat("  email_reservation:     `{0}`", p.email_reservation);
+                Logger.DebugFormat("  phone_reservation:     `{0}`", p.phone_reservation);
 
                 Logger.DebugFormat("  pos_id:                `{0}`", p.pos_id);
                 Logger.DebugFormat("  pos_name:              `{0}`", p.pos_name);

@@ -15,7 +15,7 @@
                 
                 <div id="ProductInformation" class="row">
                     <div class="col-md-10">
-                        <p>Locations</p>
+                        @*<p>Locations</p>*@
                         <ul class="list-group">
                             @foreach (var l in Model.Locations)
                             {
@@ -60,30 +60,30 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <p>Product</p>
+                @*<p>Product</p>*@
                 <ul class="list-group">
                     <li class="list-group-item">@Html.Raw(Model.ProductName)</li>
-                    <li class="list-group-item"><span class="glyphicon glyphicon-time"></span> &nbsp; @Model.ProductValidTill.ToShortDateString()</li>
-                    <li class="list-group-item"><span class="glyphicon glyphicon-euro"></span> &nbsp;
+                    <li class="list-group-item"><span class="glyphicon glyphicon-time" title="Paslaugos trukme"></span> &nbsp; @Model.ProductDuration</li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-euro" title="Paslaugos kaina"></span> &nbsp;
                         <b>@Model.RequestedAmount.ToString("N2") @Model.CurrencyCode</b></li>
                 </ul>
 
                 <div class="alert alert-warning">
-                    Product is valid till @Model.ProductValidTill.ToShortDateString()
+                    Kuponas galioja @Model.ProductValidTill.ToShortDateString()
                 </div>
 
                 <table class="table table-bordered table-condensed">
                     <tr>
-                        <th colspan="2">Payment</th>
+                        <th colspan="2">Apmokėjimas</th>
                     </tr>
                     <tr>
-                        <td><img src="https://www.paysera.com/new/upload/plan_payment_types/rf54608784edf5c/Paysera_logotype_internet2.png" alt="Payser" width="100" /></td>
-                        <td><a href="@Url.Action("Get", "Gift", new { id = Model.PosUserUid })" class="gs-pay-link" data-id="@((int)GiftService.Models.PaymentSystems.Paysera)">Pay using Paysera</a></td>
+                        <td><img src="https://www.paysera.com/new/upload/plan_payment_types/rf54608784edf5c/Paysera_logotype_internet2.png" alt="Paysera" width="100" /></td>
+                        <td><a href="@Url.Action("Get", "Gift", new { id = Model.PosUserUid })" class="gs-pay-link" data-id="@((int)GiftService.Models.PaymentSystems.Paysera)">Mokėti</a></td>
                     </tr>
-                    <tr>
+                    @*<tr>
                         <td><img src="https://www.paypalobjects.com/webstatic/en_US/btn/btn_buynow_pp_142x27.png" alt="PayPal" width="100" /></td>
                         <td><a href="#" class="gs-pay-link" data-id="@((int)GiftService.Models.PaymentSystems.Paypal)">Pay using PayPal</a></td>
-                    </tr>
+                    </tr>*@
                 </table>
 
             </div>

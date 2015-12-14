@@ -85,6 +85,15 @@ namespace GiftService.Bll
 
             product = Mapper.Map<ProductBdo>(posResponse);
 
+            //product.CurrencyCode = posResponse.CurrencyCode;
+            //product.ProductName = posResponse.ProductName;
+            //product.ProductPrice = posResponse.RequestedAmountMinor / 100m;
+            //product.ProductDescription = posResponse.ProductDescription;
+            //product.EmailForReservation = posResponse.EmailForReservation;
+            //product.PhoneForReservation = posResponse.PhoneForReservation;
+            //product.ValidTill = BllFactory.Current.HelperBll.ConvertFromUnixTimestamp(posResponse.ProductValidTillTm);
+            //product.PosId = posResponse.PosId;
+
             if (checkout.LocationId > 0)
             {
                 var location = posResponse.Locations.FirstOrDefault(x => x.Id == checkout.LocationId);

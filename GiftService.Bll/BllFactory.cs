@@ -17,6 +17,7 @@ namespace GiftService.Bll
         private ITransactionsBll _transactionsBll = null;
         private IPosBll _posBll = null;
         private IProductsBll _productsBll = null;
+        private PayseraBll _payseraBll = null;
         private IPdfBll _pdfBll = null;
         private IHelperBll _helperBll = null;
 
@@ -55,7 +56,7 @@ namespace GiftService.Bll
             {
                 if (_securityBll == null)
                 {
-                    _securityBll = new SecurityBll(CommunicationBll);
+                    _securityBll = new SecurityBll(ConfigurationBll, CommunicationBll);
                 }
                 return _securityBll;
             }
@@ -104,9 +105,22 @@ namespace GiftService.Bll
             {
                 if (_transactionsBll == null)
                 {
-                    _transactionsBll = new TransactionsBll(DalFactory.Current.TransactionDal);
+                    _transactionsBll = new TransactionsBll(ConfigurationBll, SecurityBll, DalFactory.Current.TransactionDal);
                 }
                 return _transactionsBll;
+            }
+        }
+
+
+        public PayseraBll PayseraBll
+        {
+            get
+            {
+                if (_payseraBll == null)
+                {
+                    _payseraBll = new PayseraBll();
+                }
+                return _payseraBll;
             }
         }
 

@@ -12,8 +12,33 @@ CREATE TABLE [dbo].[transaction](
 	[product_id] [int] NOT NULL,
 	[pos_user_uid] [nchar](32) NOT NULL,
 	[pay_system_uid] [nchar](32) NULL,
+	
 	[pay_system_id] [int] NOT NULL,
+	
+	-- Used by Paysera
+	[project_id] [nchar](32) not null,
+	
 	[is_payment_processed] [bit] NOT NULL,
+	
+	[payment_status_id] [int] not null default(0),
+	[is_test_payment] [bit] not null default(1),
+	
+	[paid_through] [nchar](64) null,
+	
+	[requested_amount] [smallmoney] not null,
+	[requested_currency_code] [nchar](3),
+	[paid_amount] [smallmoney] not null default(0),
+	[paid_currency_code] [nchar](3) null,
+	[remarks] [nvarchar](256) null,
+	
+	-- Information about payer
+	[p_name] [nvarchar](64) null,
+	[p_lastname] [nvarchar](128) null,
+	[p_email] [nchar](128) null,
+	[p_phone] [nchar](128) null,
+	
+	[response_from_payment] [nvarchar](2048) null,
+
 	[created_at] [datetime2] NOT NULL,
 	[pay_system_response_at] [datetime2] NULL
 ) ON [PRIMARY]

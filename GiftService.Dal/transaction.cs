@@ -24,5 +24,19 @@ namespace GiftService.Dal
         public bool is_payment_processed { get; set; }
         public System.DateTime created_at { get; set; }
         public Nullable<System.DateTime> pay_system_response_at { get; set; }
+        public string project_id { get; set; }
+        public int payment_status_id { get; set; }
+        public bool is_test_payment { get; set; }
+        public string paid_through { get; set; }
+        public decimal requested_amount { get; set; }
+        public string requested_currency_code { get; set; }
+        public decimal paid_amount { get; set; }
+        public string paid_currency_code { get; set; }
+        public string remarks { get; set; }
+        public string p_name { get; set; }
+        public string p_lastname { get; set; }
+        public string p_email { get; set; }
+        public string p_phone { get; set; }
+        public string response_from_payment { get; set; }
     }
 }

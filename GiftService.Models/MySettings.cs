@@ -8,6 +8,14 @@ namespace GiftService.Models
 {
     public class MySettings
     {
+        public bool UseTestPayment { get; set; }
+
+        public string PayseraPassword { get; set; }
+
+        public int PayseraProjectId { get; set; }
+
+        public Uri PayseraPaymentUrl { get; set; }
+
         public int LengthOfPosUid { get; set; }
 
         /// <summary>
@@ -21,5 +29,13 @@ namespace GiftService.Models
         /// Path to all content related to POS (CSS, images, PDF)
         /// </summary>
         public string PathToPosContent { get; set; }
+
+        public MySettings()
+        {
+            UseTestPayment = true;
+            PayseraPassword = "8ad52eb96c5f3337ba70f9b251310984";
+            PayseraProjectId = 76457;
+            PayseraPaymentUrl = new Uri("https://www.mokejimai.lt/pay/");
+        }
     }
 }

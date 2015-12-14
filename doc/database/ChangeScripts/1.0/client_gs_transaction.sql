@@ -33,3 +33,5 @@ ALTER TABLE `gs_transaction`
 -- AUTO_INCREMENT for table `gs_transaction`
 
 ALTER TABLE `gs_transaction` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `gs_transaction` ADD `product_duration` VARCHAR(512) NOT NULL AFTER `product_price_minor`;
