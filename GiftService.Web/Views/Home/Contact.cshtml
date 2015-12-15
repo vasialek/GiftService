@@ -1,17 +1,75 @@
-﻿@{
-    ViewBag.Title = "Contact";
+﻿@model GiftService.Models.ContactUsModel
+
+@{
+    ViewBag.Title = "Kontaktai";
+
+    Html.EnableClientValidation(true);
+    Html.EnableUnobtrusiveJavaScript(true);
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<h2>@ViewBag.Title</h2>
+
+@if (Model.IsSent)
+{
+    <p class="alert alert-success">Aciū, Jūsų užklausa išsiusta</p>
+}
+else
+{
+
+    using (Html.BeginForm(/*new AjaxOptions { AllowCache = false }*/))
+    {
+
+        <table class="table">
+            <tr>
+                <td></td>
+                <td>
+                    @Html.ValidationSummary(true)
+                </td>
+            </tr>
+            <tr>
+                <td align="right">@Html.LabelFor(x => x.Subject)</td>
+                <td>
+                    @Html.TextBoxFor(x => x.Subject, new { @class = "form-control input-sm" })<br />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">@Html.LabelFor(x => x.Name)</td>
+                <td>@Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm" })</td>
+            </tr>
+            <tr>
+                <td align="right">@Html.LabelFor(x => x.Email)</td>
+                <td>
+                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control input-sm" })<br />
+                    @Html.ValidationMessageFor(x => x.Email)
+                </td>
+            </tr>
+            <tr>
+                <td align="right">@Html.LabelFor(x => x.SiteUrl)</td>
+                <td>@Html.TextBoxFor(x => x.SiteUrl, new { @class = "form-control input-sm" })</td>
+            </tr>
+            <tr>
+                <td align="right">@Html.LabelFor(x => x.Text)</td>
+                <td>
+                    @Html.TextAreaFor(x => x.Text, new { @class = "form-control" })<br />
+                    @Html.ValidationMessageFor(x => x.Text)
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button class="btn btn-primary btn-sm">OK</button></td>
+            </tr>
+        </table>
+
+    }
+}
+
+
+
 
 <address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
+    Vida<br />
+    +370 612 17534
 </address>
 
 <address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+    <strong>Reikia pagalbos? </strong>   <a href="mailto:vida@dovanukuponai.com">vida@dovanukuponai.com</a><br />
 </address>

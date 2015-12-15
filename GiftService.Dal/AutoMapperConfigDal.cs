@@ -37,7 +37,8 @@ namespace GiftService.Dal
                 .ForMember(dest => dest.RequestedCurrencyCode,
                     orig => orig.MapFrom(x => x.requested_currency_code))
                 .ForMember(dest => dest.ResponseFromPaymentSystem,
-                    orig => orig.MapFrom(x => x.response_from_payment));
+                    orig => orig.MapFrom(x => x.response_from_payment))
+                .ReverseMap();
         }
 
         public static void SetMappingTypeFromLowerToPascal()
@@ -58,7 +59,7 @@ namespace GiftService.Dal
             //Mapper.CreateMap<transaction, TransactionBdo>();
         }
 
-        public static void SetMappingTypeFromPascalToLower()
+        public static void SetMappingTypeFromBdoToDao()
         {
             Mapper.Configuration.SourceMemberNamingConvention = new PascalCaseNamingConvention();
             Mapper.Configuration.DestinationMemberNamingConvention = new LowerUnderscoreNamingConvention();

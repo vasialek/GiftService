@@ -142,15 +142,33 @@ namespace GiftService.Dal
             var p = new product();
             try
             {
-                //AutoMapperConfigDal.RegisterMapping();
+                //AutoMapperConfigDal.SetMappingTypeFromBdoToDao();
+                //p = Mapper.Map<product>(product);
 
-                Mapper.CreateMap<ProductBdo, product>()
-                    .ForMember(dest => dest.phone_reservation,
-                                x => x.MapFrom(src => src.PhoneForReservation))
-                    .ForMember(dest => dest.email_reservation,
-                        orig => orig.MapFrom(x => x.EmailForReservation));
+                p.pos_user_uid = product.PosUserUid;
+                p.pay_system_uid = product.PaySystemUid;
 
-                p = Mapper.Map<product>(product);
+                p.product_uid = product.ProductUid;
+                p.product_name = product.ProductName;
+                p.product_description = product.ProductDescription;
+                p.product_price = product.ProductPrice;
+                p.currency_code = product.CurrencyCode;
+
+                p.customer_name = product.CustomerName;
+                p.customer_phone = product.CustomerPhone;
+                p.customer_email = product.CustomerEmail;
+                p.remarks = product.Remarks;
+
+                p.email_reservation = product.EmailForReservation;
+                p.phone_reservation = product.PhoneForReservation;
+
+                p.pos_id = product.PosId;
+                p.pos_name = product.PosName;
+                p.pos_address = product.PosAddress;
+                p.pos_city = product.PosCity;
+
+                p.valid_from = product.ValidFrom;
+                p.valid_till = product.ValidTill;
 
                 Logger.Info("Saving product:");
                 Logger.DebugFormat("  pos_user_uid:          `{0}`", p.pos_user_uid);

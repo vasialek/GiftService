@@ -7,7 +7,10 @@
         <tr>
             <td>@t.PosId</td>
             <td>@t.CreatedAt.ToString()</td>
-            <td>@t.PaymentStatus</td>
+            <td>
+                <span class="label label-@(@t.PaymentStatus == GiftService.Models.PaymentStatusIds.PaidOk ? "success" : t.PaymentStatus == GiftService.Models.PaymentStatusIds.UserCancelled ? "danger" : "info")">@t.PaymentStatus</span>
+                
+            </td>
             <td><a href="#" class="gs-product-info" data-product-uid="@t.ProductUid">Product info</a></td>
             <td nowrap>
                 @t.RequestedAmount.ToString("### ##0.00") @t.RequestedCurrencyCode | @t.PaidAmount.ToString("### ##0.00") @t.PaidCurrencyCode
@@ -17,6 +20,7 @@
                 @t.PayerEmail<br />
                 @t.PayerPhone
             </td>
+            <td>@t.PaidThrough</td>
             <td>
                 <span class="label label-@(t.IsTestPayment ? "danger" : "success")">@t.IsTestPayment</span>
             </td>
@@ -29,7 +33,7 @@
 } else
 {
     <tr>
-        <td colspan="11">
+        <td colspan="12">
             @if (ViewBag.ErrorMessage != null)
             {
                 <span class="alert alert-danger">@ViewBag.ErrorMessage</span>

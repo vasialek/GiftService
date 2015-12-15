@@ -60,6 +60,7 @@
     <Compile Include="BllFactory.cs" />
     <Compile Include="CommunicationBll.cs" />
     <Compile Include="ConfigurationBll.cs" />
+    <Compile Include="DumpBll.cs" />
     <Compile Include="HelperBll.cs" />
     <Compile Include="PayseraBll.cs" />
     <Compile Include="PdfBll.cs" />

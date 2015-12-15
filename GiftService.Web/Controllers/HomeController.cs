@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GiftService.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,11 +21,28 @@ namespace GiftService.Web.Controllers
         //    return View();
         //}
 
-        //public ActionResult Contact()
-        //{
-        //    ViewBag.Message = "Your contact page.";
+        // GET: /Home/Rules
+        public ActionResult Rules()
+        {
+            return View();
+        }
 
-        //    return View();
-        //}
+        // GET: /Home/Contact
+        public ActionResult Contact()
+        {
+            var model = new ContactUsModel();
+            return View("Contact", model);
+        }
+
+        // POST: /Home/Contact
+        [HttpPost]
+        public ActionResult Contact(ContactUsModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.IsSent = true;
+            }
+            return View("Contact", model);
+        }
     }
 }

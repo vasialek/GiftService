@@ -235,6 +235,7 @@ namespace GiftService.Bll
             ar["p_file"] = "";
             ar["version"] = PayseraPaymentRequest.Version;
             ar["projectid"] = rq.ProjectId;
+            ar["paytext"] = rq.PayText;
 
             //string[] p = ar.Select(x => String.Concat(x.Key, "=", WebUtility.UrlEncode(x.Value))).ToArray();
             string[] p = ar.Select(x => String.Concat(x.Key, "=", UrlEncode(x.Value))).ToArray();

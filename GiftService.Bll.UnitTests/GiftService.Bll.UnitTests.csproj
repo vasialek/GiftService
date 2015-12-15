@@ -70,6 +70,7 @@
     <Compile Include="PdfBllUnitTest.cs" />
     <Compile Include="ProductsBllUnitTest.cs" />
     <Compile Include="PayserBllUnitTest.cs" />
+    <Compile Include="DumpBllUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GiftService.Bll\GiftService.Bll.csproj">
@@ -86,6 +87,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>

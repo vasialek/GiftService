@@ -26,3 +26,12 @@ textarea {
 .todo {
     color: #f00;
 }
+
+.field-validation-error {
+    color: red;
+    font-size: x-small;
+}
+
+textarea.input-validation-error, input.input-validation-error {
+    border: solid 1px red;
+}

@@ -74,6 +74,7 @@ namespace GiftService.Dal
                             RequestedCurrencyCode = t.requested_currency_code,
                             PaidAmount = t.paid_amount,
                             PaidCurrencyCode = t.paid_currency_code,
+                            PaidThrough = t.paid_through,
 
                             PayerName = t.p_name,
                             PayerLastName = t.p_lastname,
@@ -127,12 +128,35 @@ namespace GiftService.Dal
 
         public void StartTransaction(TransactionBdo t)
         {
-            Mapper.CreateMap<TransactionBdo, transaction>()
-                .ForMember(dest => dest.payment_status_id,
-                    orig => orig.MapFrom(x => (int)x.PaymentStatus));
-            var transaction = Mapper.Map<transaction>(t);
+            //Mapper.CreateMap<TransactionBdo, transaction>()
+            //    .ForMember(dest => dest.payment_status_id,
+            //        orig => orig.MapFrom(x => (int)x.PaymentStatus));
+            //AutoMapperConfigDal.SetMappingTypeFromBdoToDao();
+            //var transaction = Mapper.Map<transaction>(t);
             try
             {
+                var transaction = new transaction();
+                transaction.is_test_payment = t.IsTestPayment;
+                transaction.payment_status_id = (int)t.PaymentStatus;
+                transaction.is_payment_processed = t.IsPaymentProcessed;
+                transaction.pos_user_uid = t.PosUserUid;
+                transaction.pay_system_uid = t.PaySystemUid;
+                transaction.requested_amount = t.RequestedAmount;
+                transaction.requested_currency_code = t.RequestedCurrencyCode;
+                transaction.paid_amount = t.PaidAmount;
+                transaction.paid_currency_code = t.PaidCurrencyCode;
+                transaction.paid_through = t.PaidThrough;
+                transaction.p_name = t.PayerName;
+                transaction.p_lastname = t.PayerLastName;
+                transaction.p_email = t.PayerEmail;
+                transaction.p_phone = t.PayerPhone;
+                transaction.remarks = t.Remarks;
+                transaction.pos_id = t.PosId;
+                transaction.product_id = t.ProductId;
+                transaction.product_uid = t.ProductUid;
+                transaction.project_id = t.ProjectId.ToString();
+                transaction.created_at = DateTime.UtcNow;
+
                 Logger.Info("Saving transaction in DB:");
                 Logger.DebugFormat("  setting is_test_payment:              `{0}`", transaction.is_test_payment);
                 Logger.DebugFormat("  setting payment_status_id:            `{0}`", transaction.payment_status_id);
@@ -158,7 +182,7 @@ namespace GiftService.Dal
 
                 Logger.DebugFormat("  setting response_from_payment:        `{0}`", transaction.response_from_payment);
                 Logger.DebugFormat("  setting pay_system_response_at:       `{0}`", transaction.pay_system_response_at);
-                Logger.DebugFormat("  setting created_at:         `{0}`", transaction.created_at);
+                Logger.DebugFormat("  setting created_at:                   `{0}`", transaction.created_at);
 
                 using (var db = new GiftServiceEntities())
                 {

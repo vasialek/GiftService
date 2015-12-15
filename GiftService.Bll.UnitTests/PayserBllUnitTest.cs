@@ -57,6 +57,8 @@ namespace GiftService.Bll.UnitTests
             rq.CustomerPhone = "+370 5 2166481";
             rq.Remarks = "Just test payment";
 
+            rq.PayText = "RitosMasazai.lt [owner_name]. Jusu uzsakymas http://www.dovanukuponai.com/gift/get/[order_nr]";
+
             Uri paymentLink = _psBll.PreparePaymentLink(_psPaymentUrl, rq);
             // To get exception and see result :)
             Assert.AreEqual("-", paymentLink.AbsoluteUri);
@@ -381,6 +383,17 @@ namespace GiftService.Bll.UnitTests
             var resp = _psBll.ParseData(data);
 
             Assert.IsTrue(resp.PayText.IndexOf(orderId) >= 0);
+        }
+
+        [TestMethod]
+        public void Test_ParseHttpParams_PayText_Custome()
+        {
+            // Real from Payser
+            string data = "?data=b3JkZXJpZD0xMzJkMmYzMDU3NzQ0YzEzYWMxYWU2MjYwOWExMGI0ZiZhbW91bnQ9MSZjdXJyZW5jeT1FVVImY291bnRyeT1MVCZ0ZXN0PTEmcGF5bWVudD12YjImcF9lbWFpbD1pdCU0MGludGVyYXRlaXRpcy5sdCZwX2ZpcnN0bmFtZT1BbGVrc2VqJnBfbGFzdG5hbWU9VmFzaW5vdiZwX3Bob25lPSUyQjM3MCs1KzIxNjY0ODEmcF9jb21tZW50PUp1c3QrdGVzdCtwYXltZW50JnBfaXA9JnBfYWdlbnQ9JnBfZmlsZT0mdmVyc2lvbj0xLjYmcHJvamVjdGlkPTc2NDU3JnBheXRleHQ9MTMyZDJmMzA1Nzc0NGMxM2FjMWFlNjI2MDlhMTBiNGYrUml0YSslQzUlQkRpYnV0aWVuJUM0JTk3Jmxhbmc9bGl0Jm1fcGF5X3Jlc3RvcmVkPTkxMDA4NjI5JnN0YXR1cz0xJnJlcXVlc3RpZD05MTAwODYyOSZwYXlhbW91bnQ9MSZwYXljdXJyZW5jeT1FVVI%3D";
+
+            var resp = _psBll.ParseData(data);
+
+            Assert.AreEqual("-", resp.PayText);
         }
 
         [TestMethod]
