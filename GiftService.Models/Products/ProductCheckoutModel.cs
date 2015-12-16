@@ -21,6 +21,8 @@ namespace GiftService.Models.Products
 
         public string ProductName { get; set; }
 
+        public string ProductDescription { get; set; }
+
         public string ProductDuration { get; set; }
 
         public DateTime ProductValidTill { get; set; }

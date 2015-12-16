@@ -132,6 +132,12 @@ namespace GiftService.Bll
 
             var t = _transactionDal.GetTransactionByPaySystemUid(resp.OrderId);
 
+            if (t.PaymentStatus == PaymentStatusIds.PaidOk)
+            {
+                Logger.Warn("Transaction status is already PaidOk, do not update and exit");
+                return t;
+            }
+
             t.IsPaymentProcessed = true;
             t.PaySystemResponseAt = DateTime.UtcNow;
 
@@ -152,9 +158,17 @@ namespace GiftService.Bll
                 2 - payment order accepted, but not yet executed
                 3 - additional payment information
             */
-            if (resp.Status == "1")
+            switch (resp.Status)
             {
-                t.PaymentStatus = PaymentStatusIds.PaidOk;
+                case "1":
+                    t.PaymentStatus = PaymentStatusIds.PaidOk;
+                    break;
+                case "2":
+                    t.PaymentStatus = PaymentStatusIds.AcceptedButNotExecuted;
+                    break;
+                default:
+                    Logger.Warn("Payment status (from Paysera) is not OK: " + resp.Status);
+                    break;
             }
 
             t.ResponseFromPaymentSystem = t.ResponseFromPaymentSystem;

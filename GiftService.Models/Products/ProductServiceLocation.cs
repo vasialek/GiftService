@@ -15,5 +15,7 @@ namespace GiftService.Models.Products
         public string Name { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
+        public string EmailReservation { get; set; }
+        public string PhoneReservation { get; set; }
     }
 }

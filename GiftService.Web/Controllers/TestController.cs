@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace GiftService.Web.Controllers
 {
-    public class TestController : Controller
+    public class TestController : BaseController
     {
         private ILog _logger = null;
         private ILog Logger
@@ -24,10 +24,26 @@ namespace GiftService.Web.Controllers
             }
         }
 
+        public ActionResult MeasureCache()
+        {
+            int total = 0;
+            string v;
+            foreach (string key in Session.Keys)
+            {
+                v = Session[key] as string;
+                total += v == null ? 0 : v.Length;
+            }
+
+            return Content("Total in session: " + total + " bytes");
+        }
+
         // GET: Test
         public ActionResult Index()
         {
-            Logger.Debug(Server.MapPath("~/Content"));
+            Session["xxx"] = "13246579874651564645";
+            //Logger.Debug(Server.MapPath("~/Content"));
+            //SetTempMessage(Resources.Language.Payment_PaymentIsOk);
+            return RedirectToAction("Get", "Gift", new { id = "fe91f4287ca54d8cac3fa7ca4d5eb0ac" });
             return View();
         }
 

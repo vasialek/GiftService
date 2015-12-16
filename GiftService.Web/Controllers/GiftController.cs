@@ -43,6 +43,10 @@ namespace GiftService.Web.Controllers
                 var transaction = Factory.TransactionsBll.GetTransactionByPaySystemUid(id);
                 model.Product = Factory.GiftsBll.GetProductByPaySystemUid(id);
                 model.Pos = Factory.PosBll.GetById(model.Product.PosId);
+
+                model.PaymentStatus = transaction.PaymentStatus;
+                model.IsPaidOk = transaction.PaymentStatus == PaymentStatusIds.PaidOk;
+                model.PaymentDate = transaction.PaySystemResponseAt;
             }
             catch (InvalidOperationException ioex)
             {

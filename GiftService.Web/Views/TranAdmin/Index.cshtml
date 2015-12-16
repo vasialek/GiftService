@@ -14,6 +14,7 @@
 <div class="container">
 
     <div class="page-header">Transaction list</div>
+    <div id="LoadingDiv"><img src="~/Content/images/loader.gif" alt="Loading..." title="Loading..." /></div>
     <table class="table table-bordered table-condensed table-hover" id="Transactions">
         <tr>
             <th>POS</th>
@@ -62,9 +63,11 @@
 
         var Transactions = {
             transactionsBlock: null,
+            loadingDiv: null,
 
             init: function () {
                 this.transactionsBlock = $("#TransactionsBody");
+                this.loadingDiv = $("#LoadingDiv");
                 $("#ProductInfoDiv").dialog({
                     autoOpen: false,
                     width: 500
@@ -73,6 +76,8 @@
 
             loadTransactionsForPage: function (pageNr) {
                 var self = this;
+
+                self.loadingDiv.show();
                 $.ajax({
                     url: "@Url.Action("GetLast")",
                     method: "POST",
@@ -82,6 +87,9 @@
                     },
                     error: function (x, s, e) {
                         alert("Error loading transactions: " + e);
+                    },
+                    complete: function () {
+                        self.loadingDiv.hide();
                     }
                 });
             },

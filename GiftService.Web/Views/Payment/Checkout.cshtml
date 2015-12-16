@@ -62,10 +62,17 @@
             <div class="col-md-4">
                 @*<p>Product</p>*@
                 <ul class="list-group">
-                    <li class="list-group-item">@Html.Raw(Model.ProductName)</li>
+                    <li class="list-group-item">
+                        <b>@Html.Raw(Model.ProductName)</b>
+                        @if (String.IsNullOrEmpty(Model.ProductDescription) == false)
+	                    {
+                            <br />
+		                    @Html.Raw(Model.ProductDescription)
+	                    }
+                    </li>
                     <li class="list-group-item"><span class="glyphicon glyphicon-time" title="Paslaugos trukme"></span> &nbsp; @Model.ProductDuration</li>
                     <li class="list-group-item"><span class="glyphicon glyphicon-euro" title="Paslaugos kaina"></span> &nbsp;
-                        <b>@Model.RequestedAmount.ToString("N2") @Model.CurrencyCode</b></li>
+                        <b>@Model.RequestedAmount.ToString("### ##0.00") @Model.CurrencyCode</b></li>
                 </ul>
 
                 <div class="alert alert-warning">

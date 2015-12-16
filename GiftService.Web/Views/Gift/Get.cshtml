@@ -4,33 +4,62 @@
     ViewBag.Title = String.Concat(Model.Pos.Name, " - ", Model.Product.ProductName);
 }
 
-<h2>
-    @Model.Pos.Name
-</h2>
+
+@Html.DisplayTempMessage()
 
 <div class="row">
-    <div id="GiftFinancial" class="col-md-2">
-        <div>
+    <div class="col-md-10 col-md-offset-1">
+        <h2>@Model.Pos.PosUrl.Host</h2>
+    </div>
+</div>
+<div class="row">
+    <div id="GiftFinancial" class="col-md-1">
+        @*<div>
             Order # @Model.Product.Id
-            @if (Model.IsPaidOk)
-            {
-                <label class="alert-success">Paid</label>
-                @Model.PaymentDate.ToShortDateString()
-            }
-        </div>
+        </div>*@
     </div>
     <div id="GiftInfo" class="col-md-5">
-        <div>@Html.Raw(Model.Product.ProductName)</div>
-        <div>Price: @Model.Product.ProductPrice.ToString("N2") @Model.Product.CurrencyCode</div>
-        <div>
-            Valid till @Model.Product.ValidTill.ToShortDateString()
-        </div>
+        <p>
+            @Resources.Language.Gift_Get_ServiceLabel<br />
+            @Html.Raw(Model.Product.ProductName)<br />
+            @Model.Product.ProductDescription</p>
+        @*<div>Price: @Model.Product.ProductPrice.ToString("N2") @Model.Product.CurrencyCode</div>*@
+        
+        @if (Model.IsPaidOk)
+        {
+            <div>
+                @Resources.Language.Gift_Get_CouponIsValidTill @Model.Product.ValidTill.ToShortDateString()
+            </div>
+            <p class="alert alert-danger">@Resources.Language.Gift_Get_YouMustReserve<br />
+                @Html.Raw(String.Join("<br />", new string[] { Model.Product.PhoneForReservation, Model.Product.EmailForReservation }))
+            </p>
+        }
+
+        <p>@Resources.Language.Gift_Get_ThankYouForUsingUs</p>
     </div>
     <div id="GiftActions" class="col-md-3">
-        <div class="btn-group-vertical">
-            <button id="BtnDownload" class="btn btn-default">Download coupon</button>
-            <button id="BtnPrint" class="btn btn-default">Print coupon</button>
-        </div>
+        @if (Model.IsPaidOk)
+        {
+            <div class="btn-group-vertical">
+                <button class="btn btn-info">@Resources.Language.Gift_Get_PaidAt
+                @Model.PaymentDate.ToShortDateString()</button>
+                <button id="BtnDownload" class="btn btn-default">@Resources.Language.Gift_Get_DownloadCoupon</button>
+                <button id="BtnPrint" class="btn btn-default">@Resources.Language.Gift_Get_PrintCoupon</button>
+            </div>
+        }
+        else if (Model.PaymentStatus == GiftService.Models.PaymentStatusIds.AcceptedButNotExecuted)
+        {
+            <button class="btn btn-warning">
+                @Resources.Language.Gift_Get_PaymentIsProcessing
+            </button>
+        }else
+        {
+            <button class="btn btn-danger">
+                @Resources.Language.Gift_Get_PaymentWasNot
+            </button>
+        }
+
+
     </div>
 </div>
 

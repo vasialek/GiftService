@@ -26,18 +26,26 @@
             </td>
             <td>@t.IsPaymentProcessed</td>
             <td>@(t.PaySystemResponseAt == DateTime.MinValue ? "-" : t.PaySystemResponseAt.ToString())</td>
-            <td>@t.PaySystemUid</td>
+            <td>
+                @if (String.IsNullOrEmpty(t.PaySystemUid) == false)
+                {
+                    @Html.ActionLink(t.PaySystemUid, "Get", "Gift", new { id = t.PaySystemUid }, new { target = "_blank" })
+                }else
+                {
+                    <span>-</span>
+                }
+            </td>
             <td></td>
         </tr>
     }
-} else
-{
+                            } else
+                            {
     <tr>
         <td colspan="12">
             @if (ViewBag.ErrorMessage != null)
-            {
+                                        {
                 <span class="alert alert-danger">@ViewBag.ErrorMessage</span>
-            }
+                    }
             else
             {
                 @:No transactions

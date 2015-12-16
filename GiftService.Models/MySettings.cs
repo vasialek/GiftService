@@ -32,8 +32,8 @@ namespace GiftService.Models
 
         public MySettings()
         {
-            UseTestPayment = true;
-            PayseraPassword = "8ad52eb96c5f3337ba70f9b251310984";
+            UseTestPayment = false;
+            PayseraPassword = "bd5d3446c45c365c8148f5580f717f67";
             PayseraProjectId = 76457;
             PayseraPaymentUrl = new Uri("https://www.mokejimai.lt/pay/");
         }

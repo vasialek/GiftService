@@ -1,4 +1,5 @@
-﻿using GiftService.Models.Payments;
+﻿using GiftService.Models.Exceptions;
+using GiftService.Models.Payments;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,20 @@ namespace GiftService.Bll
             var pars = HttpUtility.ParseQueryString(s);
 
             return BuildResponseFromHttpParameters(pars);
+        }
+
+        public void ValidateSs1(string payseraPassword, string data, string ss1)
+        {
+            string calculatedSs1 = "";
+
+            string s = String.Concat(data, payseraPassword);
+            byte[] ba = MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(s));
+            calculatedSs1 = BllFactory.Current.HelperBll.EncodeHex(ba).ToLower();
+
+            if (calculatedSs1 != ss1)
+            {
+                throw new BadResponseException("Incorrect SS1 value: " + ss1);
+            }
         }
 
         public PayseraPaymentResponse BuildResponseFromHttpParameters(NameValueCollection pars)

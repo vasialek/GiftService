@@ -118,9 +118,45 @@ namespace GiftService.Dal
 
             if (t != null)
             {
-                AutoMapperConfigDal.SetMappingTypeFromLowerToPascal();
-                Mapper.CreateMap<transaction, TransactionBdo>();
-                transaction = Mapper.Map<TransactionBdo>(t);
+                PaymentStatusIds paymentStatus = PaymentStatusIds.NotProcessed;
+                PaymentSystems paymentSystem = PaymentSystems.None;
+                int projectId = 0;
+
+                int.TryParse(t.project_id, out projectId);
+                Enum.TryParse(t.pay_system_id.ToString(), out paymentSystem);
+                Enum.TryParse(t.payment_status_id.ToString(), out paymentStatus);
+
+                transaction = new TransactionBdo
+                {
+                    Id = t.id,
+                    IsPaymentProcessed = t.is_payment_processed,
+                    IsTestPayment = t.is_test_payment,
+
+                    RequestedAmount = t.requested_amount,
+                    RequestedCurrencyCode = t.requested_currency_code,
+                    PaidAmount = t.paid_amount,
+                    PaidCurrencyCode = t.paid_currency_code,
+                    PaidThrough = t.paid_through,
+
+                    PayerName = t.p_name,
+                    PayerLastName = t.p_lastname,
+                    PayerEmail = t.p_email,
+                    PayerPhone = t.p_phone,
+                    Remarks = t.remarks,
+
+                    ProjectId = projectId,
+                    PosId = t.pos_id,
+                    PosUserUid = t.pos_user_uid,
+                    PaySystemUid = t.pay_system_uid,
+                    ProductId = t.product_id,
+                    ProductUid = t.product_uid,
+
+                    PaymentStatus = paymentStatus,
+                    PaymentSystem = paymentSystem,
+
+                    CreatedAt = t.created_at,
+                    PaySystemResponseAt = t.pay_system_response_at.HasValue ? t.pay_system_response_at.Value : DateTime.MinValue
+                };
             }
 
             return transaction;

@@ -20,6 +20,8 @@ namespace GiftService.Models
         /// </summary>
         public ProductBdo Product { get; set; }
 
+        public PaymentStatusIds PaymentStatus { get; set; }
+
         public bool IsPaidOk { get; set; }
 
         public DateTime PaymentDate { get; set; }

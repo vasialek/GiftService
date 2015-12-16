@@ -230,7 +230,35 @@ namespace GiftService.Dal
 
             if (productDao != null)
             {
-                product = Mapper.Map<ProductBdo>(productDao);
+                product = new ProductBdo
+                {
+                    Id = productDao.id,
+                    ProductUid = productDao.product_uid,
+                    PosUserUid = productDao.pos_user_uid,
+                    PaySystemUid = productDao.pay_system_uid,
+
+                    ProductName = productDao.product_name,
+                    ProductDescription = productDao.product_description,
+                    ProductPrice = productDao.product_price,
+                    CurrencyCode = productDao.currency_code,
+
+                    CustomerName = productDao.customer_name,
+                    CustomerEmail = productDao.customer_email,
+                    CustomerPhone = productDao.customer_phone,
+                    Remarks = productDao.remarks,
+
+                    ValidFrom = productDao.valid_from.HasValue ? productDao.valid_from.Value : DateTime.MinValue,
+                    ValidTill = productDao.valid_till.HasValue ? productDao.valid_till.Value : DateTime.MinValue,
+
+                    PosId = productDao.pos_id,
+                    PosName = productDao.pos_name,
+                    PosCity = productDao.pos_city,
+                    PosAddress = productDao.pos_address,
+                    PosUrl = productDao.pos_url,
+
+                    EmailForReservation = productDao.email_reservation,
+                    PhoneForReservation = productDao.phone_reservation
+                };
             }
 
             return product;

@@ -19,5 +19,16 @@ namespace GiftService.Web.Controllers
                 return BllFactory.Current;
             }
         }
+
+        public BaseController()
+        {
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("lt-LT");
+        }
+
+        protected void SetTempMessage(string msg)
+        {
+            TempData["__TempMessage"] = msg;
+        }
+
     }
 }

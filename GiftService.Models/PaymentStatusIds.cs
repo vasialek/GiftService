@@ -11,6 +11,7 @@ namespace GiftService.Models
         NotProcessed = 0,
         WaitingForPayment = 1,
         UserCancelled = 2,
-        PaidOk = 3
+        PaidOk = 3,
+        AcceptedButNotExecuted = 4
     }
 }

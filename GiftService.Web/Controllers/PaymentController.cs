@@ -38,8 +38,26 @@ namespace GiftService.Web.Controllers
         // GET: /Payment/Callback
         public ActionResult Callback()
         {
-            Logger.Info("Got information about payment:");
+            Logger.Info("Got payment callback from Paysera:");
             Logger.Info(Request.RawUrl);
+
+            try
+            {
+                string data = Request["data"];
+                string ss1 = Request["ss1"];
+
+                var resp = Factory.PayseraBll.ParseData(data);
+                Factory.PayseraBll.ValidateSs1(Factory.ConfigurationBll.Get().PayseraPassword, data, ss1);
+
+                Logger.Info("Payment callback is valid, update status of transaction");
+                Factory.TransactionsBll.FinishTransaction(resp);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error processing payment information", ex);
+            }
+
+            // Response OK anyway
             return Content("OK");
         }
 
@@ -54,13 +72,25 @@ namespace GiftService.Web.Controllers
                 Logger.Info("Got response from payment system");
                 Logger.Info(Request.RawUrl);
 
-                var responseFromPaysera = Factory.PayseraBll.ParseData(Request["data"]);
+                string data = Request["data"];
+                string ss1 = Request["ss1"];
+
+                //data = "b3JkZXJpZD02ZmU2OGE2MTYzZWM0MDQzYjBjMDdlYWRmMjFmMDY4YiZhbW91bnQ9MSZjdXJyZW5jeT1FVVImY291bnRyeT1MVCZ0ZXN0PTAmcGF5bWVudD12YjImcF9lbWFpbD1wcm8uZ2xhbWVyJTQwZ21haWwuY29tJnBfZmlyc3RuYW1lPUFsZWtzZWorVGFrJnBfbGFzdG5hbWU9JnBfcGhvbmU9JTJCMzcwKzYwMCsxMjM0NSZwX2NvbW1lbnQ9JnBfaXA9JnBfYWdlbnQ9JnBfZmlsZT0mdmVyc2lvbj0xLjYmcHJvamVjdGlkPTc2NDU3JnBheXRleHQ9Uml0b3NNYXNhemFpLmx0Ky0rR2lsdXMrcHJpc2lsaWV0aW1hcy4rSnVzdSt1enNha3ltYXMraHR0cCUzQSUyRiUyRnd3dy5kb3ZhbnVrdXBvbmFpLmNvbSUyRmdpZnQlMkZnZXQlMkY2ZmU2OGE2MTYzZWM0MDQzYjBjMDdlYWRmMjFmMDY4Yi4rRGVrdW9qdSUyQytSaXRhKyVDNSVCRGlidXRpZW4lQzQlOTcmbGFuZz1saXQmbV9wYXlfcmVzdG9yZWQ9OTExNTA5OTcmc3RhdHVzPTImcmVxdWVzdGlkPTkxMTUwOTk3Jm5hbWU9QWxla3NlaiZzdXJlbmFtZT1WYXNpbm92JnBheWFtb3VudD0xJnBheWN1cnJlbmN5PUVVUiZhY2NvdW50PUxUMzQ3MDQ0MDAwNDM5NjE0NjQ0";
+                //ss1 = "37d30d102b7d9044a55a4994bfe65ec2";
+
+                var responseFromPaysera = Factory.PayseraBll.ParseData(data);
+                Logger.InfoFormat("  Response from Paysera is parsed, checking SS1: `{0}`", ss1);
+                Factory.PayseraBll.ValidateSs1(Factory.ConfigurationBll.Get().PayseraPassword, data, ss1);
+
                 var t = Factory.TransactionsBll.FinishTransaction(responseFromPaysera);
-                if (t.PaymentStatus != PaymentStatusIds.PaidOk)
+                if (t.PaymentStatus != PaymentStatusIds.PaidOk && t.PaymentStatus != PaymentStatusIds.AcceptedButNotExecuted)
                 {
+                    Logger.WarnFormat("Transaction `{0}` is not accepted, bad PaymentStatus {1} ({2})", t.PaySystemUid, t.PaymentStatus, (int)t.PaymentStatus);
                     return Bad();
                 }
 
+                Logger.InfoFormat("Transaction `{0}` is accepted, status is: {1}", t.PaySystemUid, t.PaymentStatus);
+                SetTempMessage(Resources.Language.Payment_PaymentIsOk);
                 return RedirectToAction("Get", "Gift", new { id = t.PaySystemUid });
             }
             catch (Exception ex)
@@ -126,7 +156,7 @@ namespace GiftService.Web.Controllers
                 //model.ProductName = posResponse.ProductName;
                 //model.ProductDuration = posResponse.ProductDuration;
                 model.ProductValidTill = Factory.HelperBll.ConvertFromUnixTimestamp(posResponse.ProductValidTillTm);
-                model.RequestedAmount = posResponse.RequestedAmountMinor / 100;
+                model.RequestedAmount = posResponse.RequestedAmountMinor / 100m;
                 //model.CurrencyCode = posResponse.CurrencyCode;
                 model.Locations = posResponse.Locations ?? new List<ProductServiceLocation>();
 
@@ -188,7 +218,7 @@ namespace GiftService.Web.Controllers
             rq.CustomerPhone = checkout.CustomerPhone;
             //rq.PayText = String.Format("Apmokėjimas už [owner_name] - {0}, per [site_name], http://www.dovanukuponai.com/gift/get/[order_nr]", checkout.ProductName);
             string shortProductName = posResponse.ProductName.Length > 90 ? posResponse.ProductName.Substring(0, 90) : posResponse.ProductName;
-            rq.PayText = String.Concat("RitosMasazai.lt - ", shortProductName , ". Jusu uzsakymas http://www.dovanukuponai.com/gift/get/[order_nr]. Dekuoju, [owner_name]");
+            rq.PayText = String.Concat("RitosMasazai.lt - ", shortProductName , ". Jusu uzsakymas http://www.dovanukuponai.com/gift/get/[order_nr]. Dekoju, [owner_name]");
             Logger.Debug("  sending PayText: " + rq.PayText);
             //rq.Language = PayseraPaymentRequest.Languages.LIT;
             rq.IsTestPayment = configuration.UseTestPayment;
