@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pasirinkite aptarnavimo vieta.
+        /// </summary>
+        internal static string Payment_Checkout_ChooseLocation {
+            get {
+                return ResourceManager.GetString("Payment_Checkout_ChooseLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Klaida apdorojant jusu apmokejima. Musu darbotojai susisiek su jumis..
         /// </summary>
         internal static string Payment_ErrorProcessingTransaction {

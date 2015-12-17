@@ -16,6 +16,7 @@
                 <div id="ProductInformation" class="row">
                     <div class="col-md-10">
                         @*<p>Locations</p>*@
+                        @Html.ValidationMessageFor(x => x.LocationId)
                         <ul class="list-group">
                             @foreach (var l in Model.Locations)
                             {

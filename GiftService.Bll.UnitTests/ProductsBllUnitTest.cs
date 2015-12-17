@@ -43,6 +43,8 @@ namespace GiftService.Bll.UnitTests
         public void Test_SaveProductInformationFromPos_Map_Response()
         {
             DateTime validTill = DateTime.UtcNow;
+            string phoneReservation = "8 600 54321";
+            string emailReservation = "info@dovanukuponai.com";
 
             ProductServiceLocation location = new ProductServiceLocation();
             location.Id = 1;
@@ -51,7 +53,7 @@ namespace GiftService.Bll.UnitTests
             location.Address = "Juozapavi\u010diaus g. 9A - 174";
             
             uint productValidTillTm = new HelperBll().GetUnixTimestamp();
-            var jsonResponse = "{\"Status\":\"true\",\"Message\":\"\",\"PosId\":1005,\"ProductName\":\"Gilus prisilietimas\",\"ProductDuration\":\"40 min\",\"ProductDescription\":\"NO\",\"RequestedAmountMinor\":\"3500\",\"CurrencyCode\":\"EUR\",\"ProductValidTillTm\":" + productValidTillTm + ",\"PosName\":\"\",\"PosUrl\":\"\",\"PosCity\":\"\",\"PosAddress\":\"\",\"PhoneForReservation\":\"\",\"EmailForReservation\":\"\",\"Locations\":[{\"Id\":\"" + location.Id + "\",\"Name\":\"" + location.Name + "\",\"City\":\"" + location.City + "\",\"Address\":\"" + location.Address + "\"},{\"Id\":\"2\",\"Name\":\"SIGMOS SPORTO KLUBAS\",\"City\":\"Vilnius\",\"Address\":\"Kalvarij\u0173 g.131  Luk\u0161io g. 2\"}]}";
+            var jsonResponse = "{\"Status\":\"true\",\"Message\":\"\",\"PosId\":1005,\"ProductName\":\"Gilus prisilietimas\",\"ProductDuration\":\"40 min\",\"ProductDescription\":\"NO\",\"RequestedAmountMinor\":\"3500\",\"CurrencyCode\":\"EUR\",\"ProductValidTillTm\":" + productValidTillTm + ",\"PosName\":\"\",\"PosUrl\":\"\",\"PosCity\":\"\",\"PosAddress\":\"\",\"PhoneForReservation\":\"" + phoneReservation + "\",\"EmailForReservation\":\"" + emailReservation + "\",\"Locations\":[{\"Id\":\"" + location.Id + "\",\"Name\":\"" + location.Name + "\",\"City\":\"" + location.City + "\",\"Address\":\"" + location.Address + "\"},{\"Id\":\"2\",\"Name\":\"SIGMOS SPORTO KLUBAS\",\"City\":\"Vilnius\",\"Address\":\"Kalvarij\u0173 g.131  Luk\u0161io g. 2\"}]}";
             var posResponse = JsonConvert.DeserializeObject<PaymentRequestValidationResponse>(jsonResponse);
 
             var co = new ProductCheckoutModel();
@@ -85,7 +87,8 @@ namespace GiftService.Bll.UnitTests
             Assert.AreEqual(location.City, product.PosCity);
             Assert.AreEqual(location.Address, product.PosAddress);
 
-            //Assert.AreEqual("40 min", product.Pro)
+            Assert.AreEqual(product.PhoneForReservation, phoneReservation);
+            Assert.AreEqual(product.EmailForReservation, emailReservation);
         }
 
         [TestMethod]

@@ -144,6 +144,9 @@
   <data name="Gift_Get_YouMustReserve" xml:space="preserve">
     <value>Privalote užsiregistruoti:</value>
   </data>
+  <data name="Payment_Checkout_ChooseLocation" xml:space="preserve">
+    <value>Pasirinkite aptarnavimo vieta</value>
+  </data>
   <data name="Payment_ErrorProcessingTransaction" xml:space="preserve">
     <value>Klaida apdorojant jusu apmokejima. Musu darbotojai susisiek su jumis.</value>
   </data>

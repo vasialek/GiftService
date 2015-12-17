@@ -184,10 +184,27 @@ namespace GiftService.Web.Controllers
         [HttpPost]
         public ActionResult Checkout(string id, ProductCheckoutModel checkout)
         {
+
             var posResponse = Session["__Product"] as PaymentRequestValidationResponse;
             if (posResponse == null)
             {
                 throw new ArgumentNullException("No product information from POS in session");
+            }
+
+            if (checkout.LocationId < 1)
+            {
+                ModelState.AddModelError("LocationId", Resources.Language.Payment_Checkout_ChooseLocation);
+            }
+            if (ModelState.IsValid == false)
+            {
+                checkout.ProductName = posResponse.ProductName;
+                checkout.ProductDescription = posResponse.ProductDescription;
+                checkout.ProductDuration = posResponse.ProductDuration;
+                checkout.PosUserUid = id;
+                checkout.ProductValidTill = Factory.HelperBll.ConvertFromUnixTimestamp(posResponse.ProductValidTillTm);
+                checkout.RequestedAmount = posResponse.RequestedAmountMinor / 100m;
+                checkout.Locations = posResponse.Locations ?? new List<ProductServiceLocation>();
+                return View("Checkout", GetLayoutForPos(posResponse.PosId), checkout);
             }
 
             var product = Factory.GiftsBll.SaveProductInformationFromPos(id, posResponse, checkout);
@@ -209,9 +226,6 @@ namespace GiftService.Web.Controllers
             rq.AcceptUrl = Url.Action("accept", "payment", null, Request.Url.Scheme);
             rq.CancelUrl = Url.Action("cancel", "payment", null, Request.Url.Scheme);
             rq.CallbackUrl = Url.Action("callback", "payment", null, Request.Url.Scheme);
-            //rq.AcceptUrl = "http://www.dovanukuponai.com/payment/accept/";
-            //rq.CancelUrl = "http://www.dovanukuponai.com/payment/cancel/";
-            //rq.CallbackUrl = "http://www.dovanukuponai.com/payment/callback/";
 
             rq.CustomerName = checkout.CustomerName;
             rq.CustomerEmail = checkout.CustomerEmail;
