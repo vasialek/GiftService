@@ -80,14 +80,16 @@ namespace GiftService.Bll
 
                 d.Open();
                 d.SetMargins(0, 0, 36, 36);
-                DecoratePdf(d, layout);
-                //d.Add(new Paragraph("Ritos masazai"));
 
-                //string posUrl = "www.ritosmasazai.lt";
-                //string customerName = "Some customer";
-                //string informationToRegister = "8 652 98422";
-                //string posLocation = "Juozapavičiaus g. 9A - 174, Vilnius";
-                //string posName = "BABOR GROŽIO CENTRAS";
+                try
+                {
+                    DecoratePdf(d, layout);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Warn("Error decorating PDF with header/footer", ex);
+                }
+
                 string couponBarcode = "RM123456";
 
                 Paragraph pg;

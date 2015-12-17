@@ -23,6 +23,8 @@
             @Resources.Language.Gift_Get_ServiceLabel<br />
             @Html.Raw(Model.Product.ProductName)<br />
             @Model.Product.ProductDescription</p>
+
+        <p>@Html.Raw(Model.PosAddress)</p>
         @*<div>Price: @Model.Product.ProductPrice.ToString("N2") @Model.Product.CurrencyCode</div>*@
         
         @if (Model.IsPaidOk)

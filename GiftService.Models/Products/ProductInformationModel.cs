@@ -15,6 +15,18 @@ namespace GiftService.Models
         /// </summary>
         public PosBdo Pos { get; set; }
 
+        public string PosAddress
+        {
+            get
+            {
+                if (Product != null)
+                {
+                    return String.Join(", ", new string[] { Product.PosAddress, Product.PosCity });
+                }
+                return "";
+            }
+        }
+
         /// <summary>
         /// Information about product/service - name, price, valid, etc
         /// </summary>

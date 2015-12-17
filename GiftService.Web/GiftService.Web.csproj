@@ -132,6 +132,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\Language.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Language.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\AutoMapperConfigWeb.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -145,11 +150,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="MyHtmlHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\loader.gif" />
     <Content Include="Content\p1005\footer-bg.png" />
     <Content Include="Content\p1005\logo-text.png" />
     <Content Include="Content\p1005\logo.png" />
@@ -233,6 +240,7 @@
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\TranAdmin\Index.cshtml" />
     <Content Include="Views\TranAdmin\GetLast.cshtml" />
+    <Content Include="Views\Payment\Bad.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -257,6 +265,12 @@
       <Project>{9869b9f4-70d1-41d5-9d0d-8aa04389c61b}</Project>
       <Name>GiftService.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Language.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Language.Designer.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
