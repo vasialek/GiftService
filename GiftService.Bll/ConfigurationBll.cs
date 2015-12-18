@@ -3,6 +3,7 @@ using GiftService.Models.Payments;
 using GiftService.Models.Pos;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,14 +30,43 @@ namespace GiftService.Bll
             if (_settings == null)
             {
                 _settings = new MySettings();
+
+                string s;
+                bool b;
+
+                s = ConfigurationManager.AppSettings["UseTestPayment"];
+                if (Boolean.TryParse(s, out b) == false)
+                {
+                    b = true;
+                }
+                _settings.UseTestPayment = b;
+
+                string webContentDir = GetMandatoryFromSettings("WebContentDir");
+                _settings.PathToPosContent = webContentDir;
+                _settings.PathToPdfStorage = System.IO.Path.Combine(webContentDir, "coupons");
+
+                _settings.PayseraPassword = GetMandatoryFromSettings("PayseraPassword");
+                _settings.PayseraPaymentUrl = new Uri(GetMandatoryFromSettings("PayseraPaymentGate"));
+                _settings.PayseraProjectId = int.Parse(GetMandatoryFromSettings("PayseraProjectId"));
+
                 //_settings.PathToPdfStorage = "c:\\temp\\giftservice\\";
-                _settings.PathToPdfStorage = "E:\\web\\dovanuku\\Content\\coupons\\";
-                _settings.PathToPosContent = "E:\\web\\dovanuku\\Content\\";
+                //_settings.PathToPdfStorage = "E:\\web\\dovanuku\\Content\\coupons\\";
+                //_settings.PathToPosContent = "E:\\web\\dovanuku\\Content\\";
                 //_settings.PathToPosContent = "c:\\_projects\\GiftService\\GiftService.Web\\Content\\";
                 _settings.LengthOfPosUid = 32;
                 _settings.LengthOfPdfDirectoryName = 5;
             }
             return _settings;
+        }
+
+        protected string GetMandatoryFromSettings(string key)
+        {
+            string s = ConfigurationManager.AppSettings[key];
+            if (String.IsNullOrEmpty(s))
+            {
+                throw new ConfigurationErrorsException("Missing key `" + key + "` in Web.config");
+            }
+            return s;
         }
 
         public string GetDirectoryNameByUid(string productUid)
