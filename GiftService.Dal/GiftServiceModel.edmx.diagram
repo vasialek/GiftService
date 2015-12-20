@@ -7,6 +7,7 @@
       <Diagram DiagramId="7c9e613ab4ee438dbe77f3c5372a5f18" Name="Diagram1">
         <EntityTypeShape EntityType="GiftServiceModel.transaction" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GiftServiceModel.product" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="GiftServiceModel.gslog" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

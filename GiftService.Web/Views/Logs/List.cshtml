@@ -1,0 +1,53 @@
+﻿@model IEnumerable<GiftService.Models.Logs.LogBdo>
+
+<style>
+    #Logs th {
+        font-size: smaller;
+    }
+    #Logs td {
+        padding-top: 1px;
+        padding-bottom: 1px;
+        font-size: x-small;
+    }
+
+    .gs-debug {
+        color: darkgray;
+    }
+    .gs-error {
+        color: red;
+    }
+    .gs-warn {
+        color: orangered;
+    }
+    .gs-fatal {
+        background-color: red;
+    }
+</style>
+
+<table id="Logs" class="table table-condensed table-hover table-bordered table-striped">
+    <tr>
+        <th>ID</th>
+        <th>Level</th>
+        <th>Date</th>
+        <th>Thread</th>
+        <th>Message</th>
+    </tr>
+
+    @foreach (var l in Model)
+    {
+        <tr>
+            <td>@l.Id</td>
+            <td>@l.Level</td>
+            <td nowrap>@l.CreatedAtServer</td>
+            <td>@l.Thread</td>
+            <td class="gs-@l.Level.ToLower()">@l.Message</td>
+        </tr>
+        if (String.IsNullOrEmpty(l.Exception) == false)
+        {
+            <tr>
+                <td colspan="5">@l.Exception</td>
+            </tr>
+        }
+    }
+
+</table>

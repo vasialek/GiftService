@@ -20,6 +20,7 @@ namespace GiftService.Bll
         private PayseraBll _payseraBll = null;
         private IPdfBll _pdfBll = null;
         private IHelperBll _helperBll = null;
+        private ILogsBll _logsBll = null;
 
         private BllFactory()
         {
@@ -149,6 +150,17 @@ namespace GiftService.Bll
             }
         }
 
+        public ILogsBll LogsBll
+        {
+            get
+            {
+                if (_logsBll == null)
+                {
+                    _logsBll = new LogsBll(DalFactory.Current.LogsDal);
+                }
+                return _logsBll;
+            }
+        }
 
     }
 }

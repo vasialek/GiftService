@@ -47,6 +47,7 @@
     <Compile Include="Exceptions\TransactionDoesNotExist.cs" />
     <Compile Include="Exceptions\TransactionStatusException.cs" />
     <Compile Include="JsonModels\PaymentRequestValidationResponse.cs" />
+    <Compile Include="Logs\LogBdo.cs" />
     <Compile Include="PaymentStatusIds.cs" />
     <Compile Include="PaymentSystems.cs" />
     <Compile Include="Payments\PaidThroughSystem.cs" />

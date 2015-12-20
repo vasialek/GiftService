@@ -144,6 +144,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\GiftController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TranAdminController.cs" />
@@ -241,6 +242,7 @@
     <Content Include="Views\TranAdmin\Index.cshtml" />
     <Content Include="Views\TranAdmin\GetLast.cshtml" />
     <Content Include="Views\Payment\Bad.cshtml" />
+    <Content Include="Views\Logs\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

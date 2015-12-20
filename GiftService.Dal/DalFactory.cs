@@ -13,6 +13,8 @@ namespace GiftService.Dal
         private IPosDal _posDal = null;
         private IProductsDal _productsDal = null;
         private ITransactionDal _transactionDal = null;
+        private ILogsDal _logsDal = null;
+
 
         private DalFactory()
         {
@@ -67,5 +69,16 @@ namespace GiftService.Dal
             }
         }
 
+        public ILogsDal LogsDal
+        {
+            get
+            {
+                if (_logsDal == null)
+                {
+                    _logsDal = new LogsDal();
+                }
+                return _logsDal;
+            }
+        }
     }
 }

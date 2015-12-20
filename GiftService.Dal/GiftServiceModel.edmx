@@ -5,6 +5,25 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="GiftServiceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_96601_giftservice.dbo.gslog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="gslog">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="date" />
+            <PropertyRef Name="thread" />
+            <PropertyRef Name="level" />
+            <PropertyRef Name="logger" />
+            <PropertyRef Name="message" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="thread" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="level" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="logger" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="message" Type="varchar" MaxLength="4000" Nullable="false" />
+          <Property Name="exception" Type="varchar" MaxLength="2000" />
+        </EntityType>
         <EntityType Name="product">
           <Key>
             <PropertyRef Name="id" />
@@ -63,6 +82,17 @@
         <EntityContainer Name="GiftServiceModelStoreContainer">
           <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="transaction" EntityType="Self.transaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="gslog" EntityType="Self.gslog" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [gslog].[id] AS [id], 
+    [gslog].[date] AS [date], 
+    [gslog].[thread] AS [thread], 
+    [gslog].[level] AS [level], 
+    [gslog].[logger] AS [logger], 
+    [gslog].[message] AS [message], 
+    [gslog].[exception] AS [exception]
+    FROM [dbo].[gslog] AS [gslog]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -100,6 +130,7 @@
         <EntityContainer Name="GiftServiceEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="transactions" EntityType="Self.transaction" />
           <EntitySet Name="products" EntityType="GiftServiceModel.product" />
+          <EntitySet Name="gslogs" EntityType="GiftServiceModel.gslog" />
         </EntityContainer>
         <EntityType Name="product">
           <Key>
@@ -126,6 +157,23 @@
           <Property Name="customer_phone" Type="String" MaxLength="128" FixedLength="true" Unicode="true" />
           <Property Name="customer_email" Type="String" MaxLength="128" FixedLength="true" Unicode="true" />
           <Property Name="remarks" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="gslog">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="date" />
+            <PropertyRef Name="thread" />
+            <PropertyRef Name="level" />
+            <PropertyRef Name="logger" />
+            <PropertyRef Name="message" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="thread" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="level" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="logger" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="message" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="exception" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -186,6 +234,19 @@
                 <ScalarProperty Name="pos_user_uid" ColumnName="pos_user_uid" />
                 <ScalarProperty Name="pos_id" ColumnName="pos_id" />
                 <ScalarProperty Name="product_uid" ColumnName="product_uid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gslogs">
+            <EntityTypeMapping TypeName="GiftServiceModel.gslog">
+              <MappingFragment StoreEntitySet="gslog">
+                <ScalarProperty Name="exception" ColumnName="exception" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="logger" ColumnName="logger" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="thread" ColumnName="thread" />
+                <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -76,6 +76,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GiftServiceModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="gslog.cs">
+      <DependentUpon>GiftServiceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LogsDal.cs" />
     <Compile Include="PosDal.cs" />
     <Compile Include="product.cs">
       <DependentUpon>GiftServiceModel.tt</DependentUpon>

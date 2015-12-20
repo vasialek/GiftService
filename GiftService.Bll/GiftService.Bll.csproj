@@ -47,6 +47,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -62,6 +63,7 @@
     <Compile Include="ConfigurationBll.cs" />
     <Compile Include="DumpBll.cs" />
     <Compile Include="HelperBll.cs" />
+    <Compile Include="LogsBll.cs" />
     <Compile Include="PayseraBll.cs" />
     <Compile Include="PdfBll.cs" />
     <Compile Include="PosBll.cs" />

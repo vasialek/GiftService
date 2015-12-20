@@ -27,5 +27,6 @@ namespace GiftService.Dal
     
         public virtual DbSet<transaction> transactions { get; set; }
         public virtual DbSet<product> products { get; set; }
+        public virtual DbSet<gslog> gslogs { get; set; }
     }
 }
