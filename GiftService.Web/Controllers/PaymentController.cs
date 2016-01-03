@@ -96,7 +96,7 @@ namespace GiftService.Web.Controllers
             catch (Exception ex)
             {
                 Logger.Error("Error accepting callback from payment system", ex);
-                throw;
+                return Bad();
             }
         }
 
@@ -114,7 +114,7 @@ namespace GiftService.Web.Controllers
             }
             catch (Exception ex)
             {
-                Logger.Error("Error canceling transactio", ex);
+                Logger.Error("Error canceling transaction", ex);
             }
 
             return View("Cancel", GetLayoutForPos(1005));
@@ -123,6 +123,12 @@ namespace GiftService.Web.Controllers
         public ActionResult Bad()
         {
             return View("Bad", GetLayoutForPos(1005));
+        }
+
+        // GET: /Payment/Incorrect
+        public ActionResult Incorrect()
+        {
+            return View("Incorrect", GetLayoutForPos(1005));
         }
 
         // GET: /Payment/Make/UniquePaymentId
@@ -165,18 +171,19 @@ namespace GiftService.Web.Controllers
             catch (System.Net.WebException wex)
             {
                 Logger.Error("Probably, there is no connection with POS", wex);
-                throw;
+                //throw;
+                return Incorrect();
             }
             catch (Newtonsoft.Json.JsonReaderException jre)
             {
                 Logger.Error("Incorrect JSON response from POS", jre);
-                throw;
+                return Incorrect();
             }
             catch (Exception ex)
             {
                 Logger.Error("Error making payment for POS", ex);
                 //return new RedirectResult(Url.Action("Error"));
-                throw;
+                return Incorrect();
             }
         }
 

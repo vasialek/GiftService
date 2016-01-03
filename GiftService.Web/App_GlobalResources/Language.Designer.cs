@@ -142,6 +142,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Atgal i parduotuve.
+        /// </summary>
+        internal static string Payment_Cancel_BackToProductPage {
+            get {
+                return ResourceManager.GetString("Payment_Cancel_BackToProductPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You cancelled your payment.
+        /// </summary>
+        internal static string Payment_Cancel_YouCancelledYourPayment {
+            get {
+                return ResourceManager.GetString("Payment_Cancel_YouCancelledYourPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pasirinkite aptarnavimo vieta.
         /// </summary>
         internal static string Payment_Checkout_ChooseLocation {
@@ -160,11 +178,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Klaida apdorojant mokejimo duomenis.
+        /// </summary>
+        internal static string Payment_Incorrect_ErrorMakingPayment {
+            get {
+                return ResourceManager.GetString("Payment_Incorrect_ErrorMakingPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sveikiname, Jus isigijote kupona..
         /// </summary>
         internal static string Payment_PaymentIsOk {
             get {
                 return ResourceManager.GetString("Payment_PaymentIsOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Musu darbotojai su jumis susisieks.
+        /// </summary>
+        internal static string SystemMessage_WeWillContactYouOnError {
+            get {
+                return ResourceManager.GetString("SystemMessage_WeWillContactYouOnError", resourceCulture);
             }
         }
     }

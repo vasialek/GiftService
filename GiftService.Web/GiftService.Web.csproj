@@ -243,6 +243,7 @@
     <Content Include="Views\TranAdmin\GetLast.cshtml" />
     <Content Include="Views\Payment\Bad.cshtml" />
     <Content Include="Views\Logs\List.cshtml" />
+    <Content Include="Views\Payment\Incorrect.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

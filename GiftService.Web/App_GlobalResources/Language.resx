@@ -124,13 +124,13 @@
     <value>Atsisiųsti kuponą</value>
   </data>
   <data name="Gift_Get_PaidAt" xml:space="preserve">
-    <value>Sumoketa</value>
+    <value>Sumokėta</value>
   </data>
   <data name="Gift_Get_PaymentIsProcessing" xml:space="preserve">
-    <value>Apmokejima apdorojamas, palaukite</value>
+    <value>Apmokėjimas vykdomas, prašome palaukti</value>
   </data>
   <data name="Gift_Get_PaymentWasNot" xml:space="preserve">
-    <value>Apmokejimas nebuvo atliktas</value>
+    <value>Apmokėjimas nebuvo atliktas</value>
   </data>
   <data name="Gift_Get_PrintCoupon" xml:space="preserve">
     <value>Atsispausdinti kuponą</value>
@@ -144,13 +144,25 @@
   <data name="Gift_Get_YouMustReserve" xml:space="preserve">
     <value>Privalote užsiregistruoti:</value>
   </data>
+  <data name="Payment_Cancel_BackToProductPage" xml:space="preserve">
+    <value>Atgal į parduotuvę</value>
+  </data>
+  <data name="Payment_Cancel_YouCancelledYourPayment" xml:space="preserve">
+    <value>Jūsų mokėjimas atšauktas</value>
+  </data>
   <data name="Payment_Checkout_ChooseLocation" xml:space="preserve">
-    <value>Pasirinkite aptarnavimo vieta</value>
+    <value>Pasirinkite aptarnavimo vietą</value>
   </data>
   <data name="Payment_ErrorProcessingTransaction" xml:space="preserve">
-    <value>Klaida apdorojant jusu apmokejima. Musu darbotojai susisiek su jumis.</value>
+    <value>Klaida vykdant apmokėjimą. Mūsų darbuotojai susisieks su Jumis.</value>
+  </data>
+  <data name="Payment_Incorrect_ErrorMakingPayment" xml:space="preserve">
+    <value>Klaida apdorojant mokėjimo duomenis</value>
   </data>
   <data name="Payment_PaymentIsOk" xml:space="preserve">
-    <value>Sveikiname, Jus isigijote kupona.</value>
+    <value>Sveikiname, Jūs įsigijote kuponą.</value>
+  </data>
+  <data name="SystemMessage_WeWillContactYouOnError" xml:space="preserve">
+    <value>Mūsų darbuotojai su Jumis susisieks.</value>
   </data>
 </root>
