@@ -30,7 +30,7 @@ namespace GiftService.Web.Controllers
         // GET: Gift
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: /Gift/Get/UniqueGiftId
@@ -52,6 +52,11 @@ namespace GiftService.Web.Controllers
             {
                 Logger.Error(ioex);
                 return NotFound();
+            }
+            catch (System.Data.Entity.Core.EntityException eex)
+            {
+                Logger.Fatal("Database exception, getting gift", eex);
+                throw;
             }
             catch (Exception ex)
             {
@@ -108,13 +113,5 @@ namespace GiftService.Web.Controllers
             return View("NotFound");
         }
 
-        private string GetLayoutForPos(int posId)
-        {
-            if (posId == 1005)
-            {
-                return "_Layout_Pos_1005";
-            }
-            return "_Layout";
-        }
     }
 }

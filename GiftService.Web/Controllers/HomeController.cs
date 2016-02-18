@@ -7,11 +7,11 @@ using System.Web.Mvc;
 
 namespace GiftService.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
-            return View();
+            return View("Index", GetLayoutForPos());
         }
 
         //public ActionResult About()
@@ -24,14 +24,14 @@ namespace GiftService.Web.Controllers
         // GET: /Home/Rules
         public ActionResult Rules()
         {
-            return View();
+            return View("Rules", GetLayoutForPos());
         }
 
         // GET: /Home/Contact
         public ActionResult Contact()
         {
             var model = new ContactUsModel();
-            return View("Contact", model);
+            return View("Contact", GetLayoutForPos(), model);
         }
 
         // POST: /Home/Contact
@@ -42,7 +42,7 @@ namespace GiftService.Web.Controllers
             {
                 model.IsSent = true;
             }
-            return View("Contact", model);
+            return View("Contact", GetLayoutForPos(), model);
         }
     }
 }

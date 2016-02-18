@@ -231,3 +231,4 @@ $RECYCLE.BIN/
 *.lnk
 GiftService.Web/Web.config
 GiftService.Web/Web.config
+doc/testse/rm*

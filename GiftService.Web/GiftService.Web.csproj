@@ -236,7 +236,7 @@
     <Content Include="Views\Payment\Make.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Payment\Checkout.cshtml" />
-    <Content Include="Views\Shared\_Layout_Pos_1005.cshtml" />
+    <Content Include="Views\Shared\_LayoutPos_1005.cshtml" />
     <Content Include="Views\Payment\Cancel.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\TranAdmin\Index.cshtml" />

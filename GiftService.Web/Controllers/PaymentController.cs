@@ -255,17 +255,6 @@ namespace GiftService.Web.Controllers
             return RedirectToAction("Get", "Gift", new { id = product.PaySystemUid });
         }
 
-        //protected decimal ParseDecimal(string s)
-        //{
-        //    decimal d = 0;
-
-        //    return d;
-        //}
-
-        private string GetLayoutForPos(int posId)
-        {
-            return "_Layout_Pos_1005";
-        }
     }
 
 }

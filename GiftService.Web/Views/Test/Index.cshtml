@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -16,6 +15,8 @@
 }
 
 <h2>Index</h2>
+
+@(12.5m.ToString("C"))
 
 @using (Html.BeginForm("Make", "Payment", new { id = posUserUid }))
 {

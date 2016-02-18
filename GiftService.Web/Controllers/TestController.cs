@@ -41,10 +41,14 @@ namespace GiftService.Web.Controllers
         public ActionResult Index()
         {
             Session["xxx"] = "13246579874651564645";
+            if (String.IsNullOrEmpty(Request["posId"]) == false)
+            {
+                SessionStore.PosId = int.Parse(Request["posId"]);
+            }
             //Logger.Debug(Server.MapPath("~/Content"));
             //SetTempMessage(Resources.Language.Payment_PaymentIsOk);
-            return RedirectToAction("Get", "Gift", new { id = "fe91f4287ca54d8cac3fa7ca4d5eb0ac" });
-            return View();
+            //return RedirectToAction("Get", "Gift", new { id = "fe91f4287ca54d8cac3fa7ca4d5eb0ac" });
+            return View("", GetLayoutForPos());
         }
 
         public ActionResult Log()
