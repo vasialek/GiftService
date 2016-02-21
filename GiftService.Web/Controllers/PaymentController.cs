@@ -181,7 +181,7 @@ namespace GiftService.Web.Controllers
             }
             catch (Exception ex)
             {
-                Logger.Error("Error making payment for POS", ex);
+                Logger.Error("Error validating payment request from POS", ex);
                 //return new RedirectResult(Url.Action("Error"));
                 return Incorrect();
             }

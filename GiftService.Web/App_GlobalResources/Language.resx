@@ -144,6 +144,9 @@
   <data name="Gift_Get_YouMustReserve" xml:space="preserve">
     <value>Privalote užsiregistruoti:</value>
   </data>
+  <data name="Home_ContactUs_MessageIsSentOk" xml:space="preserve">
+    <value>Aciū, Jūsų užklausa išsiusta</value>
+  </data>
   <data name="Payment_Cancel_BackToProductPage" xml:space="preserve">
     <value>Atgal į parduotuvę</value>
   </data>
@@ -161,6 +164,12 @@
   </data>
   <data name="Payment_PaymentIsOk" xml:space="preserve">
     <value>Sveikiname, Jūs įsigijote kuponą.</value>
+  </data>
+  <data name="Pos_OurClients_NoResults" xml:space="preserve">
+    <value>Siuo metu klientai nerodomi</value>
+  </data>
+  <data name="Pos_OurClients_Title" xml:space="preserve">
+    <value>Mūsų klientai</value>
   </data>
   <data name="SystemMessage_WeWillContactYouOnError" xml:space="preserve">
     <value>Mūsų darbuotojai su Jumis susisieks.</value>

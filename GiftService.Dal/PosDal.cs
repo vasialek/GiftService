@@ -11,6 +11,7 @@ namespace GiftService.Dal
     public interface IPosDal
     {
         PosBdo GetById(int posId);
+        IEnumerable<PosBdo> GetLastPos();
     }
 
     public class PosDal : IPosDal
@@ -46,6 +47,12 @@ namespace GiftService.Dal
         {
             Logger.InfoFormat("Searching for POS by ID #{0}", posId);
             return _poses.First(x => x.Id == posId);
+        }
+
+        public IEnumerable<PosBdo> GetLastPos()
+        {
+            Logger.Info("Getting list of last POS");
+            return _poses.OrderByDescending(x => x.Id).ToList();
         }
     }
 }

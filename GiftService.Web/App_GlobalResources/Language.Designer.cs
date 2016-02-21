@@ -79,7 +79,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sumoketa.
+        ///   Looks up a localized string similar to Sumokėta.
         /// </summary>
         internal static string Gift_Get_PaidAt {
             get {
@@ -88,7 +88,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apmokejima apdorojamas, palaukite.
+        ///   Looks up a localized string similar to Apmokėjimas vykdomas, prašome palaukti.
         /// </summary>
         internal static string Gift_Get_PaymentIsProcessing {
             get {
@@ -97,7 +97,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apmokejimas nebuvo atliktas.
+        ///   Looks up a localized string similar to Apmokėjimas nebuvo atliktas.
         /// </summary>
         internal static string Gift_Get_PaymentWasNot {
             get {
@@ -142,7 +142,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Atgal i parduotuve.
+        ///   Looks up a localized string similar to Aciū, Jūsų užklausa išsiusta.
+        /// </summary>
+        internal static string Home_ContactUs_MessageIsSentOk {
+            get {
+                return ResourceManager.GetString("Home_ContactUs_MessageIsSentOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Atgal į parduotuvę.
         /// </summary>
         internal static string Payment_Cancel_BackToProductPage {
             get {
@@ -151,7 +160,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You cancelled your payment.
+        ///   Looks up a localized string similar to Jūsų mokėjimas atšauktas.
         /// </summary>
         internal static string Payment_Cancel_YouCancelledYourPayment {
             get {
@@ -160,7 +169,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pasirinkite aptarnavimo vieta.
+        ///   Looks up a localized string similar to Pasirinkite aptarnavimo vietą.
         /// </summary>
         internal static string Payment_Checkout_ChooseLocation {
             get {
@@ -169,7 +178,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klaida apdorojant jusu apmokejima. Musu darbotojai susisiek su jumis..
+        ///   Looks up a localized string similar to Klaida vykdant apmokėjimą. Mūsų darbuotojai susisieks su Jumis..
         /// </summary>
         internal static string Payment_ErrorProcessingTransaction {
             get {
@@ -178,7 +187,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klaida apdorojant mokejimo duomenis.
+        ///   Looks up a localized string similar to Klaida apdorojant mokėjimo duomenis.
         /// </summary>
         internal static string Payment_Incorrect_ErrorMakingPayment {
             get {
@@ -187,7 +196,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sveikiname, Jus isigijote kupona..
+        ///   Looks up a localized string similar to Sveikiname, Jūs įsigijote kuponą..
         /// </summary>
         internal static string Payment_PaymentIsOk {
             get {
@@ -196,7 +205,25 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Musu darbotojai su jumis susisieks.
+        ///   Looks up a localized string similar to Siuo metu klientai nerodomi.
+        /// </summary>
+        internal static string Pos_OurClients_NoResults {
+            get {
+                return ResourceManager.GetString("Pos_OurClients_NoResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mūsų klientai.
+        /// </summary>
+        internal static string Pos_OurClients_Title {
+            get {
+                return ResourceManager.GetString("Pos_OurClients_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mūsų darbuotojai su Jumis susisieks..
         /// </summary>
         internal static string SystemMessage_WeWillContactYouOnError {
             get {

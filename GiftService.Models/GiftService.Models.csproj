@@ -53,6 +53,7 @@
     <Compile Include="Payments\PaidThroughSystem.cs" />
     <Compile Include="Payments\PayseraPaymentRequest.cs" />
     <Compile Include="Payments\PayseraPaymentResponse.cs" />
+    <Compile Include="Pos\PosClient.cs" />
     <Compile Include="Pos\PosPdfLayout.cs" />
     <Compile Include="Products\ProductCheckoutModel.cs" />
     <Compile Include="Products\ProductInformationModel.cs" />

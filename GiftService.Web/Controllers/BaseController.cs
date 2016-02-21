@@ -44,11 +44,11 @@ namespace GiftService.Web.Controllers
             {
                 if (_sessionStore == null)
                 {
-                    Logger.Debug("Creating/restoring session store");
+                    //Logger.Debug("Creating/restoring session store");
                     _sessionStore = Session["__GsSession"] as SessionStore;
                     if (_sessionStore == null)
                     {
-                        Logger.Debug("  creating new session store");
+                        //Logger.Debug("  creating new session store");
                         _sessionStore = new SessionStore();
                         Session["__GsSession"] = _sessionStore;
                     }
@@ -68,18 +68,18 @@ namespace GiftService.Web.Controllers
         {
             if (posId > 0)
             {
-                Logger.DebugFormat("Layout for POS ID: {0}", posId);
+                //Logger.DebugFormat("Layout for POS ID: {0}", posId);
                 // TODO: check if valid POS
                 return String.Concat("_LayoutPos_", posId);
             }
 
             if (SessionStore.PosId > 0)
             {
-                Logger.DebugFormat("Layout for POS ID (from session): {0}", SessionStore.PosId);
+                //Logger.DebugFormat("Layout for POS ID (from session): {0}", SessionStore.PosId);
                 return String.Concat("_LayoutPos_", SessionStore.PosId);
             }
 
-            Logger.Debug("Default Layout: _Layout");
+            //Logger.Debug("Default Layout: _Layout");
             return "_Layout";
         }
 
