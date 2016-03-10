@@ -48,7 +48,7 @@ namespace GiftService.Bll
             var ps = _posDal.GetLastPos();
             //list.Add(new PosClient { PosId = 1005, Name = "RitosMasazai.lt", Description = "Rankos, suteikiančios pagalbą, švelnesnės negu besimeldžiančios lūpos", Url = "http://www.ritosmasazai.lt/lt/7/kainorastis" });
 
-            return ps.Select(x => new PosClient { PosId = x.Id, Name = x.Name, Description = x.Name, Url = x.PosUrl });
+            return ps.Select(x => new PosClient { PosId = x.Id, Name = x.Name, Description = x.Description, Url = x.PosUrl });
         }
 
         public int GetPosIdFromUid(string posUid)

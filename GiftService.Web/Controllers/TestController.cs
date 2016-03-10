@@ -1,4 +1,6 @@
-﻿using GiftService.Models.JsonModels;
+﻿using GiftService.Models;
+using GiftService.Models.JsonModels;
+using GiftService.Models.Products;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,9 @@ namespace GiftService.Web.Controllers
 {
     public class TestController : BaseController
     {
+        // Test products for shop
+        private static IList<ProductBdo> _products;
+
         private ILog _logger = null;
         private ILog Logger
         {
@@ -24,30 +29,36 @@ namespace GiftService.Web.Controllers
             }
         }
 
-        public ActionResult MeasureCache()
+        public TestController()
         {
-            int total = 0;
-            string v;
-            foreach (string key in Session.Keys)
-            {
-                v = Session[key] as string;
-                total += v == null ? 0 : v.Length;
-            }
+            var pos = new PosBdo();
+            pos.Id = 6666;
+            pos.Name = "Test shop";
 
-            return Content("Total in session: " + total + " bytes");
+            string uid;
+            if (_products == null)
+            {
+                _products = new List<ProductBdo>();
+
+                uid = Factory.HelperBll.GenerateProductUid(pos.Id);
+                _products.Add(new ProductBdo { ProductUid = uid, Id = 666001, ProductName = "Test product #1", ProductPrice = 666.01m, PosId = pos.Id, PosName = pos.Name });
+                uid = Factory.HelperBll.GenerateProductUid(pos.Id);
+                _products.Add(new ProductBdo { ProductUid = uid, Id = 666001, ProductName = "Test product #2", ProductPrice = 666.22m, PosId = pos.Id, PosName = pos.Name }); 
+            }
         }
 
         // GET: Test
         public ActionResult Index()
         {
-            Session["xxx"] = "13246579874651564645";
-            if (String.IsNullOrEmpty(Request["posId"]) == false)
-            {
-                SessionStore.PosId = int.Parse(Request["posId"]);
-            }
+            //Session["xxx"] = "13246579874651564645";
+            //if (String.IsNullOrEmpty(Request["posId"]) == false)
+            //{
+            //    SessionStore.PosId = int.Parse(Request["posId"]);
+            //}
             //Logger.Debug(Server.MapPath("~/Content"));
             //SetTempMessage(Resources.Language.Payment_PaymentIsOk);
             //return RedirectToAction("Get", "Gift", new { id = "fe91f4287ca54d8cac3fa7ca4d5eb0ac" });
+            return Content("Order ID: " + Factory.GiftsBll.GetUniqueOrderId(1005));
             return View("", GetLayoutForPos());
         }
 
@@ -63,19 +74,45 @@ namespace GiftService.Web.Controllers
 
         // POST: /Test/Validate
         [HttpPost]
-        public JsonResult Validate()
+        public JsonResult Validate(string id)
         {
-            string[] errors = new string[0];
-            return Json(new PaymentRequestValidationResponse
+            var resp = new PaymentRequestValidationResponse();
+            try
             {
-                Status = true,
-                Message = "Ok",
-                Errors = errors,
-                RequestedAmountMinor = 666,
-                CurrencyCode = "EUR",
-                ProductName = "Massage #2",
-                ProductDescription = "Very good and sensitive"
-            });
+                var product = _products.First(x => x.ProductUid == id);
+                string[] errors = new string[0];
+
+                resp.Status = true;
+                resp.Message = "Ok";
+                resp.Errors = errors;
+                resp.ProductName = product.ProductName;
+                resp.RequestedAmountMinor = (int)(product.ProductPrice * 100);
+                resp.CurrencyCode = "EUR";
+                resp.Locations = new List<ProductServiceLocation>();
+                resp.Locations.Add(new ProductServiceLocation { Id = 666001, Name = "LocalShop", City = "Computer", Address = "127.0.0.1" });
+                //return Json(new PaymentRequestValidationResponse
+                //{
+                //    Status = true,
+                //    Message = "Ok",
+                //    Errors = errors,
+                //    RequestedAmountMinor = 666,
+                //    CurrencyCode = "EUR",
+                //    ProductName = "Massage #2",
+                //    ProductDescription = "Very good and sensitive"
+                //});
+            }
+            catch (Exception ex)
+            {
+                resp.Status = false;
+                resp.Errors = new string[] { ex.Message };
+            }
+            return Json(resp);
+        }
+
+        // GET: /Test/Shop
+        public ActionResult Shop()
+        {
+            return View("Shop", "_LayoutPos_6666", _products);
         }
     }
 }

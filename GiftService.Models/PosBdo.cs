@@ -9,7 +9,11 @@ namespace GiftService.Models
     public class PosBdo
     {
         public int Id { get; set; }
+
         public string Name { get; set; }
+
+        public string Description { get; set; }
+
         public Uri PosUrl { get; set; }
 
         /// <summary>
@@ -31,5 +35,7 @@ namespace GiftService.Models
         /// General errors from payment system
         /// </summary>
         public Uri CallbackUrl { get; set; }
+
+        public bool IsTest { get; set; }
     }
 }
