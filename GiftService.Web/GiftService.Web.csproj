@@ -247,6 +247,9 @@
     <Content Include="Views\Logs\List.cshtml" />
     <Content Include="Views\Payment\Incorrect.cshtml" />
     <Content Include="Views\Pos\OurClients.cshtml" />
+    <Content Include="Views\Test\Shop.cshtml" />
+    <Content Include="Views\Shared\_LayoutPos_6666.cshtml" />
+    <Content Include="Views\TranAdmin\Validate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

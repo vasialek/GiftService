@@ -1,4 +1,5 @@
 ﻿using GiftService.Bll;
+using GiftService.Models;
 using GiftService.Models.Web;
 using log4net;
 using System;
@@ -13,6 +14,7 @@ namespace GiftService.Web.Controllers
     public class BaseController : Controller
     {
         private ILog _logger = null;
+        private MySettings _settings = null;
         protected SessionStore _sessionStore = null;
         protected BllFactory _bllFactory = null;
 
@@ -27,6 +29,18 @@ namespace GiftService.Web.Controllers
                 }
 
                 return _logger;
+            }
+        }
+
+        protected MySettings MySettings
+        {
+            get
+            {
+                if (_settings == null)
+                {
+                    _settings = Factory.ConfigurationBll.Get();
+                }
+                return _settings;
             }
         }
 
@@ -88,5 +102,16 @@ namespace GiftService.Web.Controllers
             TempData["__TempMessage"] = msg;
         }
 
+        protected override ViewResult View(string viewName, string masterName, object model)
+        {
+            this.ViewBag.ProjectName = MySettings.ProjectName;
+            return base.View(viewName, masterName, model);
+        }
+
+        protected override void HandleUnknownAction(string actionName)
+        {
+            Logger.Warn("[404] Unknown action: " + actionName + ". Request is: " + Request.RawUrl);
+            base.HandleUnknownAction(actionName);
+        }
     }
 }
