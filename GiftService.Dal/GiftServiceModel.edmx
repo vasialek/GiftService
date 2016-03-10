@@ -79,6 +79,9 @@ warning 6002: The table/view 'DB_96601_giftservice.dbo.gslog' does not have a pr
           <Property Name="created_at" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="pay_system_response_at" Type="datetime2" Precision="7" />
         </EntityType>
+        <Function Name="unique_orderid_get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pos_id" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="GiftServiceModelStoreContainer">
           <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="transaction" EntityType="Self.transaction" Schema="dbo" store:Type="Tables" />
@@ -131,6 +134,9 @@ warning 6002: The table/view 'DB_96601_giftservice.dbo.gslog' does not have a pr
           <EntitySet Name="transactions" EntityType="Self.transaction" />
           <EntitySet Name="products" EntityType="GiftServiceModel.product" />
           <EntitySet Name="gslogs" EntityType="GiftServiceModel.gslog" />
+          <FunctionImport Name="unique_orderid_get" ReturnType="Collection(String)">
+            <Parameter Name="pos_id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="product">
           <Key>
@@ -157,6 +163,7 @@ warning 6002: The table/view 'DB_96601_giftservice.dbo.gslog' does not have a pr
           <Property Name="customer_phone" Type="String" MaxLength="128" FixedLength="true" Unicode="true" />
           <Property Name="customer_email" Type="String" MaxLength="128" FixedLength="true" Unicode="true" />
           <Property Name="remarks" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="order_nr" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="gslog">
           <Key>
@@ -251,6 +258,7 @@ warning 6002: The table/view 'DB_96601_giftservice.dbo.gslog' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="unique_orderid_get" FunctionName="GiftServiceModel.Store.unique_orderid_get" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

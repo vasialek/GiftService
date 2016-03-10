@@ -72,7 +72,10 @@ namespace GiftService.Bll
 
             try
             {
-                var validationUri = new Uri(pos.ValidateUrl.ToString() + posUserUid);
+                //var validationUri = new Uri(pos.ValidateUrl.ToString() + posUserUid);
+                string url = pos.ValidateUrl.ToString();
+                url = url.EndsWith("/") ? String.Concat(url, posUserUid) : String.Concat(url, "/", posUserUid);
+                var validationUri = new Uri(url);
                 Logger.InfoFormat("Validating request payment from POS: `{0}`", validationUri.ToString());
                 response = _communicationBll.GetJsonResponse<PaymentRequestValidationResponse>(validationUri);
                 if (response == null)

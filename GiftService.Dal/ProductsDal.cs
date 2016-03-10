@@ -14,6 +14,7 @@ namespace GiftService.Dal
         ProductBdo GetProductByUid(string productUid);
         ProductBdo GetProductByPaySystemUid(string paySystemUid);
         ProductBdo SaveProductInformationFromPos(ProductBdo product, PosBdo pos);
+        string GetUniqueOrderId(int posId);
     }
 
     public class ProductsDal : IProductsDal
@@ -217,6 +218,19 @@ namespace GiftService.Dal
             }
 
             return product;
+        }
+
+        public string GetUniqueOrderId(int posId)
+        {
+            Logger.Info("Generating unique order ID (in database)");
+            string orderId = null;
+            using (var db = new GiftServiceEntities())
+            {
+                var r = db.unique_orderid_get(posId);
+                orderId = r.First();
+            }
+
+            return orderId;
         }
     }
 }

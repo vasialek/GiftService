@@ -35,5 +35,6 @@ namespace GiftService.Dal
         public string customer_phone { get; set; }
         public string customer_email { get; set; }
         public string remarks { get; set; }
+        public string order_nr { get; set; }
     }
 }
