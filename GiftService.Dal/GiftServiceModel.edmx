@@ -163,7 +163,6 @@ warning 6002: The table/view 'DB_96601_giftservice.dbo.gslog' does not have a pr
           <Property Name="customer_phone" Type="String" MaxLength="128" FixedLength="true" Unicode="true" />
           <Property Name="customer_email" Type="String" MaxLength="128" FixedLength="true" Unicode="true" />
           <Property Name="remarks" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
-          <Property Name="order_nr" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="gslog">
           <Key>
