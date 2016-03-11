@@ -24,6 +24,11 @@ namespace GiftService.Models
         public string PosUserUid { get; set; }
 
         /// <summary>
+        /// Nice order for communication with payment systems
+        /// </summary>
+        public string OrderNr { get; set; }
+
+        /// <summary>
         /// UID to communicate with payement systems
         /// </summary>
         public string PaySystemUid { get; set; }

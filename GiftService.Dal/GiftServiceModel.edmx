@@ -78,6 +78,7 @@ warning 6002: The table/view 'DB_96601_giftservice.dbo.gslog' does not have a pr
           <Property Name="response_from_payment" Type="nvarchar" MaxLength="2048" />
           <Property Name="created_at" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="pay_system_response_at" Type="datetime2" Precision="7" />
+          <Property Name="order_nr" Type="nchar" MaxLength="32" />
         </EntityType>
         <Function Name="unique_orderid_get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pos_id" Type="int" Mode="In" />
@@ -129,13 +130,14 @@ warning 6002: The table/view 'DB_96601_giftservice.dbo.gslog' does not have a pr
           <Property Name="p_email" Type="String" MaxLength="128" FixedLength="true" Unicode="true" />
           <Property Name="p_phone" Type="String" MaxLength="128" FixedLength="true" Unicode="true" />
           <Property Name="response_from_payment" Type="String" MaxLength="2048" FixedLength="false" Unicode="true" />
+          <Property Name="order_nr" Type="String" MaxLength="32" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityContainer Name="GiftServiceEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="transactions" EntityType="Self.transaction" />
           <EntitySet Name="products" EntityType="GiftServiceModel.product" />
           <EntitySet Name="gslogs" EntityType="GiftServiceModel.gslog" />
           <FunctionImport Name="unique_orderid_get" ReturnType="Collection(String)">
-            <Parameter Name="pos_id" Mode="In" Type="Int32" />
+          <Parameter Name="pos_id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="product">
@@ -190,6 +192,7 @@ warning 6002: The table/view 'DB_96601_giftservice.dbo.gslog' does not have a pr
           <EntitySetMapping Name="transactions">
             <EntityTypeMapping TypeName="GiftServiceModel.transaction">
               <MappingFragment StoreEntitySet="transaction">
+                <ScalarProperty Name="order_nr" ColumnName="order_nr" />
                 <ScalarProperty Name="response_from_payment" ColumnName="response_from_payment" />
                 <ScalarProperty Name="p_phone" ColumnName="p_phone" />
                 <ScalarProperty Name="p_email" ColumnName="p_email" />

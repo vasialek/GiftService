@@ -88,6 +88,8 @@ namespace GiftService.Bll
             // TODO: add project ID
             t.ProjectId = 0;
 
+            t.OrderNr = BllFactory.Current.GiftsBll.GetUniqueOrderId(t.PosId);
+            Logger.DebugFormat("  generate unique order nr for new transaction: `{0}`", t.OrderNr);
 
             _transactionDal.StartTransaction(t);
 
