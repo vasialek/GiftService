@@ -9,5 +9,10 @@ namespace GiftService.Models.Web
     public class SessionStore
     {
         public int PosId { get; set; }
+
+        /// <summary>
+        /// Sent to payment system
+        /// </summary>
+        public string PaymentOrderNr { get; set; }
     }
 }

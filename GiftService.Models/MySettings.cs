@@ -22,6 +22,8 @@ namespace GiftService.Models
 
         public int LengthOfPosUid { get; set; }
 
+        public int LengthOfOrderId { get; set; }
+
         /// <summary>
         /// How many symbols to take from UID to use as directory name
         /// </summary>
@@ -36,6 +38,9 @@ namespace GiftService.Models
 
         public MySettings()
         {
+            // E25-48662E
+            LengthOfOrderId = 10;
+
             ProjectDomain = "www.DovanuKuponai.com";
             ProjectName = "DovanuKuponai.com";
             UseTestPayment = false;

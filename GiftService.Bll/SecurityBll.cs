@@ -16,6 +16,7 @@ namespace GiftService.Bll
         PaymentRequestValidationResponse ValidatePosPaymentRequest(PosBdo pos, string posUserUid);
         void ValidateCurrencyCode(string currencyCode, PosBdo pos);
         void ValidateUid(string uid);
+        void ValidateOrderId(string orderId);
     }
 
     public class SecurityBll : ISecurityBll
@@ -121,6 +122,20 @@ namespace GiftService.Bll
             if (uid.Length != len)
             {
                 throw new ArgumentOutOfRangeException("uid", "Length of UID should be exactly: " + len);
+            }
+        }
+
+        public void ValidateOrderId(string orderId)
+        {
+            if (String.IsNullOrEmpty(orderId))
+            {
+                throw new ArgumentNullException("Order ID should not be empty");
+            }
+
+            int len = _configurationBll.Get().LengthOfOrderId;
+            if (orderId.Length != len)
+            {
+                throw new ArgumentOutOfRangeException("orderId", "Length of payment order ID should be exactly: " + len);
             }
         }
     }

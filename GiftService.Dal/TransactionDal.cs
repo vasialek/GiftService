@@ -14,6 +14,7 @@ namespace GiftService.Dal
     {
         void StartTransaction(TransactionBdo t);
         TransactionBdo GetTransactionByPaySystemUid(string paySystemUid);
+        TransactionBdo GetTransactionByOrderNr(string orderNr);
         void Update(TransactionBdo t);
         IEnumerable<TransactionBdo> GetLastTransactions(int posId, int offset, int limit);
     }
@@ -108,15 +109,31 @@ namespace GiftService.Dal
             return list;
         }
 
+        public TransactionBdo GetTransactionByOrderNr(string orderNr)
+        {
+            transaction t = null;
+            using (var db = new GiftServiceEntities())
+            {
+                t = db.transactions.First(x => x.order_nr.Equals(orderNr));
+            }
+
+            return MapTo(t);
+        }
+
         public TransactionBdo GetTransactionByPaySystemUid(string paySystemUid)
         {
-            TransactionBdo transaction = null;
             transaction t = null;
             using (var db = new GiftServiceEntities())
             {
                 t = db.transactions.First(x => x.pay_system_uid.Equals(paySystemUid));
             }
 
+            return MapTo(t);
+        }
+
+        private TransactionBdo MapTo(transaction t)
+        {
+            TransactionBdo transaction = null;
             if (t != null)
             {
                 PaymentStatusIds paymentStatus = PaymentStatusIds.NotProcessed;

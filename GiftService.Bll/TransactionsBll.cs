@@ -18,6 +18,7 @@ namespace GiftService.Bll
         TransactionBdo StartTransaction(string posUserUid, ProductBdo product);
         TransactionBdo FinishTransaction(PayseraPaymentResponse resp);
         TransactionBdo CancelTransactionByUser(string paySystemUid);
+        TransactionBdo CancelTransactionByUserUsingOrderNr(string paymentOrderNr);
         IEnumerable<TransactionBdo> GetLastTransactions(int posId, int offset, int limit);
     }
 
@@ -96,9 +97,25 @@ namespace GiftService.Bll
             return t;
         }
 
+        public TransactionBdo CancelTransactionByUserUsingOrderNr(string paymentOrderNr)
+        {
+            Logger.InfoFormat("User is canceling transaction by payment system order nr: `{0}", paymentOrderNr);
+            _securityBll.ValidateOrderId(paymentOrderNr);
+
+            var t = _transactionDal.GetTransactionByOrderNr(paymentOrderNr);
+            if (t == null)
+            {
+                throw new TransactionDoesNotExist("Transaction was not found by payment order nr", paymentOrderNr);
+            }
+
+            SetTransactionStatusToCancelled(t);
+
+            return t;
+        }
+
         public TransactionBdo CancelTransactionByUser(string paySystemUid)
         {
-            Logger.InfoFormat("User is canceling transaction by payment system UID: `{0}1", paySystemUid);
+            Logger.InfoFormat("User is canceling transaction by payment system UID: `{0}", paySystemUid);
             _securityBll.ValidateUid(paySystemUid);
 
             var t = _transactionDal.GetTransactionByPaySystemUid(paySystemUid);
@@ -107,6 +124,13 @@ namespace GiftService.Bll
                 throw new TransactionDoesNotExist("Transaction was not found by payment system UID", paySystemUid);
             }
 
+            SetTransactionStatusToCancelled(t);
+
+            return t;
+        }
+
+        private void SetTransactionStatusToCancelled(TransactionBdo t)
+        {
             // Allow to cancel not processed and waiting for payment
             if (t.PaymentStatus != PaymentStatusIds.NotProcessed && t.PaymentStatus != PaymentStatusIds.WaitingForPayment)
             {
@@ -118,8 +142,6 @@ namespace GiftService.Bll
 
             Logger.InfoFormat("  updating status of transaction #{0} to {1}", t.Id, t.PaymentStatus);
             _transactionDal.Update(t);
-
-            return t;
         }
 
         public TransactionBdo FinishTransaction(PayseraPaymentResponse resp)
@@ -130,9 +152,9 @@ namespace GiftService.Bll
             }
 
             // Paysera OrderId == PaySystemUid
-            _securityBll.ValidateUid(resp.OrderId);
+            _securityBll.ValidateOrderId(resp.OrderId);
 
-            var t = _transactionDal.GetTransactionByPaySystemUid(resp.OrderId);
+            var t = _transactionDal.GetTransactionByOrderNr(resp.OrderId);
 
             if (t.PaymentStatus == PaymentStatusIds.PaidOk)
             {

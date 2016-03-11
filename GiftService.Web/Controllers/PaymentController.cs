@@ -106,11 +106,12 @@ namespace GiftService.Web.Controllers
             try
             {
                 Logger.Info("Got response from payment system to cancel transaction (by user)");
-                string paySystemUid = Session["__PaySystemUid"] as string;
-                Logger.InfoFormat("  PaySystemUid in session is `{0}`", paySystemUid);
+                //string paySystemUid = Session["__PaySystemUid"] as string;
+                Logger.InfoFormat("  Payment Order nr in session is `{0}`", SessionStore.PaymentOrderNr);
 
                 //var responseFromPaysera = Factory.PayseraBll.ParseData(Request["data"]);
-                var t = Factory.TransactionsBll.CancelTransactionByUser(paySystemUid);
+                //var t = Factory.TransactionsBll.CancelTransactionByUser(paySystemUid);
+                var t = Factory.TransactionsBll.CancelTransactionByUserUsingOrderNr(SessionStore.PaymentOrderNr);
             }
             catch (Exception ex)
             {
@@ -252,9 +253,11 @@ namespace GiftService.Web.Controllers
                 Logger.Info("Redirecting to Paysera:");
                 Logger.Info(paymentUri.ToString());
 
-                Logger.InfoFormat("  saving PaySystemUid in session in case of cancel: `{0}`", rq.OrderId);
-                Session["__PaySystemUid"] = rq.OrderId;
+                Logger.InfoFormat("  saving payment order nr in session in case of cancel: `{0}`", rq.OrderId);
+                //Session["__PaySystemUid"] = rq.OrderId;
+                SessionStore.PaymentOrderNr = rq.OrderId;
 
+                throw new Exception("STOP IT!!!");
                 return Redirect(paymentUri.ToString());
 
             }
