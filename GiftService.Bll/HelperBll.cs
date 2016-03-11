@@ -15,6 +15,7 @@ namespace GiftService.Bll
         string EncodeHex(byte[] ba);
         string EncodeHex(byte[] ba, int offset, int length);
         byte[] DecodeHex(string s);
+        string GenerateProductUid(int posId);
     }
 
     public class HelperBll : IHelperBll
@@ -136,5 +137,21 @@ namespace GiftService.Bll
             return ba;
         }
 
+        public string GenerateProductUid(int posId)
+        {
+            if (posId < 1000 || posId > 9999)
+            {
+                throw new ArgumentOutOfRangeException("posId", "Could not generate product UID for such POS with ID: " + posId);
+            }
+
+            string s = posId.ToString();
+            char[] uid = Guid.NewGuid().ToString("N").ToCharArray();
+            uid[1] = s[3];
+            uid[4] = s[2];
+            uid[7] = s[1];
+            uid[10] = s[0];
+
+            return new string(uid);
+        }
     }
 }
