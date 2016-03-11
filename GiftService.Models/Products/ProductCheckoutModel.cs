@@ -1,9 +1,10 @@
-﻿using System;
+﻿using GiftService.Models;
+using GiftService.Models.Infrastructure;
+using GiftService.Models.Products;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GiftService.Models.Products
 {
@@ -31,9 +32,12 @@ namespace GiftService.Models.Products
         public string CustomerName { get; set; }
 
         [Display(Name = "Tel. nr.")]
+        [PhoneByCountry("lt", ErrorMessage = "Neteisingas tel. nr.")]
         public string CustomerPhone { get; set; }
 
-        [Display(Name = "El. pastas")]
+        [Display(Name = "El. paštas")]
+        [Required(ErrorMessage = "Privalomas laukas")]
+        [EmailAddress(ErrorMessage = "Neteisingas el. pašto adresas")]
         public string CustomerEmail { get; set; }
 
         [Display(Name = "Pastabos")]

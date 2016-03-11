@@ -128,7 +128,7 @@ namespace GiftService.Web.Controllers
         // GET: /Payment/Incorrect
         public ActionResult Incorrect()
         {
-            return View("Incorrect", GetLayoutForPos(1005));
+            return View("Incorrect", GetLayoutForPos());
         }
 
         // GET: /Payment/Make/UniquePaymentId
@@ -147,6 +147,7 @@ namespace GiftService.Web.Controllers
 
                 var posResponse = Factory.SecurityBll.ValidatePosPaymentRequest(pos, id);
                 posResponse.PosId = pos.Id;
+                SessionStore.PosId = pos.Id;
                 if (posResponse.Status != true)
                 {
                     Logger.ErrorFormat("POS returns false on request. " + posResponse.Message);
@@ -192,67 +193,76 @@ namespace GiftService.Web.Controllers
         public ActionResult Checkout(string id, ProductCheckoutModel checkout)
         {
 
-            var posResponse = Session["__Product"] as PaymentRequestValidationResponse;
-            if (posResponse == null)
+            try
             {
-                throw new ArgumentNullException("No product information from POS in session");
-            }
+                var posResponse = Session["__Product"] as PaymentRequestValidationResponse;
+                if (posResponse == null)
+                {
+                    throw new ArgumentNullException("No product information from POS in session");
+                }
 
-            if (checkout.LocationId < 1)
+                if (checkout.LocationId < 1)
+                {
+                    ModelState.AddModelError("LocationId", Resources.Language.Payment_Checkout_ChooseLocation);
+                }
+                if (ModelState.IsValid == false)
+                {
+                    checkout.ProductName = posResponse.ProductName;
+                    checkout.ProductDescription = posResponse.ProductDescription;
+                    checkout.ProductDuration = posResponse.ProductDuration;
+                    checkout.PosUserUid = id;
+                    checkout.ProductValidTill = Factory.HelperBll.ConvertFromUnixTimestamp(posResponse.ProductValidTillTm);
+                    checkout.RequestedAmount = posResponse.RequestedAmountMinor / 100m;
+                    checkout.Locations = posResponse.Locations ?? new List<ProductServiceLocation>();
+                    return View("Checkout", GetLayoutForPos(posResponse.PosId), checkout);
+                }
+
+                var product = Factory.GiftsBll.SaveProductInformationFromPos(id, posResponse, checkout);
+                var transaction = Factory.TransactionsBll.StartTransaction(id, product);
+
+                var configuration = Factory.ConfigurationBll.Get();
+
+                //Factory.CommunicationBll.SendEmailToClientOnSuccess(product);
+                var rq = new PayseraPaymentRequest();
+
+                rq.PayseraProjectPassword = configuration.PayseraPassword;
+                rq.ProjectId = configuration.PayseraProjectId.ToString();
+
+                //rq.OrderId = transaction.PaySystemUid;
+                rq.OrderId = transaction.OrderNr;
+                rq.AmountToPay = posResponse.RequestedAmountMinor / 100m;
+                rq.CurrencyCode = posResponse.CurrencyCode;
+                rq.Country = PayseraPaymentRequest.Countries.LT;
+
+                rq.AcceptUrl = Url.Action("accept", "payment", null, Request.Url.Scheme);
+                rq.CancelUrl = Url.Action("cancel", "payment", null, Request.Url.Scheme);
+                rq.CallbackUrl = Url.Action("callback", "payment", null, Request.Url.Scheme);
+
+                rq.CustomerName = checkout.CustomerName;
+                rq.CustomerEmail = checkout.CustomerEmail;
+                rq.CustomerPhone = checkout.CustomerPhone;
+                //rq.PayText = String.Format("Apmokėjimas už [owner_name] - {0}, per [site_name], http://www.dovanukuponai.com/gift/get/[order_nr]", checkout.ProductName);
+                string shortProductName = posResponse.ProductName.Length > 90 ? posResponse.ProductName.Substring(0, 90) : posResponse.ProductName;
+                rq.PayText = String.Concat("RitosMasazai.lt - ", shortProductName, ". Jusu uzsakymas http://www.dovanukuponai.com/gift/get/[order_nr]. Dekoju, [owner_name]");
+                Logger.Debug("  sending PayText: " + rq.PayText);
+                //rq.Language = PayseraPaymentRequest.Languages.LIT;
+                rq.IsTestPayment = configuration.UseTestPayment;
+
+                Uri paymentUri = Factory.PayseraBll.PreparePaymentLink(configuration.PayseraPaymentUrl, rq);
+                Logger.Info("Redirecting to Paysera:");
+                Logger.Info(paymentUri.ToString());
+
+                Logger.InfoFormat("  saving PaySystemUid in session in case of cancel: `{0}`", rq.OrderId);
+                Session["__PaySystemUid"] = rq.OrderId;
+
+                return Redirect(paymentUri.ToString());
+
+            }
+            catch (Exception ex)
             {
-                ModelState.AddModelError("LocationId", Resources.Language.Payment_Checkout_ChooseLocation);
+                Logger.Error("Error processing payment form", ex);
+                return Incorrect();
             }
-            if (ModelState.IsValid == false)
-            {
-                checkout.ProductName = posResponse.ProductName;
-                checkout.ProductDescription = posResponse.ProductDescription;
-                checkout.ProductDuration = posResponse.ProductDuration;
-                checkout.PosUserUid = id;
-                checkout.ProductValidTill = Factory.HelperBll.ConvertFromUnixTimestamp(posResponse.ProductValidTillTm);
-                checkout.RequestedAmount = posResponse.RequestedAmountMinor / 100m;
-                checkout.Locations = posResponse.Locations ?? new List<ProductServiceLocation>();
-                return View("Checkout", GetLayoutForPos(posResponse.PosId), checkout);
-            }
-
-            var product = Factory.GiftsBll.SaveProductInformationFromPos(id, posResponse, checkout);
-            var transaction = Factory.TransactionsBll.StartTransaction(id, product);
-
-            var configuration = Factory.ConfigurationBll.Get();
-
-            //Factory.CommunicationBll.SendEmailToClientOnSuccess(product);
-            var rq = new PayseraPaymentRequest();
-
-            rq.PayseraProjectPassword = configuration.PayseraPassword;
-            rq.ProjectId = configuration.PayseraProjectId.ToString();
-
-            rq.OrderId = transaction.PaySystemUid;
-            rq.AmountToPay = posResponse.RequestedAmountMinor / 100m;
-            rq.CurrencyCode = posResponse.CurrencyCode;
-            rq.Country = PayseraPaymentRequest.Countries.LT;
-
-            rq.AcceptUrl = Url.Action("accept", "payment", null, Request.Url.Scheme);
-            rq.CancelUrl = Url.Action("cancel", "payment", null, Request.Url.Scheme);
-            rq.CallbackUrl = Url.Action("callback", "payment", null, Request.Url.Scheme);
-
-            rq.CustomerName = checkout.CustomerName;
-            rq.CustomerEmail = checkout.CustomerEmail;
-            rq.CustomerPhone = checkout.CustomerPhone;
-            //rq.PayText = String.Format("Apmokėjimas už [owner_name] - {0}, per [site_name], http://www.dovanukuponai.com/gift/get/[order_nr]", checkout.ProductName);
-            string shortProductName = posResponse.ProductName.Length > 90 ? posResponse.ProductName.Substring(0, 90) : posResponse.ProductName;
-            rq.PayText = String.Concat("RitosMasazai.lt - ", shortProductName , ". Jusu uzsakymas http://www.dovanukuponai.com/gift/get/[order_nr]. Dekoju, [owner_name]");
-            Logger.Debug("  sending PayText: " + rq.PayText);
-            //rq.Language = PayseraPaymentRequest.Languages.LIT;
-            rq.IsTestPayment = configuration.UseTestPayment;
-
-            Uri paymentUri = Factory.PayseraBll.PreparePaymentLink(configuration.PayseraPaymentUrl, rq);
-            Logger.Info("Redirecting to Paysera:");
-            Logger.Info(paymentUri.ToString());
-
-            Logger.InfoFormat("  saving PaySystemUid in session in case of cancel: `{0}`", rq.OrderId);
-            Session["__PaySystemUid"] = rq.OrderId;
-
-            return Redirect(paymentUri.ToString());
-            return RedirectToAction("Get", "Gift", new { id = product.PaySystemUid });
         }
 
     }
