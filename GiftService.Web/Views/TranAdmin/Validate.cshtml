@@ -1,0 +1,169 @@
+﻿
+<table class="table">
+    <tr>
+        <td colspan="2">
+            @Resources.Language.TranAdmin_Validate_EnterTransactionCode
+
+            <div id="MessageDiv"></div>
+            <div id="LoadingDiv"><img src="~/Content/images/loader.gif" alt="Loading..." title="Loading..." /></div>
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.TextBox("Code", "", new { @class = "form-control input-sm" })
+            <ul id="ErrorsList"></ul>
+        </td>
+        <td><button id="BtnCheck" class="btn btn-sm btn-primary">@Resources.Language.TranAdmin_Validate_ButtonCheck</button></td>
+    </tr>
+</table>
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        var Validate = {
+            init: function () {
+                var self = this;
+                $("#BtnCheck").click(function (e) {
+                    e.preventDefault();
+                    self.validate($("#Code").val());
+                });
+                $("#Code").keypress(function (e) {
+                    if (e.keyCode == 13) {
+                        self.validate($(e.target).val());
+                    }
+                });
+            },
+
+            validate: function (code) {
+                console.log("Checking for code: " + code);
+                if (code.length < 8) {
+                    InformationBlock.showError("", ["Kodas per trumpas"]);
+                    return;
+                }
+                if (code.length > 33) {
+                    InformationBlock.showError("", ["Kodas per ilgas"]);
+                    return;
+                }
+
+                InformationBlock.clearAll();
+                InformationBlock.setLoading(true);
+                $.ajax({
+                    url: "@Url.Action("Validate")",
+                    data: {
+                        id: code
+                    },
+                    method: "POST",
+                    success: function (data) {
+                        if (data.Status === true) {
+                            InformationBlock.showMessage(data.Message);
+                        } else {
+                            InformationBlock.showError(data.Message);
+                        }
+                    },
+                    error: function () {
+                        InformationBlock.showError("Smth is wrong :)");
+                    },
+                    complete: function () {
+                        InformationBlock.setLoading(false);
+                    }
+                })
+            }
+
+        };
+
+        var InformationBlock = {
+
+            clearMsgHandler: null,
+            loadingDiv: null,
+            messageDiv: null,
+            errorsList: null,
+
+            messageDivSelector: "#MessageDiv",
+            loadingDivSelector: "#LoadingDiv",
+            errorsListSelector: "#ErrorsList",
+
+            init: function (messageDivSelector, errorsListSelector, loadingDivSelector) {
+                if (messageDivSelector != null) {
+                    this.messageDivSelector = messageDivSelector;
+                }
+                if (errorsListSelector != null) {
+                    this.errorsListSelector = errorsListSelector;
+                }
+                if (loadingDivSelector != null) {
+                    this.loadingDivSelector = loadingDivSelector;
+                }
+
+                this.messageDiv = $(this.messageDivSelector);
+                this.errorsList = $(this.errorsListSelector);
+                this.loadingDiv = $(this.loadingDivSelector);
+
+                this.messageDiv.hide();
+                if (this.loadingDiv != null) {
+                    this.loadingDiv.hide();
+                }
+                if (this.errorsList != null) {
+                    this.errorsList.hide();
+                }
+            },
+
+            showMessage: function (msg, ttlS) {
+                this.messageDiv.html(msg)
+                    .removeClass("message-error")
+                    .addClass("message-ok")
+                    .show();
+
+                if (this.clearMsgHandler != null) {
+                    clearTimeout(this.clearMsgHandler);
+                }
+
+                if (ttlS > 0) {
+                    var self = this;
+                    this.clearMsgHandler = setTimeout(function () {
+                        self.messageDiv.html("").hide();
+                    }, ttlS * 1000);
+                }
+            },
+
+            showError: function (msg, errors) {
+                this.messageDiv.html(msg)
+                    .removeClass("message-ok")
+                    .addClass("message-error")
+                    .show();
+
+                if (errors != null) {
+                    this.errorsList.empty();
+                    for (var i = 0; i < errors.length; i++) {
+                        this.errorsList.append("<li>" + errors[i] + "</li>");
+                    }
+                    this.errorsList.show();
+                }
+            },
+
+            setLoading: function (isLoading) {
+                if (isLoading) {
+                    this.loadingDiv.show();
+                } else {
+                    this.loadingDiv.hide();
+                }
+            },
+
+            clearAll: function () {
+                this.messageDiv.html("").hide();
+                if (this.errorsList != null) {
+                    this.errorsList.hide();
+                }
+                if (this.loadingDiv != null) {
+                    this.loadingDiv.hide();
+                }
+            }
+
+        };
+
+        Validate.init();
+        InformationBlock.init();
+
+    </script>
+}
+

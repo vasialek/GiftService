@@ -174,4 +174,10 @@
   <data name="SystemMessage_WeWillContactYouOnError" xml:space="preserve">
     <value>Mūsų darbuotojai su Jumis susisieks.</value>
   </data>
+  <data name="TranAdmin_Validate_ButtonCheck" xml:space="preserve">
+    <value>Tikrinti</value>
+  </data>
+  <data name="TranAdmin_Validate_EnterTransactionCode" xml:space="preserve">
+    <value>Iveskite kupono unikalu koda arba numeri</value>
+  </data>
 </root>

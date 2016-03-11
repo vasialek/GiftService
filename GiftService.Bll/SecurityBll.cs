@@ -16,7 +16,7 @@ namespace GiftService.Bll
         PaymentRequestValidationResponse ValidatePosPaymentRequest(PosBdo pos, string posUserUid);
         void ValidateCurrencyCode(string currencyCode, PosBdo pos);
         void ValidateUid(string uid);
-        void ValidateOrderId(string orderId);
+        void ValidateOrderNr(string orderId);
     }
 
     public class SecurityBll : ISecurityBll
@@ -125,7 +125,7 @@ namespace GiftService.Bll
             }
         }
 
-        public void ValidateOrderId(string orderId)
+        public void ValidateOrderNr(string orderId)
         {
             if (String.IsNullOrEmpty(orderId))
             {

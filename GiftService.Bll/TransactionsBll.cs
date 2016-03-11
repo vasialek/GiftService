@@ -15,6 +15,7 @@ namespace GiftService.Bll
     public interface ITransactionsBll
     {
         TransactionBdo GetTransactionByPaySystemUid(string paySystemUid);
+        TransactionBdo GetTransactionByOrderNr(string paymentOrderNr);
         TransactionBdo StartTransaction(string posUserUid, ProductBdo product);
         TransactionBdo FinishTransaction(PayseraPaymentResponse resp);
         TransactionBdo CancelTransactionByUser(string paySystemUid);
@@ -62,6 +63,12 @@ namespace GiftService.Bll
             _transactionDal = transactionDal;
         }
 
+        public TransactionBdo GetTransactionByOrderNr(string paymentOrderNr)
+        {
+            Logger.InfoFormat("Searching for payment transaction by payment order nr: `{0}`", paymentOrderNr);
+            return _transactionDal.GetTransactionByOrderNr(paymentOrderNr);
+        }
+
         public TransactionBdo GetTransactionByPaySystemUid(string paySystemUid)
         {
             Logger.InfoFormat("Searching for payment transaction by payment system UID: `{0}`", paySystemUid);
@@ -100,7 +107,7 @@ namespace GiftService.Bll
         public TransactionBdo CancelTransactionByUserUsingOrderNr(string paymentOrderNr)
         {
             Logger.InfoFormat("User is canceling transaction by payment system order nr: `{0}", paymentOrderNr);
-            _securityBll.ValidateOrderId(paymentOrderNr);
+            _securityBll.ValidateOrderNr(paymentOrderNr);
 
             var t = _transactionDal.GetTransactionByOrderNr(paymentOrderNr);
             if (t == null)
@@ -152,7 +159,7 @@ namespace GiftService.Bll
             }
 
             // Paysera OrderId == PaySystemUid
-            _securityBll.ValidateOrderId(resp.OrderId);
+            _securityBll.ValidateOrderNr(resp.OrderId);
 
             var t = _transactionDal.GetTransactionByOrderNr(resp.OrderId);
 

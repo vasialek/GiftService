@@ -230,5 +230,23 @@ namespace Resources {
                 return ResourceManager.GetString("SystemMessage_WeWillContactYouOnError", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tikrinti.
+        /// </summary>
+        internal static string TranAdmin_Validate_ButtonCheck {
+            get {
+                return ResourceManager.GetString("TranAdmin_Validate_ButtonCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iveskite kupono unikalu koda arba numeri.
+        /// </summary>
+        internal static string TranAdmin_Validate_EnterTransactionCode {
+            get {
+                return ResourceManager.GetString("TranAdmin_Validate_EnterTransactionCode", resourceCulture);
+            }
+        }
     }
 }

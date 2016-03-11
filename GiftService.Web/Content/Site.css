@@ -35,3 +35,18 @@ textarea {
 textarea.input-validation-error, input.input-validation-error {
     border: solid 1px red;
 }
+
+.message-ok {
+    color: darkgreen;
+}
+
+.message-error {
+    color: red;
+}
+
+#ErrorsList li {
+    list-style-type: none;
+    color: red;
+    margin-left: -38px;
+    font-size: small;
+}
