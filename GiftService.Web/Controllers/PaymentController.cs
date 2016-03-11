@@ -257,7 +257,6 @@ namespace GiftService.Web.Controllers
                 //Session["__PaySystemUid"] = rq.OrderId;
                 SessionStore.PaymentOrderNr = rq.OrderId;
 
-                throw new Exception("STOP IT!!!");
                 return Redirect(paymentUri.ToString());
 
             }
