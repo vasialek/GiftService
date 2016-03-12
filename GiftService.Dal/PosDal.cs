@@ -11,6 +11,7 @@ namespace GiftService.Dal
     public interface IPosDal
     {
         PosBdo GetById(int posId);
+        IEnumerable<PosBdo> GetLastPos();
     }
 
     public class PosDal : IPosDal
@@ -35,10 +36,22 @@ namespace GiftService.Dal
         {
             PosBdo p = new PosBdo();
             p.Id = 1005;
-            p.Name = "Ritos Masazai";
+            p.Name = "Ritos Masažai";
+            p.Description = "Rankos, suteikiančios pagalbą, švelnesnės negu besimeldžiančios lūpos";
             p.PosUrl = new Uri("http://www.ritosmasazai.lt/");
             //p.ValidateUrl = new Uri("http://localhost:56620/Test/Validate");
             p.ValidateUrl = new Uri("http://www.ritosmasazai.lt/test.php/lt/price/info/posUid/");
+            p.IsTest = false;
+            _poses.Add(p);
+
+            p = new PosBdo();
+            p.Id = 6666;
+            p.Name = "Test LocalShop";
+            p.Description = "Just testing shop";
+            p.PosUrl = new Uri("http://localhost:56620/");
+            p.ValidateUrl = new Uri("http://localhost:56620/Test/Validate");
+            //p.ValidateUrl = new Uri("http://www.ritosmasazai.lt/test.php/lt/price/info/posUid/");
+            p.IsTest = true;
             _poses.Add(p);
         }
 
@@ -46,6 +59,12 @@ namespace GiftService.Dal
         {
             Logger.InfoFormat("Searching for POS by ID #{0}", posId);
             return _poses.First(x => x.Id == posId);
+        }
+
+        public IEnumerable<PosBdo> GetLastPos()
+        {
+            Logger.Info("Getting list of last POS (not test)");
+            return _poses.Where(x => x.IsTest == false).OrderByDescending(x => x.Id).ToList();
         }
     }
 }

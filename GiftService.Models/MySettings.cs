@@ -8,6 +8,10 @@ namespace GiftService.Models
 {
     public class MySettings
     {
+        public string ProjectDomain { get; set; }
+
+        public string ProjectName { get; set; }
+
         public bool UseTestPayment { get; set; }
 
         public string PayseraPassword { get; set; }
@@ -17,6 +21,8 @@ namespace GiftService.Models
         public Uri PayseraPaymentUrl { get; set; }
 
         public int LengthOfPosUid { get; set; }
+
+        public int LengthOfOrderId { get; set; }
 
         /// <summary>
         /// How many symbols to take from UID to use as directory name
@@ -32,6 +38,11 @@ namespace GiftService.Models
 
         public MySettings()
         {
+            // E25-48662E
+            LengthOfOrderId = 10;
+
+            ProjectDomain = "www.DovanuKuponai.com";
+            ProjectName = "DovanuKuponai.com";
             UseTestPayment = false;
             PayseraPassword = "bd5d3446c45c365c8148f5580f717f67";
             PayseraProjectId = 76457;

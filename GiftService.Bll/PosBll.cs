@@ -1,5 +1,6 @@
 ﻿using GiftService.Dal;
 using GiftService.Models;
+using GiftService.Models.Pos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace GiftService.Bll
     {
         PosBdo GetById(int posId);
         int GetPosIdFromUid(string posUid);
+        IEnumerable<PosClient> GetOurClients();
     }
 
     public class PosBll : IPosBll
@@ -37,6 +39,16 @@ namespace GiftService.Bll
         public PosBdo GetById(int posId)
         {
             return _posDal.GetById(posId);
+        }
+
+        public IEnumerable<PosClient> GetOurClients()
+        {
+            var list = new List<PosClient>();
+
+            var ps = _posDal.GetLastPos();
+            //list.Add(new PosClient { PosId = 1005, Name = "RitosMasazai.lt", Description = "Rankos, suteikiančios pagalbą, švelnesnės negu besimeldžiančios lūpos", Url = "http://www.ritosmasazai.lt/lt/7/kainorastis" });
+
+            return ps.Select(x => new PosClient { PosId = x.Id, Name = x.Name, Description = x.Description, Url = x.PosUrl });
         }
 
         public int GetPosIdFromUid(string posUid)

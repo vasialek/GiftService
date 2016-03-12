@@ -46,6 +46,7 @@
     <Compile Include="Exceptions\IncorrectPaymentParamersException.cs" />
     <Compile Include="Exceptions\TransactionDoesNotExist.cs" />
     <Compile Include="Exceptions\TransactionStatusException.cs" />
+    <Compile Include="Infrastructure\PhoneByCountryAttribute.cs" />
     <Compile Include="JsonModels\PaymentRequestValidationResponse.cs" />
     <Compile Include="Logs\LogBdo.cs" />
     <Compile Include="PaymentStatusIds.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Payments\PaidThroughSystem.cs" />
     <Compile Include="Payments\PayseraPaymentRequest.cs" />
     <Compile Include="Payments\PayseraPaymentResponse.cs" />
+    <Compile Include="Pos\PosClient.cs" />
     <Compile Include="Pos\PosPdfLayout.cs" />
     <Compile Include="Products\ProductCheckoutModel.cs" />
     <Compile Include="Products\ProductInformationModel.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="Products\ProductServiceLocation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransactionBdo.cs" />
+    <Compile Include="Web\SessionStore.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,13 @@
+1. Kuponas skirtas ne pirkejui (dovana). Ar pirkimo metu? Kupono atsisiuntimo formoje?
+2. Kaip pardavejui patikrinti kupono apmokejima
+3. Kupona unikalus kodas. Butu gerai prefiksa susieti su parduotuve.
+4. Pirkimo formoje paaiskinimai (Henrika)
+5. Kupona mokejimo statuso tirkinima.
+6. Kai mokejimas yra AcceptedButNotExecuted parasyti - bous atsiustas emailas
+7. Paspaudus "Moketi", atgal i checkout'a. Ka daryti? (Henrika)
+
+Test cases
+- Blogas prekes UID, paspaudus mygtuka "pirkti"
+- Neteisingas POS ID is prekes UID, paspaudus mygtuka "pirkti"
+
+

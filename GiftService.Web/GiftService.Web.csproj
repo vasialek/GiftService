@@ -146,6 +146,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\PosController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TranAdminController.cs" />
     <Compile Include="Global.asax.cs">
@@ -158,6 +159,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\loader.gif" />
+    <Content Include="Content\images\posnologo.png" />
     <Content Include="Content\p1005\footer-bg.png" />
     <Content Include="Content\p1005\logo-text.png" />
     <Content Include="Content\p1005\logo.png" />
@@ -236,7 +238,7 @@
     <Content Include="Views\Payment\Make.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Payment\Checkout.cshtml" />
-    <Content Include="Views\Shared\_Layout_Pos_1005.cshtml" />
+    <Content Include="Views\Shared\_LayoutPos_1005.cshtml" />
     <Content Include="Views\Payment\Cancel.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\TranAdmin\Index.cshtml" />
@@ -244,6 +246,10 @@
     <Content Include="Views\Payment\Bad.cshtml" />
     <Content Include="Views\Logs\List.cshtml" />
     <Content Include="Views\Payment\Incorrect.cshtml" />
+    <Content Include="Views\Pos\OurClients.cshtml" />
+    <Content Include="Views\Test\Shop.cshtml" />
+    <Content Include="Views\Shared\_LayoutPos_6666.cshtml" />
+    <Content Include="Views\TranAdmin\Validate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

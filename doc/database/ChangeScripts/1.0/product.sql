@@ -33,3 +33,12 @@ go
 
 alter table [dbo].[product] add remarks nvarchar(1024) null;
 go
+
+alter table [dbo].[transaction] add order_nr nchar(32) null;
+go
+
+update [dbo].[transaction] set order_nr = pay_system_uid where order_nr is null;
+go
+
+create unique index idx_transaction_order_nr on [dbo].[transaction] (order_nr);
+go

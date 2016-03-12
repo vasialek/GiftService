@@ -16,6 +16,7 @@ namespace GiftService.Bll
         PaymentRequestValidationResponse ValidatePosPaymentRequest(PosBdo pos, string posUserUid);
         void ValidateCurrencyCode(string currencyCode, PosBdo pos);
         void ValidateUid(string uid);
+        void ValidateOrderNr(string orderId);
     }
 
     public class SecurityBll : ISecurityBll
@@ -72,7 +73,10 @@ namespace GiftService.Bll
 
             try
             {
-                var validationUri = new Uri(pos.ValidateUrl.ToString() + posUserUid);
+                //var validationUri = new Uri(pos.ValidateUrl.ToString() + posUserUid);
+                string url = pos.ValidateUrl.ToString();
+                url = url.EndsWith("/") ? String.Concat(url, posUserUid) : String.Concat(url, "/", posUserUid);
+                var validationUri = new Uri(url);
                 Logger.InfoFormat("Validating request payment from POS: `{0}`", validationUri.ToString());
                 response = _communicationBll.GetJsonResponse<PaymentRequestValidationResponse>(validationUri);
                 if (response == null)
@@ -118,6 +122,20 @@ namespace GiftService.Bll
             if (uid.Length != len)
             {
                 throw new ArgumentOutOfRangeException("uid", "Length of UID should be exactly: " + len);
+            }
+        }
+
+        public void ValidateOrderNr(string orderId)
+        {
+            if (String.IsNullOrEmpty(orderId))
+            {
+                throw new ArgumentNullException("Order ID should not be empty");
+            }
+
+            int len = _configurationBll.Get().LengthOfOrderId;
+            if (orderId.Length != len)
+            {
+                throw new ArgumentOutOfRangeException("orderId", "Length of payment order ID should be exactly: " + len);
             }
         }
     }

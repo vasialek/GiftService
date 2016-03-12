@@ -18,6 +18,7 @@ namespace GiftService.Bll
         ProductInformationModel GetProductInformationByUid(string productUid);
         ProductBdo GetProductByPaySystemUid(string paySystemUid);
         ProductBdo SaveProductInformationFromPos(string posUserUid, PaymentRequestValidationResponse posResponse, ProductCheckoutModel checkout);
+        string GetUniqueOrderId(int posId);
     }
 
     public class ProductsBll : IProductsBll
@@ -134,6 +135,11 @@ namespace GiftService.Bll
                 Logger.Error("Error getting information about bought product by payment system UID: " + paySystemUid, ex);
                 throw;
             }
+        }
+
+        public string GetUniqueOrderId(int posId)
+        {
+            return _productsDal.GetUniqueOrderId(posId);
         }
     }
 }

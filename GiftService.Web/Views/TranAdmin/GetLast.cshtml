@@ -27,6 +27,7 @@
             <td>@t.IsPaymentProcessed</td>
             <td>@(t.PaySystemResponseAt == DateTime.MinValue ? "-" : t.PaySystemResponseAt.ToString())</td>
             <td>
+                @Html.Raw(String.IsNullOrEmpty(t.OrderNr) ? "" : String.Concat(t.OrderNr, "<br />"))
                 @if (String.IsNullOrEmpty(t.PaySystemUid) == false)
                 {
                     @Html.ActionLink(t.PaySystemUid, "Get", "Gift", new { id = t.PaySystemUid }, new { target = "_blank" })

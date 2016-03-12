@@ -14,6 +14,7 @@ namespace GiftService.Dal
     {
         void StartTransaction(TransactionBdo t);
         TransactionBdo GetTransactionByPaySystemUid(string paySystemUid);
+        TransactionBdo GetTransactionByOrderNr(string orderNr);
         void Update(TransactionBdo t);
         IEnumerable<TransactionBdo> GetLastTransactions(int posId, int offset, int limit);
     }
@@ -86,6 +87,7 @@ namespace GiftService.Dal
                             PosId = t.pos_id,
                             PosUserUid = t.pos_user_uid,
                             PaySystemUid = t.pay_system_uid,
+                            OrderNr = t.order_nr,
                             ProductId = t.product_id,
                             ProductUid = t.product_uid,
 
@@ -107,15 +109,31 @@ namespace GiftService.Dal
             return list;
         }
 
+        public TransactionBdo GetTransactionByOrderNr(string orderNr)
+        {
+            transaction t = null;
+            using (var db = new GiftServiceEntities())
+            {
+                t = db.transactions.First(x => x.order_nr.Equals(orderNr));
+            }
+
+            return MapTo(t);
+        }
+
         public TransactionBdo GetTransactionByPaySystemUid(string paySystemUid)
         {
-            TransactionBdo transaction = null;
             transaction t = null;
             using (var db = new GiftServiceEntities())
             {
                 t = db.transactions.First(x => x.pay_system_uid.Equals(paySystemUid));
             }
 
+            return MapTo(t);
+        }
+
+        private TransactionBdo MapTo(transaction t)
+        {
+            TransactionBdo transaction = null;
             if (t != null)
             {
                 PaymentStatusIds paymentStatus = PaymentStatusIds.NotProcessed;
@@ -177,6 +195,7 @@ namespace GiftService.Dal
                 transaction.is_payment_processed = t.IsPaymentProcessed;
                 transaction.pos_user_uid = t.PosUserUid;
                 transaction.pay_system_uid = t.PaySystemUid;
+                transaction.order_nr = t.OrderNr;
                 transaction.requested_amount = t.RequestedAmount;
                 transaction.requested_currency_code = t.RequestedCurrencyCode;
                 transaction.paid_amount = t.PaidAmount;
@@ -199,6 +218,7 @@ namespace GiftService.Dal
                 Logger.DebugFormat("  setting is_payment_processed:         `{0}`", transaction.is_payment_processed);
                 Logger.DebugFormat("  setting pos_user_uid:                 `{0}`", transaction.pos_user_uid);
                 Logger.DebugFormat("  setting pay_system_uid:               `{0}`", transaction.pay_system_uid);
+                Logger.DebugFormat("  setting order_nr:                     `{0}`", transaction.order_nr);
 
                 Logger.DebugFormat("  setting requested_amount:             `{0}`", transaction.requested_amount);
                 Logger.DebugFormat("  setting requested_currency_code:      `{0}`", transaction.requested_currency_code);
