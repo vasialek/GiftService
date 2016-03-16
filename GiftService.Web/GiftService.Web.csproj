@@ -173,6 +173,7 @@
     <Content Include="Content\p1005\top-menu-left.png" />
     <Content Include="Content\p1005\top-menu-line.png" />
     <Content Include="Content\p1005\top-menu-right.png" />
+    <Content Include="Content\p1006\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -250,6 +251,8 @@
     <Content Include="Views\Test\Shop.cshtml" />
     <Content Include="Views\Shared\_LayoutPos_6666.cshtml" />
     <Content Include="Views\TranAdmin\Validate.cshtml" />
+    <Content Include="Views\Shared\_LayoutPos_1006.cshtml" />
+    <Content Include="Views\Pos\Preview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

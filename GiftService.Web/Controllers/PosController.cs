@@ -21,5 +21,11 @@ namespace GiftService.Web.Controllers
 
             return View("OurClients", GetLayoutForPos(), clients);
         }
+
+        // GET: /Pos/Preview/<POS_ID>
+        public ActionResult Preview(int id)
+        {
+            return View("Preview", GetLayoutForPos(id));
+        }
     }
 }

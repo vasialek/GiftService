@@ -1,0 +1,622 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    text-align: center;
+    background-color: #eeeeee;
+}
+
+#wrap {
+    margin: 0 auto;
+    width: 1000px;
+    min-width: 1000px;
+    padding: 0;
+}
+
+#top {
+    float: left;
+    width: 950px;
+    padding: 0px 50px 0px 0px;
+    height: 83px;
+    background-image: url(//www.knygynai.lt/view/img/kampas.jpg);
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-color: white;
+}
+
+.logo {
+    float: left;
+    width: 185px;
+    height: 60px;
+    padding: 25px 15px 0 33px;
+}
+
+.banner468 {
+    float: right;
+    width: 468px;
+    height: 60px;
+    padding: 7px 7px 0 0;
+}
+
+.banner120 {
+    float: right;
+    width: 120px;
+    height: 60px;
+    padding: 7px 7px 0 0;
+}
+
+#menu {
+    float: left;
+    width: 963px;
+    height: 75px;
+    background-color: white;
+    padding: 0 18px 0 19px;
+}
+
+.menutop {
+    float: left;
+    width: 963px;
+    height: 74px;
+    background-image: url(//www.knygynai.lt/view/img/topline.gif);
+    background-position: bottom left;
+    background-repeat: no-repeat;
+}
+
+.menuline {
+    float: left;
+    width: 550px;
+    height: 30px;
+    padding: 0 0 0 217px;
+}
+
+.menulink {
+    float: left;
+    min-width: 10px;
+    height: 30px;
+    background-image: url(//www.knygynai.lt/view/img/menu2.gif);
+    background-position: top left;
+    background-repeat: repeat-x;
+    margin: 0 4px 0 0;
+}
+
+.menulink_beg {
+    float: left;
+    height: 30px;
+    background-image: url(//www.knygynai.lt/view/img/menu1.gif);
+    background-position: top left;
+    background-repeat: no-repeat;
+}
+
+.menulink_back {
+    float: left;
+    height: 30px;
+    background-image: url(//www.knygynai.lt/view/img/menu3.gif);
+    background-position: top right;
+    background-repeat: no-repeat;
+    padding: 0 12px 0 12px;
+}
+
+.menulink_lnk a {
+    font-family: Times New Roman;
+    font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    text-decoration: none;
+    line-height: 30px;
+    color: #604e40;
+}
+
+    .menulink_lnk a:hover {
+        color: white;
+    }
+
+.secmenuline {
+    float: left;
+    width: 650px;
+    height: 40px;
+    padding: 0 0 0 220px;
+}
+
+.secmenuline_lnk a {
+    float: left;
+    max-width: 400px;
+    height: 40px;
+    padding: 0 12px 0 12px;
+    background-image: url(//www.knygynai.lt/view/img/top_skirtukas.gif);
+    background-position: center right;
+    background-repeat: no-repeat;
+    font-family: Times New Roman;
+    font-size: 20px;
+    font-weight: normal;
+    text-align: left;
+    text-decoration: none;
+    line-height: 40px;
+    color: white;
+}
+
+    .secmenuline_lnk a:hover {
+        color: #5b9516;
+    }
+
+.secmenuline_lnkLST a {
+    float: left;
+    max-width: 400px;
+    height: 40px;
+    padding: 0 12px 0 12px;
+    font-family: Times New Roman;
+    font-size: 20px;
+    font-weight: normal;
+    text-align: left;
+    text-decoration: none;
+    line-height: 40px;
+    color: white;
+}
+
+    .secmenuline_lnkLST a:hover {
+        color: #5b9516;
+    }
+
+#slider {
+    float: left;
+    width: 963px;
+    height: 188px;
+    background-image: url(//www.knygynai.lt/view/img/jqback.gif);
+    background-position: top left;
+    background-repeat: repeat-y;
+}
+
+.slider_arrowleft {
+    float: left;
+    width: 40px;
+    height: 53px;
+    padding: 65px 0 0 2px;
+}
+
+.slider_arrowright {
+    float: left;
+    width: 40px;
+    height: 53px;
+    padding: 65px 2px 0 0;
+}
+
+.slidearea {
+    float: left;
+    width: 879px;
+    min-width: 879px;
+    height: 188px;
+}
+
+    .slidearea img {
+        float: left;
+        min-width: 50px;
+        height: 144px;
+        border: solid 3px white;
+        margin: 18px 13px 0 13px;
+    }
+
+.sliderbottom {
+    float: left;
+    width: 963px;
+    height: 197px;
+    background-image: url(//www.knygynai.lt/view/img/topbottom.gif);
+    background-position: bottom left;
+    background-repeat: no-repeat;
+}
+
+#search {
+    float: left;
+    width: 963px;
+    height: 64px;
+    background-image: url(//www.knygynai.lt/view/img/search_line.jpg);
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-color: white;
+    padding: 0 18px 0 19px;
+}
+
+.searchfield {
+    float: left;
+    width: 385px;
+    height: 22px;
+    padding: 19px 0 0 266px;
+}
+
+.searchinput {
+    float: left;
+    width: 385px;
+    max-width: 386px;
+    height: 22px;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    font-family: Times New Roman;
+    font-size: 20px;
+    font-weight: normal;
+    text-align: left;
+    text-decoration: none;
+    line-height: 22px;
+    color: #763e11;
+}
+
+.searchbutton {
+    float: left;
+    width: 74px;
+    height: 34px;
+    padding: 14px 0 0 5px;
+}
+
+#fourline {
+    float: left;
+    width: 968px;
+    height: 56px;
+    background-color: white;
+    padding: 0 13px 0 19px;
+}
+
+.fourone {
+    float: left;
+    width: 238px;
+    height: 53px;
+    padding: 0 3px 0 0;
+}
+
+#txtboxes {
+    float: left;
+    width: 963px;
+    min-height: 270px;
+    background-color: white;
+    padding: 0 18px 0 19px;
+}
+
+.onetxtbox {
+    float: left;
+    width: 216px;
+    height: 245px;
+    background-image: url(//www.knygynai.lt/view/img/txtbox.gif);
+    background-position: top left;
+    background-repeat: no-repeat;
+    padding: 11px 14px 11px 11px;
+}
+
+.antraste {
+    float: left;
+    width: 216px;
+    height: 33px;
+    font-family: Times New Roman;
+    font-size: 20px;
+    font-weight: normal;
+    text-align: left;
+    text-decoration: none;
+    line-height: 24px;
+    color: #5f9b19;
+    padding: 0;
+    margin: 0;
+}
+
+.txt {
+    float: left;
+    width: 216px;
+    height: 213px;
+    font-family: Times New Roman;
+    font-size: 13px;
+    font-weight: normal;
+    text-align: left;
+    text-decoration: none;
+    line-height: 16px;
+    color: #464646;
+    padding: 0;
+    margin: 0;
+}
+
+    .txt a {
+        font-family: Times New Roman;
+        font-size: 13px;
+        font-weight: normal;
+        text-align: left;
+        text-decoration: none;
+        line-height: 16px;
+        color: #e98201;
+    }
+
+        .txt a:hover {
+            text-decoration: underline;
+        }
+
+.tagai {
+    float: left;
+    width: 216px;
+    height: 213px;
+    font-family: Times New Roman;
+    text-align: justify;
+    text-decoration: none;
+    color: #464646;
+    padding: 0;
+    margin: 0;
+}
+
+    .tagai a {
+        font-family: Times New Roman;
+        text-align: justify;
+        text-decoration: none;
+        color: #464646;
+    }
+
+        .tagai a:hover {
+            color: #e98201;
+        }
+
+.size0 {
+    font-family: Times New Roman;
+    font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    text-decoration: none;
+    line-height: 16px;
+    color: #464646;
+}
+
+.size1 {
+    font-family: Times New Roman;
+    font-size: 18px;
+    font-weight: normal;
+    text-align: left;
+    text-decoration: none;
+    line-height: 20px;
+    color: #464646;
+}
+
+.size2 {
+    font-family: Times New Roman;
+    font-size: 22px;
+    font-weight: normal;
+    text-align: left;
+    text-decoration: none;
+    line-height: 24px;
+    color: #464646;
+}
+
+.size3 {
+    font-family: Times New Roman;
+    font-size: 26px;
+    font-weight: normal;
+    text-align: left;
+    text-decoration: none;
+    line-height: 28px;
+    color: #464646;
+}
+
+.pristatomebox {
+    float: left;
+    width: 471px;
+    height: 259px;
+    background-image: url(//www.knygynai.lt/view/img/pristatomebox.gif);
+    background-position: top left;
+    background-repeat: no-repeat;
+    padding: 8px 0 0 8px;
+}
+
+.pristatomebox3 { /* trims knygoms pradiniame puslapyje */
+    float: left;
+    width: 712px;
+    height: 259px;
+    background-image: url(//www.knygynai.lt/view/img/pristatomebox3.gif);
+    background-position: top left;
+    background-repeat: no-repeat;
+    padding: 8px 0 0 8px;
+}
+
+.pristatomebox4 { /* trims knygoms pradiniame puslapyje */
+    float: left;
+    width: 959px;
+    height: 259px;
+    background-image: url(//www.knygynai.lt/view/img/pristatomebox4.gif);
+    background-position: top left;
+    background-repeat: no-repeat;
+    padding: 8px 0 0 8px;
+}
+
+    .pristatomebox img, .pristatomebox3 img, .pristatomebox4 img {
+        float: left;
+        padding: 0 4px 0 0;
+    }
+
+#banners {
+    float: left;
+    width: 966px;
+    background-color: white;
+    padding: 0 15px 0 19px;
+}
+
+    #banners div {
+        float: left;
+        border: 0;
+        padding: 0 5px 3px 5px;
+    }
+
+    #banners a img {
+        border: 0;
+    }
+
+#bottom {
+    float: left;
+    width: 1000px;
+    height: 23px;
+    background-image: url(//www.knygynai.lt/view/img/bottom.gif);
+    background-position: top left;
+    background-repeat: no-repeat;
+    padding: 0;
+}
+
+#footer {
+    float: left;
+    width: 1000px;
+    padding: 5px 0 10px 0;
+    font-family: Times New Roman;
+    text-align: center;
+    font-size: 13px;
+    font-weight: normal;
+    text-decoration: none;
+    line-height: 16px;
+    color: #929191;
+}
+
+.footsize {
+    font-family: Times New Roman;
+    text-align: center;
+    font-size: 13px;
+    font-weight: normal;
+    text-decoration: none;
+    line-height: 20px;
+    color: #929191;
+}
+
+    .footsize a {
+        font-family: Times New Roman;
+        text-align: center;
+        font-size: 13px;
+        font-weight: normal;
+        text-decoration: none;
+        line-height: 20px;
+        color: #929191;
+        padding: 0 4px 0 4px;
+    }
+
+        .footsize a:hover {
+            color: #f7a413;
+        }
+
+.footsize2 {
+    font-family: Times New Roman;
+    text-align: center;
+    font-size: 18px;
+    font-weight: normal;
+    text-decoration: none;
+    line-height: 26px;
+    color: #929191;
+}
+
+    .footsize2 a {
+        font-family: Times New Roman;
+        text-align: center;
+        font-size: 18px;
+        font-weight: normal;
+        text-decoration: none;
+        line-height: 26px;
+        color: #929191;
+        padding: 0 4px 0 4px;
+    }
+
+        .footsize2 a:hover {
+            color: #f7a413;
+        }
+
+.sprendimas a {
+    font-family: Times New Roman;
+    text-align: center;
+    font-size: 13px;
+    font-weight: normal;
+    text-decoration: none;
+    line-height: 18px;
+    color: #f7a413;
+}
+
+    .sprendimas a:hover {
+        text-decoration: underline;
+    }
+
+.pradinis_text * {
+    font-family: Georgia;
+    text-align: left;
+    font-size: 12px;
+    color: #464646;
+    line-height: 20px;
+}
+
+.pradinis_text h1 {
+    font-size: 15px;
+}
+
+.pradinis_text div {
+    float: left;
+    width: 237px;
+    height: 220px;
+}
+
+.pradinis_text p {
+    text-align: justify;
+    margin-right: 20px;
+}
+
+.banners_text {
+    float: left;
+    padding: 5px;
+    margin-top: 10px;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 30px;
+    background-color: #eeeeee;
+}
+
+    .banners_text a {
+        color: #F7A413;
+        text-decoration: none;
+    }
+
+        .banners_text a:hover {
+            color: black;
+        }
+
+/*.noJS {
+    background-image: url(//www.knygynai.lt/view/img/jqback.gif);
+    background-position: left top;
+    background-repeat: repeat-y;
+    height: 262px;
+    width: 963px;
+}
+
+    .noJS .sliderbottom ul {
+        height: 125px;
+        overflow: hidden;
+        margin-top: 35px;
+        padding-left: 20px;
+    }
+
+    .noJS #recentbooks li {
+        display: inline;
+        margin-right: 25px;
+    }
+
+        .noJS #recentbooks li a img {
+        }
+
+.christmas {
+    background: url(//www.knygynai.lt/images/kaledos.gif);
+    width: 100px;
+    height: 165px;
+    /*width: 50px;
+	height: 83px;*/
+    position: absolute;
+    right: 8px;
+    top: 23px;
+}
+
+.jcarousel {
+    position: relative;
+    overflow: hidden;
+}
+
+    .jcarousel ul {
+        width: 20000em;
+        position: relative;
+        /* Optional, required in this case since it's a <ul> element */
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .jcarousel li {
+        /* Required only for block elements like <li>'s */
+        float: left;
+    }*/

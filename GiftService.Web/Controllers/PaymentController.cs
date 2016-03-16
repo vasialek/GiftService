@@ -118,12 +118,12 @@ namespace GiftService.Web.Controllers
                 Logger.Error("Error canceling transaction", ex);
             }
 
-            return View("Cancel", GetLayoutForPos(1005));
+            return View("Cancel", GetLayoutForPos());
         }
 
         public ActionResult Bad()
         {
-            return View("Bad", GetLayoutForPos(1005));
+            return View("Bad", GetLayoutForPos());
         }
 
         // GET: /Payment/Incorrect
@@ -226,8 +226,13 @@ namespace GiftService.Web.Controllers
                 //Factory.CommunicationBll.SendEmailToClientOnSuccess(product);
                 var rq = new PayseraPaymentRequest();
 
+                // Paysera information is stored in POS
                 rq.PayseraProjectPassword = configuration.PayseraPassword;
                 rq.ProjectId = configuration.PayseraProjectId.ToString();
+                var pos = Factory.PosBll.GetById(posResponse.PosId);
+                rq.ProjectId = pos.PayseraPayerId;
+                rq.PayseraProjectPassword = pos.PayseraPassword;
+                Logger.DebugFormat("  configuring Paysera payment to use payer ID: {0} for POS ID: {1}", rq.ProjectId, pos.Id);
 
                 //rq.OrderId = transaction.PaySystemUid;
                 rq.OrderId = transaction.OrderNr;
