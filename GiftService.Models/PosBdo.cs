@@ -16,6 +16,10 @@ namespace GiftService.Models
 
         public Uri PosUrl { get; set; }
 
+        public string PayseraPayerId { get; set; }
+
+        public string PayseraPassword { get; set; }
+
         /// <summary>
         /// POS should confirm that this request is valid and provide data for this order
         /// </summary>
