@@ -83,8 +83,21 @@ namespace GiftService.Bll.UnitTests
 
             var resp = _psBll.ParseData(dataFromPaysera);
 
-            // Known magick numbers :)
-            Assert.AreEqual(0.01m, _rqValid.AmountToPay);
+            // Known magic numbers :)
+            Assert.AreEqual(0.01m, resp.AmountToPay);
+        }
+
+        [TestMethod]
+        public void Test_Parse_Real_Paysera_Response_For_Knygynai()
+        {
+            // Real response from Paysera
+            string dataFromPaysera = "?data=b3JkZXJpZD1GNDEtQTkxMDg5JmFtb3VudD0xOTEwJmN1cnJlbmN5PUVVUiZjb3VudHJ5PUxUJnRlc3Q9MSZwYXltZW50PXBhcmV4JnBfZW1haWw9cHJvLmdsYW1lciU0MGdtYWlsLmNvbSZwX2ZpcnN0bmFtZT1BbGVrc2VqK1RhayZwX2xhc3RuYW1lPSZwX3Bob25lPSUyQjM3MCs2MDArMTIzNDUmcF9jb21tZW50PSZwX2lwPSZwX2FnZW50PSZwX2ZpbGU9JnZlcnNpb249MS42JnByb2plY3RpZD04MDIxMyZwYXl0ZXh0PUtueWd5bmFpLmx0Ky0rUmltdG9zJTJDK2p1b2lraW5nb3MraXIrZ3JhdWQlQzUlQkVpb3Mrc2Vub2pvK1ZpbG5pYXVzK2lzdG9yaWpvcystK0xpYmVydGFzK0tsaW1rYS4rSnVzdSt1enNha3ltYXMraHR0cCUzQSUyRiUyRnd3dy5kb3ZhbnVrdXBvbmFpLmNvbSUyRmdpZnQlMkZnZXQlMkZGNDEtQTkxMDg5LitEZWt1b2p1JTJDK1ZpZHV0JUM0JTk3K0p1b2R2YWxraWVuJUM0JTk3Jmxhbmc9bGl0Jm1fcGF5X3Jlc3RvcmVkPTk4MDU2NTE3JnN0YXR1cz0xJnJlcXVlc3RpZD05ODA1NjUxNyZwYXlhbW91bnQ9MTkxMCZwYXljdXJyZW5jeT1FVVI%3D";
+
+            var resp = _psBll.ParseData(dataFromPaysera);
+
+            // Known magic numbers :)
+            Assert.AreEqual(19.10m, resp.AmountToPay);
+            Assert.AreEqual("80213", resp.ProjectId);
         }
 
         [TestMethod]

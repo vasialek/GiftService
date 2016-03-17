@@ -48,7 +48,10 @@ namespace GiftService.Web.Controllers
                 string ss1 = Request["ss1"];
 
                 var resp = Factory.PayseraBll.ParseData(data);
-                Factory.PayseraBll.ValidateSs1(Factory.ConfigurationBll.Get().PayseraPassword, data, ss1);
+                Logger.InfoFormat("    for project (payer) ID: `{0}`", resp.ProjectId);
+                var pos = Factory.PosBll.GetByPayseraPayerId(resp.ProjectId);
+                Factory.PayseraBll.ValidateSs1(pos.PayseraPassword, data, ss1);
+                //Factory.PayseraBll.ValidateSs1(Factory.ConfigurationBll.Get().PayseraPassword, data, ss1);
 
                 Logger.Info("Payment callback is valid, update status of transaction");
                 Factory.TransactionsBll.FinishTransaction(resp);
@@ -81,7 +84,10 @@ namespace GiftService.Web.Controllers
 
                 var responseFromPaysera = Factory.PayseraBll.ParseData(data);
                 Logger.InfoFormat("  Response from Paysera is parsed, checking SS1: `{0}`", ss1);
-                Factory.PayseraBll.ValidateSs1(Factory.ConfigurationBll.Get().PayseraPassword, data, ss1);
+                Logger.InfoFormat("    for project (payer) ID: `{0}`", responseFromPaysera.ProjectId);
+                var pos = Factory.PosBll.GetByPayseraPayerId(responseFromPaysera.ProjectId);
+                Factory.PayseraBll.ValidateSs1(pos.PayseraPassword, data, ss1);
+                //Factory.PayseraBll.ValidateSs1(Factory.ConfigurationBll.Get().PayseraPassword, data, ss1);
 
                 var t = Factory.TransactionsBll.FinishTransaction(responseFromPaysera);
                 if (t.PaymentStatus != PaymentStatusIds.PaidOk && t.PaymentStatus != PaymentStatusIds.AcceptedButNotExecuted)
