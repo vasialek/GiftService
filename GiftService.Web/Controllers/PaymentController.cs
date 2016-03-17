@@ -268,8 +268,7 @@ namespace GiftService.Web.Controllers
                 rq.CustomerEmail = checkout.CustomerEmail;
                 rq.CustomerPhone = checkout.CustomerPhone;
 
-                string shortProductName = posResponse.ProductName.Length > 90 ? posResponse.ProductName.Substring(0, 90) : posResponse.ProductName;
-                rq.PayText = String.Concat("RitosMasazai.lt - ", shortProductName, ". Jusu uzsakymas http://www.dovanukuponai.com/gift/get/[order_nr]. Dekoju, [owner_name]");
+                rq.PayText = Factory.PosBll.FormatNoteForPayment(pos, product, configuration.MaxLengthOfPayseraNote);
                 Logger.Debug("  sending PayText: " + rq.PayText);
 
                 //rq.Language = PayseraPaymentRequest.Languages.LIT;

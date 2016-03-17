@@ -12,8 +12,10 @@ namespace GiftService.Bll
     public interface IPosBll
     {
         PosBdo GetById(int posId);
+        PosBdo GetByPayseraPayerId(string payerId);
         int GetPosIdFromUid(string posUid);
         IEnumerable<PosClient> GetOurClients();
+        string FormatNoteForPayment(PosBdo pos, ProductBdo product, int maxLength);
     }
 
     public class PosBll : IPosBll
@@ -36,9 +38,50 @@ namespace GiftService.Bll
             _posDal = posDal;
         }
 
+        public string FormatNoteForPayment(PosBdo pos, ProductBdo product, int maxLength)
+        {
+            if (product == null)
+            {
+                throw new ArgumentNullException("product");
+            }
+            if (String.IsNullOrEmpty(product.ProductName))
+            {
+                throw new ArgumentNullException("ProductName");
+            }
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(pos.Name).Append(" - ");
+
+            string noteEnd = ". Jusu uzsakymas http://www.dovanukuponai.com/gift/get/[order_nr]. Dekuoju, [owner_name]";
+
+            int availableLen = maxLength - sb.Length - noteEnd.Length;
+            if (availableLen < 1)
+            {
+                return noteEnd;
+            }
+
+            sb.Append(product.ProductName.Length > availableLen ? product.ProductName.Substring(0, availableLen) : product.ProductName);
+
+            sb.Append(noteEnd);
+            //string shortProductName = posResponse.ProductName.Length > 90 ? posResponse.ProductName.Substring(0, 90) : posResponse.ProductName;
+            //rq.PayText = String.Concat("RitosMasazai.lt - ", shortProductName, ". Jusu uzsakymas http://www.dovanukuponai.com/gift/get/[order_nr]. Dekoju, [owner_name]");
+
+            return sb.ToString();
+        }
+
         public PosBdo GetById(int posId)
         {
             return _posDal.GetById(posId);
+        }
+
+        public PosBdo GetByPayseraPayerId(string payerId)
+        {
+            if (String.IsNullOrEmpty(payerId))
+            {
+                throw new ArgumentNullException("payerId");
+            }
+            return _posDal.GetByPayerId(payerId);
         }
 
         public IEnumerable<PosClient> GetOurClients()
