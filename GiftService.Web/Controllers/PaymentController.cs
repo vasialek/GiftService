@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GiftService.Models;
+using GiftService.Models.Exceptions;
 using GiftService.Models.JsonModels;
 using GiftService.Models.Payments;
 using GiftService.Models.Products;
@@ -103,6 +104,7 @@ namespace GiftService.Web.Controllers
         // GET: /Payment/Cancel
         public ActionResult Cancel()
         {
+            PosBdo pos = null;
             try
             {
                 Logger.Info("Got response from payment system to cancel transaction (by user)");
@@ -112,13 +114,19 @@ namespace GiftService.Web.Controllers
                 //var responseFromPaysera = Factory.PayseraBll.ParseData(Request["data"]);
                 //var t = Factory.TransactionsBll.CancelTransactionByUser(paySystemUid);
                 var t = Factory.TransactionsBll.CancelTransactionByUserUsingOrderNr(SessionStore.PaymentOrderNr);
+
+                // Try to get POS information
+                if (SessionStore.PosId > 0)
+                {
+                    pos = Factory.PosBll.GetById(SessionStore.PosId);
+                }
             }
             catch (Exception ex)
             {
                 Logger.Error("Error canceling transaction", ex);
             }
 
-            return View("Cancel", GetLayoutForPos());
+            return View("Cancel", GetLayoutForPos(), pos);
         }
 
         public ActionResult Bad()
@@ -127,8 +135,9 @@ namespace GiftService.Web.Controllers
         }
 
         // GET: /Payment/Incorrect
-        public ActionResult Incorrect()
+        public ActionResult Incorrect(string msg = null)
         {
+            ViewBag.Message = msg;
             return View("Incorrect", GetLayoutForPos());
         }
 
@@ -169,6 +178,11 @@ namespace GiftService.Web.Controllers
                 model.Locations = posResponse.Locations ?? new List<ProductServiceLocation>();
 
                 return View("Checkout", GetLayoutForPos(posId), model);
+            }
+            catch (IncorrectPaymentParamersException ippex)
+            {
+                Logger.Error("Incorrect price of product (less than 0)", ippex);
+                return Incorrect(Resources.Language.Payment_Make_Error_IncorrectPriceFromRequest);
             }
             catch (System.Net.WebException wex)
             {
@@ -247,10 +261,11 @@ namespace GiftService.Web.Controllers
                 rq.CustomerName = checkout.CustomerName;
                 rq.CustomerEmail = checkout.CustomerEmail;
                 rq.CustomerPhone = checkout.CustomerPhone;
-                //rq.PayText = String.Format("Apmokėjimas už [owner_name] - {0}, per [site_name], http://www.dovanukuponai.com/gift/get/[order_nr]", checkout.ProductName);
+
                 string shortProductName = posResponse.ProductName.Length > 90 ? posResponse.ProductName.Substring(0, 90) : posResponse.ProductName;
                 rq.PayText = String.Concat("RitosMasazai.lt - ", shortProductName, ". Jusu uzsakymas http://www.dovanukuponai.com/gift/get/[order_nr]. Dekoju, [owner_name]");
                 Logger.Debug("  sending PayText: " + rq.PayText);
+
                 //rq.Language = PayseraPaymentRequest.Languages.LIT;
                 rq.IsTestPayment = configuration.UseTestPayment;
 

@@ -1,2 +1,8 @@
-﻿<div class="alert alert-warning">@Resources.Language.Payment_Cancel_YouCancelledYourPayment</div>
-<div class="alert alert-info">@Resources.Language.Payment_Cancel_BackToProductPage <a href="http://www.ritosmasazai.lt/lt/7/price">RitosMasazai</a></div>
+﻿@model GiftService.Models.PosBdo
+
+<div class="alert alert-warning">@Resources.Language.Payment_Cancel_YouCancelledYourPayment</div>
+
+@if (Model != null)
+{
+    <div class="alert alert-info">@Resources.Language.Payment_Cancel_BackToProductPage <a href="@Model.PosUrl">@Model.Name</a></div>
+}

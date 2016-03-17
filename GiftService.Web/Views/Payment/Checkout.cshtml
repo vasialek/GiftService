@@ -72,7 +72,7 @@
 		                    @Html.Raw(Model.ProductDescription)
 	                    }
                     </li>
-                    <li class="list-group-item"><span class="glyphicon glyphicon-time" title="Paslaugos trukme"></span> &nbsp; @Model.ProductDuration</li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-time" title="Paslaugos trukme"></span> &nbsp; @Html.DisplayOrNotSet(Model.ProductDuration, Resources.Language.Payment_Checkout_DurationNotSet)</li>
                     <li class="list-group-item"><span class="glyphicon glyphicon-euro" title="Paslaugos kaina"></span> &nbsp;
                         <b>@Model.RequestedAmount.ToString("### ##0.00") @Model.CurrencyCode</b></li>
                 </ul>

@@ -156,11 +156,18 @@
   <data name="Payment_Checkout_ChooseLocation" xml:space="preserve">
     <value>Pasirinkite aptarnavimo vietą</value>
   </data>
+  <data name="Payment_Checkout_DurationNotSet" xml:space="preserve">
+    <value>Nenurodyta</value>
+  </data>
   <data name="Payment_ErrorProcessingTransaction" xml:space="preserve">
     <value>Klaida vykdant apmokėjimą. Mūsų darbuotojai susisieks su Jumis.</value>
   </data>
   <data name="Payment_Incorrect_ErrorMakingPayment" xml:space="preserve">
     <value>Klaida apdorojant mokėjimo duomenis</value>
+  </data>
+  <data name="Payment_Make_Error_IncorrectPriceFromRequest" xml:space="preserve">
+    <value>Neteisinga prekės kaina, todėl pirkimo procesas sustabdytas.
+Susisiekite su administracija.</value>
   </data>
   <data name="Payment_PaymentIsOk" xml:space="preserve">
     <value>Sveikiname, Jūs įsigijote kuponą.</value>

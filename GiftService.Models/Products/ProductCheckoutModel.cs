@@ -43,6 +43,7 @@ namespace GiftService.Models.Products
         [Display(Name = "Pastabos")]
         public string Remarks { get; set; }
 
+        [Required(ErrorMessage = "Pasirinkite aptarnavimo vietą")]
         public int LocationId { get; set; }
 
         public IEnumerable<ProductServiceLocation> Locations { get; set; }

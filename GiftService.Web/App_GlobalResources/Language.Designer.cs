@@ -178,6 +178,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nenurodyta.
+        /// </summary>
+        internal static string Payment_Checkout_DurationNotSet {
+            get {
+                return ResourceManager.GetString("Payment_Checkout_DurationNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Klaida vykdant apmokėjimą. Mūsų darbuotojai susisieks su Jumis..
         /// </summary>
         internal static string Payment_ErrorProcessingTransaction {
@@ -192,6 +201,16 @@ namespace Resources {
         internal static string Payment_Incorrect_ErrorMakingPayment {
             get {
                 return ResourceManager.GetString("Payment_Incorrect_ErrorMakingPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Neteisinga prekės kaina, todėl pirkimo procesas sustabdytas.
+        ///Susisiekite su administracija..
+        /// </summary>
+        internal static string Payment_Make_Error_IncorrectPriceFromRequest {
+            get {
+                return ResourceManager.GetString("Payment_Make_Error_IncorrectPriceFromRequest", resourceCulture);
             }
         }
         

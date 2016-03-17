@@ -21,5 +21,10 @@ namespace GiftService.Web
                 
             return new MvcHtmlString(p.ToString());
         }
+
+        public static MvcHtmlString DisplayOrNotSet(this HtmlHelper helper, string msg, string defaultValue = "not set")
+        {
+            return new MvcHtmlString(String.IsNullOrEmpty(msg) ? defaultValue : msg);
+        }
     }
 }
