@@ -232,3 +232,5 @@ $RECYCLE.BIN/
 GiftService.Web/Web.config
 GiftService.Web/Web.config
 doc/testse/rm*
+GiftService.Web/WebsiteVersion.cs
+

@@ -247,8 +247,6 @@ namespace GiftService.Web.Controllers
                 var rq = new PayseraPaymentRequest();
 
                 // Paysera information is stored in POS
-                rq.PayseraProjectPassword = configuration.PayseraPassword;
-                rq.ProjectId = configuration.PayseraProjectId.ToString();
                 var pos = Factory.PosBll.GetById(posResponse.PosId);
                 rq.ProjectId = pos.PayseraPayerId;
                 rq.PayseraProjectPassword = pos.PayseraPassword;

@@ -14,10 +14,6 @@ namespace GiftService.Models
 
         public bool UseTestPayment { get; set; }
 
-        public string PayseraPassword { get; set; }
-
-        public int PayseraProjectId { get; set; }
-
         public Uri PayseraPaymentUrl { get; set; }
 
         public int MaxLengthOfPayseraNote { get; set; }
@@ -46,8 +42,6 @@ namespace GiftService.Models
             ProjectDomain = "www.DovanuKuponai.com";
             ProjectName = "DovanuKuponai.com";
             UseTestPayment = false;
-            PayseraPassword = "bd5d3446c45c365c8148f5580f717f67";
-            PayseraProjectId = 76457;
             PayseraPaymentUrl = new Uri("https://www.mokejimai.lt/pay/");
             MaxLengthOfPayseraNote = 255;
         }
