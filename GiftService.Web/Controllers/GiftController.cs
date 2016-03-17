@@ -40,8 +40,23 @@ namespace GiftService.Web.Controllers
 
             try
             {
-                var transaction = Factory.TransactionsBll.GetTransactionByPaySystemUid(id);
-                model.Product = Factory.GiftsBll.GetProductByPaySystemUid(id);
+                TransactionBdo transaction = null;
+
+                // Could be old UID or new OrderNr
+                if (id.Length < this.MySettings.LengthOfPosUid)
+                {
+                    Logger.Info("Trying to get coupon by its order nr: " + id);
+                    transaction = Factory.TransactionsBll.GetTransactionByOrderNr(id);
+                }
+                else
+                {
+                    // Try to get using UID
+                    Logger.Info("Trying to get coupon by payment system UID: " + id);
+                    transaction = Factory.TransactionsBll.GetTransactionByPaySystemUid(id);
+                }
+
+                //var transaction = Factory.TransactionsBll.GetTransactionByPaySystemUid(id);
+                model.Product = Factory.GiftsBll.GetProductByPaySystemUid(transaction.PaySystemUid);
                 model.Pos = Factory.PosBll.GetById(model.Product.PosId);
 
                 model.PaymentStatus = transaction.PaymentStatus;
