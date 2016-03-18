@@ -45,9 +45,7 @@ namespace GiftService.Bll
                 _settings.PathToPosContent = webContentDir;
                 _settings.PathToPdfStorage = System.IO.Path.Combine(webContentDir, "coupons");
 
-                _settings.PayseraPassword = GetMandatoryFromSettings("PayseraPassword");
                 _settings.PayseraPaymentUrl = new Uri(GetMandatoryFromSettings("PayseraPaymentGate"));
-                _settings.PayseraProjectId = int.Parse(GetMandatoryFromSettings("PayseraProjectId"));
 
                 //_settings.PathToPdfStorage = "c:\\temp\\giftservice\\";
                 //_settings.PathToPdfStorage = "E:\\web\\dovanuku\\Content\\coupons\\";
@@ -137,9 +135,9 @@ namespace GiftService.Bll
         {
             return new PosPdfLayout
             {
-                PosId = 1005,
+                PosId = posId,
                 HeaderImage = "header.jpg",
-                FooterImage = "footer.jpg"
+                FooterImage = /*posId == 1006 ? "" : */"footer.jpg"
             };
         }
     }

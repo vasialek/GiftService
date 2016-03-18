@@ -55,7 +55,6 @@ namespace GiftService.Web.Controllers
                     transaction = Factory.TransactionsBll.GetTransactionByPaySystemUid(id);
                 }
 
-                //var transaction = Factory.TransactionsBll.GetTransactionByPaySystemUid(id);
                 model.Product = Factory.GiftsBll.GetProductByPaySystemUid(transaction.PaySystemUid);
                 model.Pos = Factory.PosBll.GetById(model.Product.PosId);
 
