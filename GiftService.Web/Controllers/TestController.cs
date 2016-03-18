@@ -110,9 +110,13 @@ namespace GiftService.Web.Controllers
         }
 
         // GET: /Test/Shop
-        public ActionResult Shop()
+        public ActionResult Shop(string id)
         {
-            return View("Shop", "_LayoutPos_6666", _products);
+            if (String.IsNullOrEmpty(id) == false)
+            {
+                SessionStore.PosId = int.Parse(id);
+            }
+            return View("Shop", GetLayoutForPos(), _products);
         }
     }
 }

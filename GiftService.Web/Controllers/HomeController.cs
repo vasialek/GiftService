@@ -11,7 +11,7 @@ namespace GiftService.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View("Index", GetLayoutForPos());
+            return View("Index");
         }
 
         //public ActionResult About()
@@ -24,14 +24,14 @@ namespace GiftService.Web.Controllers
         // GET: /Home/Rules
         public ActionResult Rules()
         {
-            return View("Rules", GetLayoutForPos());
+            return View("Rules");
         }
 
         // GET: /Home/Contact
         public ActionResult Contact()
         {
             var model = new ContactUsModel();
-            return View("Contact", GetLayoutForPos(), model);
+            return View("Contact", model);
         }
 
         // POST: /Home/Contact
@@ -42,7 +42,7 @@ namespace GiftService.Web.Controllers
             {
                 model.IsSent = true;
             }
-            return View("Contact", GetLayoutForPos(), model);
+            return View("Contact", model);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace GiftService.Web.Controllers
         {
             var clients = Factory.PosBll.GetOurClients();
 
-            return View("OurClients", GetLayoutForPos(), clients);
+            return View("OurClients", clients);
         }
 
         // GET: /Pos/Preview/<POS_ID>
