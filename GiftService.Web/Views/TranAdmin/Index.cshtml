@@ -68,18 +68,22 @@
             init: function () {
                 this.transactionsBlock = $("#TransactionsBody");
                 this.loadingDiv = $("#LoadingDiv");
+                this.loadingDiv.hide();
                 $("#ProductInfoDiv").dialog({
                     autoOpen: false,
                     width: 500
                 });
             },
 
-            loadTransactionsForPage: function (pageNr) {
+            loadTransactionsForPage: function (posId, pageNr) {
+                if (posId == "") {
+                    return;
+                }
                 var self = this;
 
                 self.loadingDiv.show();
                 $.ajax({
-                    url: "@Url.Action("GetLast")",
+                    url: "@Url.Action("GetLast")/" + posId,
                     method: "POST",
                     success: function (data) {
                         self.transactionsBlock.html(data);
@@ -127,7 +131,7 @@
 
         $(function () {
             Transactions.init();
-            Transactions.loadTransactionsForPage(1);
+            Transactions.loadTransactionsForPage("@Request["posId"]", 1);
         });
 
     </script>

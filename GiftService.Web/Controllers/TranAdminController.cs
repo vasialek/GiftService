@@ -105,12 +105,14 @@ namespace GiftService.Web.Controllers
             return View();
         }
 
-        public ActionResult GetLast()
+        public ActionResult GetLast(string id)
         {
             IEnumerable<TransactionBdo> transactions = null;
             try
             {
-                transactions = Factory.TransactionsBll.GetLastTransactions(1005, 0, 50);
+                int posId = -1;
+                int.TryParse(id, out posId);
+                transactions = Factory.TransactionsBll.GetLastTransactions(posId, 0, 50);
             }
             catch (Exception ex)
             {
