@@ -270,7 +270,9 @@ namespace GiftService.Web.Controllers
                 Logger.Debug("  sending PayText: " + rq.PayText);
 
                 //rq.Language = PayseraPaymentRequest.Languages.LIT;
-                rq.IsTestPayment = configuration.UseTestPayment;
+                //rq.IsTestPayment = configuration.UseTestPayment;
+                rq.IsTestPayment = pos.UseTestPayment;
+                Logger.InfoFormat("  use test payment for POS #{0}: {1}", pos.Id, pos.UseTestPayment);
 
                 Uri paymentUri = Factory.PayseraBll.PreparePaymentLink(configuration.PayseraPaymentUrl, rq);
                 Logger.Info("Redirecting to Paysera:");

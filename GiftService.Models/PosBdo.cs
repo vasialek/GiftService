@@ -41,5 +41,10 @@ namespace GiftService.Models
         public Uri CallbackUrl { get; set; }
 
         public bool IsTest { get; set; }
+
+        /// <summary>
+        /// Gets/sets whether payment is real or test
+        /// </summary>
+        public bool UseTestPayment { get; set; }
     }
 }

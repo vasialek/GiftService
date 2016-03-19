@@ -45,6 +45,7 @@ namespace GiftService.Dal
             //p.ValidateUrl = new Uri("http://localhost:56620/Test/Validate");
             p.ValidateUrl = new Uri("http://www.ritosmasazai.lt/test.php/lt/price/info/posUid/");
             p.IsTest = false;
+            p.UseTestPayment = false;
             _poses.Add(p);
 
             p = new PosBdo();
@@ -55,6 +56,7 @@ namespace GiftService.Dal
             p.ValidateUrl = new Uri("http://localhost:56620/Test/Validate");
             //p.ValidateUrl = new Uri("http://www.ritosmasazai.lt/test.php/lt/price/info/posUid/");
             p.IsTest = true;
+            p.UseTestPayment = true;
             _poses.Add(p);
 
             p = new PosBdo();
@@ -67,6 +69,7 @@ namespace GiftService.Dal
             //p.ValidateUrl = new Uri("http://localhost:8079/gspclient/gsinfo.php?posUid=");
             p.ValidateUrl = new Uri("http://knygynai.lt/gsinfo.php?posUid=");
             p.IsTest = false;
+            p.UseTestPayment = true;
             _poses.Add(p);
         }
 
