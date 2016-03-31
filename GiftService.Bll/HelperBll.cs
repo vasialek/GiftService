@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +17,33 @@ namespace GiftService.Bll
         string EncodeHex(byte[] ba, int offset, int length);
         byte[] DecodeHex(string s);
         string GenerateProductUid(int posId);
+        Dictionary<string, object> DynamicObjectToDictionaryInsensitive(object o);
+        Dictionary<string, object> DynamicObjectToDictionary(object o);
     }
 
     public class HelperBll : IHelperBll
     {
         private static char[] HX = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+
+        public Dictionary<string, object> DynamicObjectToDictionaryInsensitive(object o)
+        {
+            Dictionary<string, object> ar = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+            foreach (PropertyDescriptor pd in TypeDescriptor.GetProperties(o))
+            {
+                ar[pd.Name] = pd.GetValue(o);
+            }
+            return ar;
+        }
+
+        public Dictionary<string, object> DynamicObjectToDictionary(object o)
+        {
+            Dictionary<string, object> ar = new Dictionary<string, object>();
+            foreach (PropertyDescriptor pd in TypeDescriptor.GetProperties(o))
+            {
+                ar[pd.Name] = pd.GetValue(o);
+            }
+            return ar;
+        }
 
         public DateTime UnixStart
         {

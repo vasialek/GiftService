@@ -1,13 +1,25 @@
-1. Kuponas skirtas ne pirkejui (dovana). Ar pirkimo metu? Kupono atsisiuntimo formoje?
-2. Kaip pardavejui patikrinti kupono apmokejima
-3. Kupona unikalus kodas. Butu gerai prefiksa susieti su parduotuve.
+1. Kuponas skirtas ne pirkejui (dovana). 
+	- pirkimo metu tureti checkbox'a ir laisvo teksto forma
+	- Kupono atsisiuntimo formoje tureti 2x mygtukus - su kaina ir kaip dovana
++	2. Kaip pardavejui patikrinti kupono apmokejima
++	3. Kupona unikalus kodas. Butu gerai prefiksa susieti su parduotuve.
 4. Pirkimo formoje paaiskinimai (Henrika)
-5. Kupona mokejimo statuso tirkinima.
++	5. Kupona mokejimo statuso tirkinima.
 6. Kai mokejimas yra AcceptedButNotExecuted parasyti - bous atsiustas emailas
 7. Paspaudus "Moketi", atgal i checkout'a. Ka daryti? (Henrika)
+! 8. Telefono tirkinimas (checkout) client-side.
+9. Pagreitinti checkout'o puslapio parodyma (Ajax)
+10. TranAdmin tik su POS ID
+!!! 11. Testinis mokejimo rezimas prie kiekvieno POS
+!!! 12. Knygynai pirkti mygtuku su Henrikos IP
+!!! 13. Knygynai.lt PDF
+14. PDFo konfiguravimas (pagal POS)
+
+
 
 Test cases
 - Blogas prekes UID, paspaudus mygtuka "pirkti"
 - Neteisingas POS ID is prekes UID, paspaudus mygtuka "pirkti"
+
 
 

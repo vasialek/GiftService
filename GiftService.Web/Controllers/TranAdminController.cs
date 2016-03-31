@@ -1,7 +1,9 @@
 ﻿using GiftService.Models;
+using GiftService.Models.Payments;
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -143,6 +145,57 @@ namespace GiftService.Web.Controllers
             }
 
             return Json(new { ProductName = name, ProductPrice = price, Location = location });
+        }
+
+        // POST: /TranAdmin/DoParsePs
+        public ActionResult DoParsePs()
+        {
+            bool isOk = false;
+            string msg = "";
+            PayseraPaymentResponse resp = null;
+            string r = String.Empty;
+
+            try
+            {
+                string data = Request["data"];
+                if (String.IsNullOrEmpty(data))
+                {
+                    throw new ArgumentNullException("data", "No data from PS is provided");
+                }
+
+                resp = Factory.PayseraBll.ParseData(data);
+                r = RenderPartialView("_PsResponsePartial", resp);
+                isOk = true;
+                msg = "Response from PS is parserd";
+            }
+            catch (Exception ex)
+            {
+                isOk = false;
+                msg = ex.Message;
+                resp = null;
+            }
+
+            return Json(new
+            {
+                Status = isOk,
+                Message = msg,
+                Response = r
+            });
+        }
+
+        protected string RenderPartialView(string partialName, object model)
+        {
+            ViewData.Model = model;
+
+            using (StringWriter sw = new StringWriter())
+            {
+                ViewEngineResult vr = ViewEngines.Engines.FindPartialView(this.ControllerContext, partialName);
+                //ViewEngineResult vr = new ViewEngineResult(new List<string> { partialName });
+                ViewContext vc = new ViewContext(this.ControllerContext, vr.View, this.ViewData, this.TempData, sw);
+                vc.View.Render(vc, sw);
+
+                return sw.ToString();
+            }
         }
     }
 }
