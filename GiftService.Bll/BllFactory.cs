@@ -21,6 +21,7 @@ namespace GiftService.Bll
         private IPdfBll _pdfBll = null;
         private IHelperBll _helperBll = null;
         private ILogsBll _logsBll = null;
+        private ITextModuleBll _textModuleBll = null;
 
         private BllFactory()
         {
@@ -159,6 +160,18 @@ namespace GiftService.Bll
                     _logsBll = new LogsBll(DalFactory.Current.LogsDal);
                 }
                 return _logsBll;
+            }
+        }
+
+        public ITextModuleBll TextModuleBll
+        {
+            get
+            {
+                if (_textModuleBll == null)
+                {
+                    _textModuleBll = new TextModuleBll(DalFactory.Current.TextModuleDal);
+                }
+                return _textModuleBll;
             }
         }
 
