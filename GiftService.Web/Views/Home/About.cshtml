@@ -1,0 +1,9 @@
+﻿@model GiftService.Models.Texts.TextModule
+
+@{ 
+    ViewBag.Title = Model.Title;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Raw(Model.Text)

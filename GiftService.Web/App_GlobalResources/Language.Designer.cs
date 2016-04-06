@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sistemos prezentacija.
+        /// </summary>
+        internal static string Home_AboutUs_Title {
+            get {
+                return ResourceManager.GetString("Home_AboutUs_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aciū, Jūsų užklausa išsiusta.
         /// </summary>
         internal static string Home_ContactUs_MessageIsSentOk {
@@ -238,6 +247,15 @@ namespace Resources {
         internal static string Pos_OurClients_Title {
             get {
                 return ResourceManager.GetString("Pos_OurClients_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Atsiprašome, vyksta techniniai darbai ir informaciją nerasta..
+        /// </summary>
+        internal static string SystemMessage_NotFound {
+            get {
+                return ResourceManager.GetString("SystemMessage_NotFound", resourceCulture);
             }
         }
         
