@@ -171,6 +171,7 @@ namespace GiftService.Bll
 
             t.IsPaymentProcessed = true;
             t.PaySystemResponseAt = DateTime.UtcNow;
+            t.IsTestPayment = resp.IsTestPayment;
 
             t.PaidAmount = resp.PayAmount;
             t.PaidCurrencyCode = resp.PayCurrencyCode;
