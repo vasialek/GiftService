@@ -1,0 +1,267 @@
+* {
+    margin: 0;
+    /*padding: 0;*/
+}
+html {
+    height: 100%;
+}
+body {
+    font: 12px/18px Arial, Tahoma, Verdana, sans-serif;
+    width: 100%;
+    height: 100%;
+}
+
+.body {
+    background: url(bg.jpg) no-repeat;
+    background-size: 200px 663px;
+    background-position: 1204px 172px;
+}
+
+a {
+    color: blue;
+    outline: none;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+p {
+    margin: 0 0 18px
+}
+
+img {
+    border: none;
+}
+
+input {
+    vertical-align: middle;
+}
+
+#wrapper {
+    width: 1000px;
+    margin: 0 auto;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+}
+
+
+/* Header
+-----------------------------------------------------------------------------*/
+#header {
+    height: 159px;
+    background: #b20c0c;
+}
+
+.header-text {
+    font-size: 28px;
+    font-family: "Times New Roman", Arial, Tahoma, Verdana, sans-serif;
+    /*font-style: italic;*/
+    color: #ffeb00;
+    /*margin-left: 50px;*/
+    margin-left: 48px;
+    margin-top: 60px;
+}
+
+.header-text span.author {
+    font-size: 16px !important;
+    font-style: italic;
+}
+
+.header-logo {
+    width: 343px;
+    height: 159px;
+    background: url(logo.jpg) no-repeat;
+    background-position: -4px;
+}
+
+.header-top-block {
+    height: 57px;
+}
+
+.top-menu {
+    list-style: none;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+}
+
+.top-menu li.active {
+    position: relative;
+    top: 0px;
+    margin-right: 0 !important;
+}
+
+.top-menu li {
+    display: inline-block;
+    position: relative;
+    top: -15px;
+
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.top-menu li.active a {
+    color: #fff !important;
+}
+
+.top-menu li a {
+    color: #949495;
+}
+
+/* Middle
+-----------------------------------------------------------------------------*/
+#middle {
+    width: 100%;
+    padding: 0 0 50px;
+    /*height: 1%;*/
+    position: relative;
+}
+#middle:after {
+    content: '.';
+    display: block;
+    clear: both;
+    visibility: hidden;
+    height: 0;
+}
+#container {
+    width: 100%;
+    float: left;
+    overflow: hidden;
+}
+#content {
+    padding: 10px 30px 0 30px;
+}
+
+/* Sidebar Left
+-----------------------------------------------------------------------------*/
+#sideLeft {
+    float: left;
+    width: 250px;
+    margin-left: -100%;
+    position: relative;
+    background: #B5E3FF;
+}
+
+
+/* Sidebar Right
+-----------------------------------------------------------------------------*/
+#sideRight {
+    float: left;
+    margin-right: -3px;
+    width: 250px;
+    margin-left: -250px;
+    position: relative;
+    background: #FFACAA;
+}
+
+
+/* Footer
+-----------------------------------------------------------------------------*/
+#footer {
+    width: 1000px;
+    margin: -50px auto 0;
+    height: 50px;
+    background: #b20d0d;
+    position: relative;
+}
+
+.copyright, .solution {
+    margin-top: 18px;
+}
+
+.copyright {
+    margin-left: 15px;
+}
+
+.solution {
+    margin-right: 15px;
+}
+
+.copyright a {
+    color: #fff;
+}
+
+.solution, .solution a {
+    color: #fff;
+}
+
+
+/* Special CSS
+-----------------------------------------------------------------------------*/
+.f-left {
+    float: left !important;
+}
+
+.f-right {
+    float: right !important;
+}
+
+
+/* Buttons
+-----------------------------------------------------------------------------*/
+.red-btn-left {
+    background: url(btn-left-bg.png) no-repeat;
+    width: 17px;
+    height: 41px;
+    /*position: relative;*/
+    /*top: 1px;*/
+}
+
+.red-btn-center {
+    background: #bb2025;
+    height: 28px;
+    font-size: 16px;
+    font-weight: bold;
+    position: relative;
+    /*top: 1px;*/
+    padding-top: 12px;
+}
+
+.red-btn-center a {
+    color: #fff;
+}
+
+.red-btn-right {
+    background: url(btn-right-bg.png) no-repeat;
+    width: 16px;
+    height: 41px;
+    margin-right: 20px;
+}
+
+.content-text {
+    min-height: 150px;
+}
+
+.photos_bottom img {
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+.galerija_image {
+    margin-top: 15px;
+}
+
+.galerija_event {
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+.contact-form, .google-maps {
+    float: left;
+}
+
+.contact-form {
+    width: 380px;
+}
+
+.google-maps {
+    width: 450px;
+}
+
+.contact-form {
+    margin-right: 20px;
+}

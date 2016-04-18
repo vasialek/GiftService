@@ -1,0 +1,96 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="title" content="Sveikatos ir Grožio Išsaugojimo Centras &quot;Melisanda&quot;">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="melisanda">
+    <meta name="keywords" content="melisanda">
+    <title>@ViewBag.Title. @WebsiteVersion.Version</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.css" />
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link href="~/Content/p1007/style.css" rel="stylesheet" />
+</head>
+
+<body>
+
+
+    <div class="body">
+
+
+        <div id="wrapper">
+
+            <div id="header">
+                <div class="header-text f-left">
+                    Tik pojūčiai išgydys sielą ir tik siela išgydys pojūčius.<br>
+                    <span class="author">(Oskaras Vaildas)</span>
+                </div>
+
+                <a href="http://www.melisanda.lt"><div class="header-logo f-right"></div></a>
+            </div><!-- #header-->
+
+            <div class="header-top-block">
+                <ul class="top-menu">
+                    <li class="" style="text-indent: 0px; font-size: 13px;">
+                        <a href="http://www.melisanda.lt/lt/7/Apie+imone">Apie įmonę</a>
+                    </li>
+                    <li class="" style="text-indent: 0px; font-size: 13px;">
+                        <a href="http://www.melisanda.lt/lt/6/Paslaugos">Paslaugos</a>
+                    </li>
+                    <li class="" style="text-indent: 0px; font-size: 13px;">
+                        <a href="http://www.melisanda.lt/lt/9/Nuolaidos">Nuolaidos</a>
+                    </li>
+                    <li class="" style="text-indent: 0px; font-size: 13px;">
+                        <a href="http://www.melisanda.lt/lt/10/Kainorastis">Kainoraštis</a>
+                    </li>
+                    <li class="" style="text-indent: 0px; font-size: 13px;">
+                        <a href="http://www.melisanda.lt/lt/17/Mergvakaris+grozio+salone">Mergvakaris grožio salone</a>
+                    </li>
+                    <li class="" style="text-indent: 0px; font-size: 13px;">
+                        <a href="http://www.melisanda.lt/lt/20/Dovanu+kuponai">Dovanų kuponai</a>
+                    </li>
+                    <li class="" style="text-indent: 0px; font-size: 13px;">
+                        <a href="http://www.melisanda.lt/lt/19/Galerija">Galerija</a>
+                    </li>
+                    <li class="" style="text-indent: 0px; font-size: 13px;">
+                        <a href="http://www.melisanda.lt/lt/22/Partneriai">Partneriai</a>
+                    </li>
+                    <li class="" style="text-indent: 0px; font-size: 13px;">
+                        <a href="http://www.melisanda.lt/lt/11/Kontaktai">Kontaktai</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="middle">
+
+                <div id="container">
+                    <div id="content">
+                        <div class="content-text">
+
+                            @RenderBody()
+
+                        </div>
+                    </div><!-- #content-->
+                </div><!-- #container-->
+
+            </div><!-- #middle-->
+
+        </div><!-- #wrapper -->
+
+        <div id="footer">
+            <div class="copyright f-left">
+                <a href="/lt">Copyright © 2003 MELISANDA, UAB grožio salonas. Visos teisės saugomos.</a>                <a target="_blank" href="https://www.facebook.com/pages/Sveikatos-ir-Gro%C5%BEio-I%C5%A1saugojimo-Centras-Melisanda/585338711496210?fref=ts">
+                    <img src="~/Content/p1007/facebook.jpg" alt="FaceBook">
+                </a>
+            </div>
+            <div class="solution f-right">
+                Web Design by:                 <a href="http://www.interateitis.lt">INTERATEITIS</a>
+            </div>
+
+        </div><!-- #footer -->
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
