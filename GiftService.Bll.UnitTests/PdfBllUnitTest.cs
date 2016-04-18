@@ -49,7 +49,7 @@ namespace GiftService.Bll.UnitTests
                     PosUrl = "www.url.com",
 
                     CustomerName = "Aleksej Vvvv",
-                    CustomerEmail = "av@fscc.lt",
+                    CustomerEmail = "proglamer@gmail.com",
                     CustomerPhone = "+370 600 14789",
                     Remarks = "Some remarks...",
 
