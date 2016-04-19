@@ -54,7 +54,7 @@ namespace GiftService.Dal
             p.Description = "Just testing shop";
             p.PosUrl = new Uri("http://localhost:56620/");
             p.ValidateUrl = new Uri("http://localhost:56620/Test/Validate");
-            //p.ValidateUrl = new Uri("http://www.ritosmasazai.lt/test.php/lt/price/info/posUid/");
+            //p.ValidateUrl = new Uri("http://www.ritosmasazai.lt/lt/price/info/posUid/");
             p.IsTest = true;
             p.UseTestPayment = true;
             _poses.Add(p);
@@ -69,6 +69,19 @@ namespace GiftService.Dal
             //p.ValidateUrl = new Uri("http://localhost:8079/gspclient/gsinfo.php?posUid=");
             p.ValidateUrl = new Uri("http://knygynai.lt/gsinfo.php?posUid=");
             p.IsTest = false;
+            p.UseTestPayment = true;
+            _poses.Add(p);
+
+            p = new PosBdo();
+            p.Id = 1007;
+            p.Name = "Melisanda.lt";
+            p.Description = "Sveikatos ir Grožio Išsaugojimo Centras \"Melisanda\"";
+            p.PayseraPayerId = "80213";
+            p.PayseraPassword = "87ff85458a1104dcacebe8eb9dec3a82";
+            p.PosUrl = new Uri("http://www.melisanda.lt/");
+            //p.ValidateUrl = new Uri("http://localhost:8079/gspclient/gsinfo.php?posUid=");
+            p.ValidateUrl = new Uri("http://www.melisanda.lt/lt/price/info/posUid/");
+            p.IsTest = true;
             p.UseTestPayment = true;
             _poses.Add(p);
         }
