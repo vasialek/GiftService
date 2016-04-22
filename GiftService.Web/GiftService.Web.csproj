@@ -161,7 +161,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\html\index.html" />
     <Content Include="Content\html\_AboutUs_lt.html" />
-    <Content Include="Content\images\dovanu_kuponu_apmokejimas.png" />
+    <Content Include="Content\images\dovanu_kuponu_kontaktai.png" />
     <Content Include="Content\images\dovanu_kuponu_apmokejimo_pasirinkimas.png" />
     <Content Include="Content\images\dovanu_kuponu_gavimas.png" />
     <Content Include="Content\images\dovanu_kuponu_pasirinkimas.png" />
@@ -183,6 +183,14 @@
     <Content Include="Content\p1006\pdf\footer.jpg" />
     <Content Include="Content\p1006\pdf\header.jpg" />
     <Content Include="Content\p1006\style.css" />
+    <Content Include="Content\p1007\bg.jpg" />
+    <Content Include="Content\p1007\btn-left-bg.png" />
+    <Content Include="Content\p1007\btn-right-bg.png" />
+    <Content Include="Content\p1007\facebook.jpg" />
+    <Content Include="Content\p1007\logo.jpg" />
+    <Content Include="Content\p1007\pdf\footer.jpg" />
+    <Content Include="Content\p1007\pdf\header.jpg" />
+    <Content Include="Content\p1007\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -264,6 +272,7 @@
     <Content Include="Views\Pos\Preview.cshtml" />
     <Content Include="Views\TranAdmin\_PsResponsePartial.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Shared\_LayoutPos_1007.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
