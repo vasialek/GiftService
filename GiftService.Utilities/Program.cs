@@ -11,31 +11,33 @@ namespace GiftService.Utilities
     {
         static void Main(string[] args)
         {
-            string filename = @"C:\_projects\GiftService\doc\import\melisanda_products.txt";
-            string outputSqlFile = filename + ".sql";
+            new PenetrationTests().GenerateAllOrderIds();
 
-            Console.WriteLine("Parsing file: {0}", filename);
-            string[] lines = File.ReadAllLines(filename);
+            //string filename = @"C:\_projects\GiftService\doc\import\melisanda_products.txt";
+            //string outputSqlFile = filename + ".sql";
 
-            var melisandaUtils = new MelisandaUtils();
-            var products = melisandaUtils.ParseProducts(lines);
+            //Console.WriteLine("Parsing file: {0}", filename);
+            //string[] lines = File.ReadAllLines(filename);
 
-            Console.WriteLine("Products:");
-            foreach (var p in products)
-            {
-                Console.WriteLine("  {0,-8} {1} - {2}", p.ProductCategoryId, p.Price, p.Name);
-            }
+            //var melisandaUtils = new MelisandaUtils();
+            //var products = melisandaUtils.ParseProducts(lines);
 
-            var sqls = melisandaUtils.PrepareToInsert(products);
-            foreach (string s in sqls)
-            {
-                Console.WriteLine(s);
-            }
+            //Console.WriteLine("Products:");
+            //foreach (var p in products)
+            //{
+            //    Console.WriteLine("  {0,-8} {1} - {2}", p.ProductCategoryId, p.Price, p.Name);
+            //}
 
-            Console.WriteLine("Going to write to file: {0}", outputSqlFile);
-            Console.WriteLine("Press any key to continue or Ctrl+C...");
-            Console.ReadKey(true);
-            File.WriteAllLines(outputSqlFile, sqls);
+            //var sqls = melisandaUtils.PrepareToInsert(products);
+            //foreach (string s in sqls)
+            //{
+            //    Console.WriteLine(s);
+            //}
+
+            //Console.WriteLine("Going to write to file: {0}", outputSqlFile);
+            //Console.WriteLine("Press any key to continue or Ctrl+C...");
+            //Console.ReadKey(true);
+            //File.WriteAllLines(outputSqlFile, sqls);
         }
     }
 }

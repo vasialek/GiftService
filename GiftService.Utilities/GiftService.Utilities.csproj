@@ -46,6 +46,7 @@
     <Compile Include="MelisandaUtils.cs" />
     <Compile Include="Models\Web\BaseProductModel.cs" />
     <Compile Include="Models\Web\ProductCategoryModel.cs" />
+    <Compile Include="PenetrationTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
