@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>GiftService PHone vALIDATOR :)</title>
+    <link href="../content/jasmine/jasmine.css" rel="stylesheet" />
+    <script src="../scripts/jasmine/jasmine.js"></script>
+    <script src="../scripts/jasmine/jasmine-html.js"></script>
+    <script src="../scripts/jasmine/boot.js"></script>
+    <script src="../scripts/gsphalidator.js"></script>
+</head>
+<body>
+
+    <script type="text/javascript">
+        describe("Validate valid phones", function () {
+            it("+3706001234", function () {
+                expect(GsPhalidator.isValid("+37060012345")).toBe(true);
+            });
+            it("8 5 2040930", function () {
+                expect(GsPhalidator.isValid("8 5 2040930")).toBe(true);
+            });
+
+            it("+370 600 12345", function () {
+                expect(GsPhalidator.isValid("+370 600 12345")).toBe(true);
+            });
+        });
+
+        describe("Validate bad phones", function () {
+            it("Bad phone starts with letter", function () {
+                expect(GsPhalidator.isValid("s1234560")).toBe(false);
+            });
+            it("Too long +370 666 1234567890", function () {
+                expect(GsPhalidator.isValid("+370 666 1234567890")).toBe(false);
+            });
+        });
+
+        describe("Validate strange but valid phones", function () {
+            it("(8~800) 735 68", function () {
+                expect(GsPhalidator.isValid("(8~800) 735 68")).toBe(true);
+            });
+            it("(8 - 673) 13301", function () {
+                expect(GsPhalidator.isValid("(8 - 673) 13301")).toBe(true);
+            });
+        });
+    </script>
+
+</body>
+</html>
