@@ -63,6 +63,19 @@ namespace GiftService.Bll
         {
             Logger.InfoFormat("Generation product coupon by product UID: `{0}`", productUid);
             var p = _productsDal.GetProductByUid(productUid);
+            //var p = new Models.ProductBdo
+            //{
+            //    ProductName = "Rimtos, juoikingos ir graudžios senojo Vilniaus istorijos - Libertas Klimka",
+            //    CustomerName = "Aleksej Tak",
+            //    ProductPrice = 19.10m,
+            //    CurrencyCode = "EUR",
+            //    PhoneForReservation = "+370 612 17534",
+            //    PosId = 1006,
+            //    PosAddress = "Goštauto g. 12-146",
+            //    PosCity = "Vilnius",
+            //    PosName = "UAB \"INTERATEITIS\"",
+            //    ValidTill = DateTime.Now.AddDays(10)
+            //};
             var layout = _configurationBll.GetPdfLayout(p.PosId);
             Logger.DebugFormat("  decorate PDF coupon with header: `{0}`", layout.HeaderImage);
             Logger.DebugFormat("  decorate PDF coupon with footer: `{0}`", layout.FooterImage);
@@ -79,7 +92,7 @@ namespace GiftService.Bll
                 PdfWriter w = PdfWriter.GetInstance(d, ms);
 
                 d.Open();
-                d.SetMargins(0, 0, 36, 36);
+                d.SetMargins(0f, 0f, 0f, 0f);
 
                 try
                 {
@@ -180,22 +193,38 @@ namespace GiftService.Bll
             Logger.DebugFormat("  looking for PDF decorations in `{0}`", posPdfDirectory);
 
 
-            if (String.IsNullOrEmpty(layout.HeaderImage) == false)
-            {
-                image = Path.Combine(posPdfDirectory, layout.HeaderImage);
-                Logger.DebugFormat("  adding header image: `{0}`", image);
-                Image header = Image.GetInstance(image);
-                //header.SetAbsolutePosition(0, 0);
-                d.Add(header);
-            }
-
             if (String.IsNullOrEmpty(layout.FooterImage) == false)
             {
                 image = Path.Combine(posPdfDirectory, layout.FooterImage);
                 Logger.DebugFormat("  adding footer image: `{0}`", image);
                 Image footer = Image.GetInstance(image);
                 footer.SetAbsolutePosition(0, 0);
+                //footer.Alignment = Image.TEXTWRAP;
                 d.Add(footer);
+            }
+
+            if (String.IsNullOrEmpty(layout.HeaderImage) == false)
+            {
+                image = Path.Combine(posPdfDirectory, layout.HeaderImage);
+                Logger.DebugFormat("  adding header image: `{0}`", image);
+                Image header = Image.GetInstance(image);
+
+                // Height of PDF is 842px
+                float y = PageSize.A4.Height - header.Height;
+                //header.SetAbsolutePosition(0, y);
+                header.Alignment = Image.ALIGN_JUSTIFIED | Image.TEXTWRAP;
+                header.SpacingBefore = 0f;
+                header.SpacingAfter = 0f;
+                header.PaddingTop = 0f;
+
+                //header.Alignment = Image.TEXTWRAP;// | Image.ALIGN_JUSTIFIED_ALL;
+                //header.SpacingBefore = 30f;
+                d.Add(header);
+                //Image header1 = Image.GetInstance(image);
+                //header1.ScaleAbsoluteHeight(1f);
+                //header1.ScaleAbsoluteWidth(PageSize.A4.Width);
+                //header1.Alignment = Image.ALIGN_TOP | Image.ALIGN_JUSTIFIED | Image.TEXTWRAP;
+                //d.Add(header1);
             }
 
             return d;

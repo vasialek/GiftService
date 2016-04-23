@@ -5,6 +5,9 @@ using Moq;
 using GiftService.Models;
 using GiftService.Dal;
 using GiftService.Models.Pos;
+using System.Linq;
+using System.Collections.Generic;
+using GiftService.Bll.UnitTests.Fakes;
 
 namespace GiftService.Bll.UnitTests
 {
@@ -12,22 +15,27 @@ namespace GiftService.Bll.UnitTests
     public class PdfBllUnitTest
     {
 
-        IPdfBll _bll = null;
+        IPdfBll _pdfBll = null;
         ICommunicationBll _communicationBll = null;
+        IProductsBll _productsBll = null;
         Mock<IProductsDal> _productsDalMock = new Mock<IProductsDal>();
+        Mock<IPosDal> _posDalMock = new Mock<IPosDal>();
+        Mock<IConfigurationBll> _configBllMock = null;
+
+        IEnumerable<ProductBdo> _products = null;
 
         [TestInitialize]
         public void Init()
         {
-            Mock<IConfigurationBll> configBllMock = new Mock<IConfigurationBll>();
-            configBllMock.Setup(x => x.Get())
+            _configBllMock = new Mock<IConfigurationBll>();
+            _configBllMock.Setup(x => x.Get())
                 .Returns(() => new MySettings {
                     LengthOfPosUid = 32,
                     LengthOfPdfDirectoryName = 5,
                     PathToPdfStorage = "c:\\temp\\giftservice\\trash\\",
                     PathToPosContent = "c:\\_projects\\GiftService\\GiftService.Web\\Content\\"
                 });
-            configBllMock.Setup(x => x.GetPdfLayout(It.IsAny<int>()))
+            _configBllMock.Setup(x => x.GetPdfLayout(It.IsAny<int>()))
                 .Returns((int posId) => new PosPdfLayout
                 {
                     PosId = posId,
@@ -36,44 +44,61 @@ namespace GiftService.Bll.UnitTests
                 });
 
             _productsDalMock.Setup(x => x.GetProductByUid(It.IsAny<string>()))
-                .Returns((string productUid) => new ProductBdo
+                .Returns((string productUid) =>
                 {
-                    ProductUid = productUid,
-                    PaySystemUid = Guid.NewGuid().ToString("N"),
-                    PosUserUid = Guid.NewGuid().ToString("N"),
-
-                    PosId = 1005,
-                    PosName = "BABOR GROŽIO CENTRAS",
-                    PosCity = "Wilno ųųųųų",
-                    PosAddress = "Juozapavičiaus g. 9A - 174",
-                    PosUrl = "www.url.com",
-
-                    CustomerName = "Aleksej Vvvv",
-                    CustomerEmail = "proglamer@gmail.com",
-                    CustomerPhone = "+370 600 14789",
-                    Remarks = "Some remarks...",
-
-                    ProductName = "Grožiodeivė",
-                    ProductDescription = "Atstatantis viso kūno įvyniojimas su šveitimu išsausėjusiai kūno odai",
-                    ProductPrice = 12345.67m,
-                    CurrencyCode = "EUR",
-
-                    ValidFrom = DateTime.UtcNow,
-                    ValidTill = DateTime.UtcNow.AddMonths(3),
-
-                    PhoneForReservation = "+370 652 98422"
-
+                    var p = ProductsDalFake.GetProducts().First();
+                    p.ProductUid = productUid;
+                    return p;
                 });
 
-            _bll = new PdfBll(configBllMock.Object, _productsDalMock.Object);
+            _productsDalMock.Setup(x => x.GetProductByPaySystemUid(It.IsAny<string>()))
+                .Returns((string paySystemUid) =>
+                {
+                    var p = ProductsDalFake.GetProducts().First();
+                    p.PaySystemUid = paySystemUid;
+                    return p;
+                });
+
+            _pdfBll = new PdfBll(_configBllMock.Object, _productsDalMock.Object);
 
             _communicationBll = new CommunicationBll();
+
+            _productsBll = new ProductsBll(_productsDalMock.Object, DalFactory.Current.PosDal);
+        }
+
+        [TestMethod]
+        public void Test_PdfSharp_Library()
+        {
+            var configBll = new Mock<IConfigurationBll>();
+
+            configBll.Setup(x => x.Get())
+                .Returns(() => new MySettings
+                {
+                    LengthOfPosUid = 32,
+                    LengthOfPdfDirectoryName = 5,
+                    PathToPdfStorage = "c:\\temp\\giftservice\\trash\\",
+                    PathToPosContent = "c:\\_projects\\GiftService\\GiftService.Web\\Content\\"
+                });
+
+            configBll.Setup(x => x.GetPdfLayout(It.IsAny<int>()))
+                .Returns((int posId) => new PosPdfLayout
+                {
+                    PosId = posId,
+                    FooterImage = "footer.jpg",
+                    HeaderImage = "header_72dpi.jpg"
+                });
+
+            IPdfBll pdfSharpBll = new PdfShartBll(configBll.Object, _productsBll);
+            byte[] ba = pdfSharpBll.GeneratProductPdf("PUID_000010000000000000000000000");
+
+            Assert.IsNotNull(ba);
+            File.WriteAllBytes("c:\\temp\\gs.pdf", ba);
         }
 
         [TestMethod]
         public void Test_Create_Coupon()
         {
-            byte[] ba = _bll.GeneratProductPdf("PUID_000010000000000000000000000");
+            byte[] ba = _pdfBll.GeneratProductPdf("PUID_000010000000000000000000000");
 
             Assert.IsNotNull(ba);
             File.WriteAllBytes("c:\\temp\\gs.pdf", ba);
