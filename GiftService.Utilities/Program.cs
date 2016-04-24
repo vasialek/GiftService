@@ -11,7 +11,7 @@ namespace GiftService.Utilities
     {
         static void Main(string[] args)
         {
-            new PenetrationTests().GenerateAllOrderIds();
+            //new PenetrationTests().GenerateAllOrderIds();
 
             //string filename = @"C:\_projects\GiftService\doc\import\melisanda_products.txt";
             //string outputSqlFile = filename + ".sql";

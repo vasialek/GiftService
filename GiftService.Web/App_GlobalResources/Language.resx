@@ -135,6 +135,12 @@
   <data name="Gift_Get_PrintCoupon" xml:space="preserve">
     <value>Atsispausdinti kuponą</value>
   </data>
+  <data name="Gift_Get_ProductDurationLabel" xml:space="preserve">
+    <value>Trukmė:</value>
+  </data>
+  <data name="Gift_Get_ProductDurationNotSet" xml:space="preserve">
+    <value>Nenurodyta</value>
+  </data>
   <data name="Gift_Get_ServiceLabel" xml:space="preserve">
     <value>Paslauga:</value>
   </data>

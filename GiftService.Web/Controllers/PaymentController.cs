@@ -177,7 +177,7 @@ namespace GiftService.Web.Controllers
                 model = Mapper.Map<ProductCheckoutModel>(posResponse);
                 model.PosUserUid = id;
                 //model.ProductName = posResponse.ProductName;
-                //model.ProductDuration = posResponse.ProductDuration;
+                model.ProductDuration = posResponse.ProductDuration;
                 model.ProductValidTill = Factory.HelperBll.ConvertFromUnixTimestamp(posResponse.ProductValidTillTm);
                 model.RequestedAmount = posResponse.RequestedAmountMinor / 100m;
                 //model.CurrencyCode = posResponse.CurrencyCode;

@@ -24,6 +24,11 @@
             @Html.Raw(Model.Product.ProductName)<br />
             @Model.Product.ProductDescription</p>
 
+        <p>
+            @Resources.Language.Gift_Get_ProductDurationLabel
+            @Html.DisplayOrNotSet(Model.Product.ProductDuration, Resources.Language.Payment_Checkout_DurationNotSet)
+        </p>
+
         <p>@Html.Raw(Model.PosAddress)</p>
         @*<div>Price: @Model.Product.ProductPrice.ToString("N2") @Model.Product.CurrencyCode</div>*@
         

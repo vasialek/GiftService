@@ -30,6 +30,8 @@ namespace GiftService.Models
 
         public string ProductDescription { get; set; }
 
+        public string ProductDuration { get; set; }
+
         public DateTime ValidFrom { get; set; }
 
         public DateTime ValidTill { get; set; }

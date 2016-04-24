@@ -114,6 +114,7 @@ namespace GiftService.Bll
             product.PaySystemUid = Guid.NewGuid().ToString("N");
 
             Logger.Debug("Saving product information from POS and customer form");
+            Logger.DebugFormat("  Pass product duration to save: `{0}`", product.ProductDuration);
             Logger.Debug(DumpBll.Dump(product));
 
             return _productsDal.SaveProductInformationFromPos(product, pos);

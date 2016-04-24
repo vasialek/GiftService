@@ -115,6 +115,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Trukmė:.
+        /// </summary>
+        internal static string Gift_Get_ProductDurationLabel {
+            get {
+                return ResourceManager.GetString("Gift_Get_ProductDurationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nenurodyta.
+        /// </summary>
+        internal static string Gift_Get_ProductDurationNotSet {
+            get {
+                return ResourceManager.GetString("Gift_Get_ProductDurationNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Paslauga:.
         /// </summary>
         internal static string Gift_Get_ServiceLabel {

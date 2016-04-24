@@ -107,6 +107,8 @@ namespace GiftService.Dal
                 p.product_uid = product.ProductUid;
                 p.product_name = product.ProductName;
                 p.product_description = product.ProductDescription;
+                p.product_duration = product.ProductDuration;
+                Logger.DebugFormat("  setting product_duration to: `{0}`", p.product_duration);
                 p.product_price = product.ProductPrice;
                 p.currency_code = product.CurrencyCode;
 
@@ -133,6 +135,7 @@ namespace GiftService.Dal
                 Logger.DebugFormat("  product_uid:           `{0}`", p.product_uid);
                 Logger.DebugFormat("  product_name:          `{0}`", p.product_name);
                 Logger.DebugFormat("  product_description:   `{0}`", p.product_description);
+                Logger.DebugFormat("  product_duration:      `{0}`", p.product_duration);
                 Logger.DebugFormat("  product_price:         `{0}`", p.product_price);
                 Logger.DebugFormat("  currency_code:         `{0}`", p.currency_code);
 
@@ -195,6 +198,7 @@ namespace GiftService.Dal
 
                     ProductName = productDao.product_name,
                     ProductDescription = productDao.product_description,
+                    ProductDuration = productDao.product_duration,
                     ProductPrice = productDao.product_price,
                     CurrencyCode = productDao.currency_code,
 
@@ -217,6 +221,7 @@ namespace GiftService.Dal
                 };
             }
 
+            Logger.DebugFormat("  set product duration (from DB) to: `{0}`", product.ProductDuration);
             return product;
         }
 
