@@ -54,7 +54,7 @@ namespace GiftService.Bll.UnitTests
             _productsDalMock.Setup(x => x.GetProductByPaySystemUid(It.IsAny<string>()))
                 .Returns((string paySystemUid) =>
                 {
-                    var p = ProductsDalFake.GetProducts().First();
+                    var p = ProductsDalFake.GetProducts().First(x => x.PaySystemUid == paySystemUid);
                     p.PaySystemUid = paySystemUid;
                     return p;
                 });
@@ -67,32 +67,44 @@ namespace GiftService.Bll.UnitTests
         }
 
         [TestMethod]
-        public void Test_PdfSharp_Library()
+        public void Test_PdfSharp_Library_Pos_1005()
         {
-            var configBll = new Mock<IConfigurationBll>();
-
-            configBll.Setup(x => x.Get())
-                .Returns(() => new MySettings
-                {
-                    LengthOfPosUid = 32,
-                    LengthOfPdfDirectoryName = 5,
-                    PathToPdfStorage = "c:\\temp\\giftservice\\trash\\",
-                    PathToPosContent = "c:\\_projects\\GiftService\\GiftService.Web\\Content\\"
-                });
-
-            configBll.Setup(x => x.GetPdfLayout(It.IsAny<int>()))
+            _configBllMock.Setup(x => x.GetPdfLayout(It.IsAny<int>()))
                 .Returns((int posId) => new PosPdfLayout
                 {
-                    PosId = posId,
-                    FooterImage = "footer.jpg",
+                    PosId = 1005,
+                    FooterImage = "footer_72dpi.jpg",
                     HeaderImage = "header_72dpi.jpg"
                 });
 
-            IPdfBll pdfSharpBll = new PdfShartBll(configBll.Object, _productsBll);
-            byte[] ba = pdfSharpBll.GeneratProductPdf("PUID_000010000000000000000000000");
+            IPdfBll pdfSharpBll = new PdfShartBll(_configBllMock.Object, _productsBll);
+
+            var p = ProductsDalFake.GetProducts().First(x => x.PosId == 1005);
+            byte[] ba = pdfSharpBll.GeneratProductPdf(p.PaySystemUid);
 
             Assert.IsNotNull(ba);
-            File.WriteAllBytes("c:\\temp\\gs.pdf", ba);
+            File.WriteAllBytes("c:\\temp\\gs_1005.pdf", ba);
+        }
+
+        [TestMethod]
+        public void Test_PdfSharp_Library_Pos_1006()
+        {
+            int posId = 1006;
+            _configBllMock.Setup(x => x.GetPdfLayout(It.IsAny<int>()))
+                .Returns((int id) => new PosPdfLayout
+                {
+                    PosId = posId,
+                    FooterImage = "footer_72dpi.jpg",
+                    HeaderImage = "header_72dpi.jpg"
+                });
+
+            IPdfBll pdfSharpBll = new PdfShartBll(_configBllMock.Object, _productsBll);
+
+            var p = ProductsDalFake.GetProducts().First(x => x.PosId == posId);
+            byte[] ba = pdfSharpBll.GeneratProductPdf(p.PaySystemUid);
+
+            Assert.IsNotNull(ba);
+            File.WriteAllBytes("c:\\temp\\gs_" + posId + ".pdf", ba);
         }
 
         [TestMethod]
