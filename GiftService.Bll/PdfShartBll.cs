@@ -52,12 +52,10 @@ namespace GiftService.Bll
         public byte[] GeneratProductPdf(string productUid)
         {
             Logger.InfoFormat("Generation product coupon by product UID: `{0}`", productUid);
-            var p = _productsBll.GetProductByPaySystemUid(productUid);
+            var pi = _productsBll.GetProductInformationByUid(productUid);
+            var p = pi.Product;
             var config = _configurationBll.Get();
             var layout = _configurationBll.GetPdfLayout(p.PosId);
-            Logger.DebugFormat("  decorate PDF coupon with header: `{0}`", layout.HeaderImage);
-            Logger.DebugFormat("  decorate PDF coupon with footer: `{0}`", layout.FooterImage);
-
 
             using (var ms = new MemoryStream())
             {
@@ -152,24 +150,42 @@ namespace GiftService.Bll
 
             if (String.IsNullOrEmpty(layout.HeaderImage) == false)
             {
-                Image image = section.Headers.Primary.AddImage(Path.Combine(posPdfDirectory, layout.HeaderImage));
-                image.LockAspectRatio = true;
-                image.RelativeVertical = RelativeVertical.Page;
-                image.RelativeHorizontal = RelativeHorizontal.Page;
-                image.Top = ShapePosition.Top;
-                image.Left = ShapePosition.Right;
-                image.WrapFormat.Style = WrapStyle.Through;
+                Logger.DebugFormat("  going to decorate PDF coupon with header: `{0}`", layout.HeaderImage);
+                string f = Path.Combine(posPdfDirectory, layout.HeaderImage);
+                if (File.Exists(f))
+                {
+                    Image image = section.Headers.Primary.AddImage(f);
+                    image.LockAspectRatio = true;
+                    image.RelativeVertical = RelativeVertical.Page;
+                    image.RelativeHorizontal = RelativeHorizontal.Page;
+                    image.Top = ShapePosition.Top;
+                    image.Left = ShapePosition.Right;
+                    image.WrapFormat.Style = WrapStyle.Through;
+                }
+                else
+                {
+                    Logger.Warn("  header file does not exist: " + f);
+                }
             }
 
             if (String.IsNullOrEmpty(layout.FooterImage) == false)
             {
-                Image image = section.Footers.Primary.AddImage(Path.Combine(posPdfDirectory, layout.FooterImage));
-                image.LockAspectRatio = true;
-                image.RelativeVertical = RelativeVertical.Page;
-                image.RelativeHorizontal = RelativeHorizontal.Page;
-                image.Top = ShapePosition.Bottom;
-                image.Left = ShapePosition.Right;
-                image.WrapFormat.Style = WrapStyle.Through;
+                Logger.DebugFormat("  going to decorate PDF coupon with footer: `{0}`", layout.FooterImage);
+                string f = Path.Combine(posPdfDirectory, layout.FooterImage);
+                if (File.Exists(f))
+                {
+                    Image image = section.Footers.Primary.AddImage(f);
+                    image.LockAspectRatio = true;
+                    image.RelativeVertical = RelativeVertical.Page;
+                    image.RelativeHorizontal = RelativeHorizontal.Page;
+                    image.Top = ShapePosition.Bottom;
+                    image.Left = ShapePosition.Right;
+                    image.WrapFormat.Style = WrapStyle.Through; 
+                }
+                else
+                {
+                    Logger.Warn("  footer file does not exist: " + f);
+                }
             }
 
             Paragraph p = section.Footers.Primary.AddParagraph();
