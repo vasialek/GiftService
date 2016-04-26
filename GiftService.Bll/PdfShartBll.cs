@@ -19,6 +19,7 @@ namespace GiftService.Bll
     {
         byte[] GetProductPdf(string productUid);
         byte[] GeneratProductPdf(string productUid);
+        byte[] GeneratProductPdf(string productUid, bool asGift);
     }
 
     public class PdfShartBll : IPdfBll
@@ -64,6 +65,11 @@ namespace GiftService.Bll
 
         public byte[] GeneratProductPdf(string productUid)
         {
+            return GeneratProductPdf(productUid, false);
+        }
+
+        public byte[] GeneratProductPdf(string productUid, bool asGift)
+        {
             Logger.InfoFormat("Generation product coupon by product UID: `{0}`", productUid);
             var pi = _productsBll.GetProductInformationByUid(productUid);
             Logger.InfoFormat("  get transaction information for this product by payment UID: `{0}`", pi.Product.PaySystemUid);
@@ -84,7 +90,7 @@ namespace GiftService.Bll
 
                 CreatePage(doc, layout);
 
-                FillContent(doc, product, transaction);
+                FillContent(doc, product, transaction, asGift);
 
                 PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always);
                 pdfRenderer.Document = doc;
@@ -96,11 +102,35 @@ namespace GiftService.Bll
             }
         }
 
-        private void FillContent(Document doc, ProductBdo product, TransactionBdo transaction)
+        private void FillContent(Document doc, ProductBdo product, TransactionBdo transaction, bool asGift)
         {
+            if (asGift)
+            {
+                var pMessage = doc.LastSection.AddParagraph();
+                pMessage.Format.SpaceBefore = "8cm";
+                pMessage.Format.SpaceAfter = "1cm";
+                pMessage.Format.Font.Size = 14;
+                pMessage.Format.Font.Bold = false;
+                pMessage.Format.Font.Italic = true;
+                pMessage.Format.Alignment = ParagraphAlignment.Center;
+                pMessage.AddText("Sveikinimo dovana");
+                //pMessage.AddText("Kazkos ilgas tekstas su sveikinimu ir t.t.t.t.t.t. Kazkos ilgas tekstas su sveikinimu ir t.t.t.t.t.t. Kazkos ilgas tekstas su sveikinimu ir t.t.t.t.t.t. ");
+            }
+
+
             var p = doc.LastSection.AddParagraph();
-            p.Format.SpaceBefore = "8cm";
-            p.Format.SpaceAfter = "1cm";
+            if (asGift)
+            {
+                p.Format.SpaceBefore = "1cm";
+                p.Format.SpaceAfter = "0cm";
+            }
+            else
+            {
+                p.Format.SpaceBefore = "8cm";
+                p.Format.SpaceAfter = "1cm";
+            }
+            //p.Format.SpaceBefore = asGift ? "1cm" : "8cm";
+            //p.Format.SpaceAfter = "1cm";
             p.Format.Font.Size = 14;
             p.Format.Font.Bold = true;
             p.Format.Alignment = ParagraphAlignment.Center;
@@ -119,14 +149,18 @@ namespace GiftService.Bll
             column.Format.Alignment = ParagraphAlignment.Left;
 
             Row r = t.AddRow();
-            r.Cells[0].AddParagraph("Pirkejas:")
-                .Format.Font.Bold = true;
-            r.Cells[0].AddParagraph(product.CustomerName);
+            if (asGift == false)
+            {
+                //r.Cells[0].AddParagraph(product.CustomerName);
+                r.Cells[0].AddParagraph("Jus gavote dovana");
+                r.Cells[0].AddParagraph("Pirkejas:")
+                    .Format.Font.Bold = true;
+                r.Cells[0].AddParagraph(product.CustomerName);
 
-            r.Cells[1].AddParagraph("Kaina:")
-                .Format.Font.Bold = true;
-            r.Cells[1].AddParagraph(String.Concat(product.ProductPrice.ToString("### ##0.00"), " ", product.CurrencyCode));
-
+                r.Cells[1].AddParagraph("Kaina:")
+                    .Format.Font.Bold = true;
+                r.Cells[1].AddParagraph(String.Concat(product.ProductPrice.ToString("### ##0.00"), " ", product.CurrencyCode));
+            }
 
             r = t.AddRow();
             r.Cells[0].AddParagraph("Privalote užsiregistruoti:")

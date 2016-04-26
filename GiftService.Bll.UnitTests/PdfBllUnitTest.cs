@@ -116,6 +116,18 @@ namespace GiftService.Bll.UnitTests
         }
 
         [TestMethod]
+        public void Test_Pdf_Coupon_As_Gift_Melisanda()
+        {
+            int posId = 1007;
+            var p = ProductsDalFake.GetProducts().First(x => x.PosId == posId);
+
+            byte[] ba = _pdfSharpBll.GeneratProductPdf(p.ProductUid, true);
+
+            Assert.IsNotNull(ba);
+            File.WriteAllBytes("c:\\temp\\gs_gift_" + posId + ".pdf", ba);
+        }
+
+        [TestMethod]
         public void Test_Send_Email_To_Client_Success()
         {
             var p = _productsDalMock.Object.GetProductByUid(Guid.NewGuid().ToString("N"));
