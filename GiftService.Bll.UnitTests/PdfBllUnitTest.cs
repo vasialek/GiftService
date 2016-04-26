@@ -15,7 +15,8 @@ namespace GiftService.Bll.UnitTests
     public class PdfBllUnitTest
     {
 
-        IPdfBll _pdfBll = null;
+        //IPdfBll _pdfBll = null;
+        IPdfBll _pdfSharpBll = null;
         ICommunicationBll _communicationBll = null;
         IProductsBll _productsBll = null;
         Mock<IProductsDal> _productsDalMock = new Mock<IProductsDal>();
@@ -39,15 +40,14 @@ namespace GiftService.Bll.UnitTests
                 .Returns((int posId) => new PosPdfLayout
                 {
                     PosId = posId,
-                    FooterImage = null,
-                    HeaderImage = null
+                    FooterImage = "footer.jpg",
+                    HeaderImage = "header.jpg"
                 });
 
             _productsDalMock.Setup(x => x.GetProductByUid(It.IsAny<string>()))
                 .Returns((string productUid) =>
                 {
-                    var p = ProductsDalFake.GetProducts().First();
-                    p.ProductUid = productUid;
+                    var p = ProductsDalFake.GetProducts().First(x => x.ProductUid == productUid);
                     return p;
                 });
 
@@ -59,61 +59,47 @@ namespace GiftService.Bll.UnitTests
                     return p;
                 });
 
-            _pdfBll = new PdfBll(_configBllMock.Object, _productsDalMock.Object);
+            _productsBll = new ProductsBll(_productsDalMock.Object, DalFactory.Current.PosDal);
+
+            //_pdfBll = new PdfBll(_configBllMock.Object, _productsDalMock.Object);
+            _pdfSharpBll = new PdfShartBll(_configBllMock.Object, _productsBll);
 
             _communicationBll = new CommunicationBll();
-
-            _productsBll = new ProductsBll(_productsDalMock.Object, DalFactory.Current.PosDal);
         }
 
         [TestMethod]
-        public void Test_PdfSharp_Library_Pos_1005()
+        public void Test_Pdf_Coupon_RitosMasazai_1005()
         {
-            _configBllMock.Setup(x => x.GetPdfLayout(It.IsAny<int>()))
-                .Returns((int posId) => new PosPdfLayout
-                {
-                    PosId = 1005,
-                    FooterImage = "footer_72dpi.jpg",
-                    HeaderImage = "header_72dpi.jpg"
-                });
-
-            IPdfBll pdfSharpBll = new PdfShartBll(_configBllMock.Object, _productsBll);
-
-            var p = ProductsDalFake.GetProducts().First(x => x.PosId == 1005);
-            byte[] ba = pdfSharpBll.GeneratProductPdf(p.PaySystemUid);
-
-            Assert.IsNotNull(ba);
-            File.WriteAllBytes("c:\\temp\\gs_1005.pdf", ba);
-        }
-
-        [TestMethod]
-        public void Test_PdfSharp_Library_Pos_1006()
-        {
-            int posId = 1006;
-            _configBllMock.Setup(x => x.GetPdfLayout(It.IsAny<int>()))
-                .Returns((int id) => new PosPdfLayout
-                {
-                    PosId = posId,
-                    FooterImage = "footer_72dpi.jpg",
-                    HeaderImage = "header_72dpi.jpg"
-                });
-
-            IPdfBll pdfSharpBll = new PdfShartBll(_configBllMock.Object, _productsBll);
-
+            int posId = 1005;
             var p = ProductsDalFake.GetProducts().First(x => x.PosId == posId);
-            byte[] ba = pdfSharpBll.GeneratProductPdf(p.PaySystemUid);
+            byte[] ba = _pdfSharpBll.GeneratProductPdf(p.ProductUid);
 
             Assert.IsNotNull(ba);
             File.WriteAllBytes("c:\\temp\\gs_" + posId + ".pdf", ba);
         }
 
         [TestMethod]
-        public void Test_Create_Coupon()
+        public void Test_Pdf_Coupon_Knygynai_1006()
         {
-            byte[] ba = _pdfBll.GeneratProductPdf("PUID_000010000000000000000000000");
+            int posId = 1006;
+            var p = ProductsDalFake.GetProducts().First(x => x.PosId == posId);
+
+            byte[] ba = _pdfSharpBll.GeneratProductPdf(p.ProductUid);
 
             Assert.IsNotNull(ba);
-            File.WriteAllBytes("c:\\temp\\gs.pdf", ba);
+            File.WriteAllBytes("c:\\temp\\gs_" + posId + ".pdf", ba);
+        }
+
+        [TestMethod]
+        public void Test_Pdf_Coupon_Melisanda_1007()
+        {
+            int posId = 1007;
+            var p = ProductsDalFake.GetProducts().First(x => x.PosId == posId);
+
+            byte[] ba = _pdfSharpBll.GeneratProductPdf(p.ProductUid);
+
+            Assert.IsNotNull(ba);
+            File.WriteAllBytes("c:\\temp\\gs_" + posId + ".pdf", ba);
         }
 
         [TestMethod]

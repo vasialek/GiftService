@@ -77,6 +77,35 @@ namespace GiftService.Bll.UnitTests.Fakes
                 PhoneForReservation = "+370 652 98422"
             });
 
+            _products.Add(new ProductBdo
+            {
+                ProductUid = Guid.NewGuid().ToString("N"),
+                PaySystemUid = Guid.NewGuid().ToString("N"),
+                PosUserUid = Guid.NewGuid().ToString("N"),
+
+                PosId = 1007,
+                PosName = "UAB \"Melisanda\"",
+                PosCity = "Wilno ųųųųų",
+                PosAddress = "Kalvariju g. 119 / Apkasu g. 2",
+                PosUrl = "www.melisanda.lt",
+
+                CustomerName = "Aleksej Vvvv",
+                CustomerEmail = "proglamer@gmail.com",
+                CustomerPhone = "+370 600 14789",
+                Remarks = "Some remarks...",
+
+                ProductName = "Moteriškas kirpimas (plaukų plovimas, kirpimas, džiovinimas fenu)",
+                ProductDescription = "",
+                ProductDuration = "",
+                ProductPrice = 12345.67m,
+                CurrencyCode = "EUR",
+
+                ValidFrom = DateTime.UtcNow,
+                ValidTill = DateTime.UtcNow.AddMonths(3),
+
+                PhoneForReservation = "+370 630 06009"
+            });
+
             return _products;
         }
 
