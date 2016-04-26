@@ -28,9 +28,9 @@ namespace GiftService.Bll.UnitTests.Fakes
                 PosUserUid = Guid.NewGuid().ToString("N"),
 
                 PosId = 1006,
-                PosName = "Knygynai.lt",
-                PosCity = "Vilnius",
-                PosAddress = "Goštauto g. 12-146",
+                PosName = "Knygynas \"Humanitas\"",
+                PosCity = "Kaunas",
+                PosAddress = "Butrimonių g. 9",
                 PosUrl = "www.knygynai.lt",
 
                 CustomerName = "Aleksej Vvvv",

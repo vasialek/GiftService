@@ -229,18 +229,21 @@ namespace GiftService.Bll
                 }
             }
 
-            Paragraph p = section.Footers.Primary.AddParagraph();
-            p.Format.Alignment = ParagraphAlignment.Right;
-            p.Format.RightIndent = 0;
-            p.Format.Font.Size = 7;
-            p.Format.SpaceAfter = 0;
-            p.Format.SpaceBefore = 0;
-            p.AddText(config.ProjectDomain);
+            //Paragraph p = section.Footers.Primary.AddParagraph();
+            //p.Format.Alignment = ParagraphAlignment.Right;
+            //p.Format.RightIndent = 0;
+            //p.Format.Font.Size = 7;
+            //p.Format.SpaceAfter = 0;
+            //p.Format.SpaceBefore = 0;
+            //p.AddText(config.ProjectDomain);
 
         }
 
         private void DefineStyles(Document doc)
         {
+            // TODO: use Clone()
+            doc.DefaultPageSetup.FooterDistance = 0;
+
             // Get the predefined style Normal.
             Style style = doc.Styles["Normal"];
             
