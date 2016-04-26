@@ -133,9 +133,12 @@ namespace GiftService.Bll
                 .Format.Font.Bold = true;
             r.Cells[0].AddParagraph(product.PhoneForReservation);
 
-            //r.Cells[1].AddParagraph("Trukme:")
-            //    .Format.Font.Bold = true;
-            //r.Cells[1].AddParagraph(product.ProductDuration);
+            if (String.IsNullOrEmpty(product.ProductDuration) == false)
+            {
+                r.Cells[1].AddParagraph("Trukme:")
+                        .Format.Font.Bold = true;
+                r.Cells[1].AddParagraph(product.ProductDuration); 
+            }
 
             r = t.AddRow();
             r.Cells[0].AddParagraph("Aptarnavimo vieta:")
