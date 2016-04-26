@@ -11,7 +11,7 @@ namespace GiftService.Web
         {
             get
             {
-                return "v1.2.5";
+                return "v1.2.6";
             }
         }
     }
