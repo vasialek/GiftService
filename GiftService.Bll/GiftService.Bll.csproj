@@ -86,7 +86,6 @@
     <Compile Include="HelperBll.cs" />
     <Compile Include="LogsBll.cs" />
     <Compile Include="PayseraBll.cs" />
-    <Compile Include="PdfBll.cs" />
     <Compile Include="PdfShartBll.cs" />
     <Compile Include="PosBll.cs" />
     <Compile Include="ProductsBll.cs" />

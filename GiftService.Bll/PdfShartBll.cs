@@ -14,6 +14,12 @@ using System.Threading.Tasks;
 
 namespace GiftService.Bll
 {
+    public interface IPdfBll
+    {
+        byte[] GetProductPdf(string productUid);
+        byte[] GeneratProductPdf(string productUid);
+    }
+
     public class PdfShartBll : IPdfBll
     {
         private ILog _logger = null;
