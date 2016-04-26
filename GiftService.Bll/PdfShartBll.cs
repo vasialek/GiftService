@@ -139,6 +139,11 @@ namespace GiftService.Bll
             desription.Format.Alignment = ParagraphAlignment.Justify;
             desription.Format.Font.Size = 10;
             desription.AddText(product.ProductDescription);
+
+            var orderId = doc.LastSection.AddParagraph();
+            orderId.Format.SpaceBefore = "1cm";
+            orderId.Format.Font.Size = 13;
+            orderId.AddText(product.ProductUid.ToUpper());
         }
 
         private void CreatePage(Document doc, PosPdfLayout layout)
@@ -206,23 +211,23 @@ namespace GiftService.Bll
             // all styles and paragraphs that do not redefine the font.
             style.Font.Name = "Verdana";
 
-            style = doc.Styles[StyleNames.Header];
-            style.ParagraphFormat.AddTabStop("16cm", TabAlignment.Right);
+            //style = doc.Styles[StyleNames.Header];
+            //style.ParagraphFormat.AddTabStop("16cm", TabAlignment.Right);
 
-            style = doc.Styles[StyleNames.Footer];
-            style.ParagraphFormat.AddTabStop("8cm", TabAlignment.Center);
+            //style = doc.Styles[StyleNames.Footer];
+            //style.ParagraphFormat.AddTabStop("8cm", TabAlignment.Center);
 
             // Create a new style called Table based on style Normal
-            style = doc.Styles.AddStyle("Table", "Normal");
-            style.Font.Name = "Verdana";
-            style.Font.Name = "Times New Roman";
-            style.Font.Size = 9;
+            //style = doc.Styles.AddStyle("Table", "Normal");
+            //style.Font.Name = "Verdana";
+            //style.Font.Name = "Times New Roman";
+            //style.Font.Size = 9;
 
             // Create a new style called Reference based on style Normal
-            style = doc.Styles.AddStyle("Reference", "Normal");
-            style.ParagraphFormat.SpaceBefore = "5mm";
-            style.ParagraphFormat.SpaceAfter = "5mm";
-            style.ParagraphFormat.TabStops.AddTabStop("16cm", TabAlignment.Right);
+            //style = doc.Styles.AddStyle("Reference", "Normal");
+            //style.ParagraphFormat.SpaceBefore = "5mm";
+            //style.ParagraphFormat.SpaceAfter = "5mm";
+            //style.ParagraphFormat.TabStops.AddTabStop("16cm", TabAlignment.Right);
         }
 
         public byte[] GetProductPdf(string productUid)
