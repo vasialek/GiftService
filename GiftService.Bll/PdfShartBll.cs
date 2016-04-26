@@ -1,4 +1,5 @@
 ﻿using GiftService.Models;
+using GiftService.Models.Exceptions;
 using GiftService.Models.Pos;
 using log4net;
 using MigraDoc.DocumentObjectModel;
@@ -65,22 +66,25 @@ namespace GiftService.Bll
         {
             Logger.InfoFormat("Generation product coupon by product UID: `{0}`", productUid);
             var pi = _productsBll.GetProductInformationByUid(productUid);
-            var p = pi.Product;
+            Logger.InfoFormat("  get transaction information for this product by payment UID: `{0}`", pi.Product.PaySystemUid);
+            var transaction = _transactionsBll.GetTransactionByPaySystemUid(pi.Product.PaySystemUid);
+
+            var product = pi.Product;
             var config = _configurationBll.Get();
-            var layout = _configurationBll.GetPdfLayout(p.PosId);
+            var layout = _configurationBll.GetPdfLayout(product.PosId);
 
             using (var ms = new MemoryStream())
             {
                 // Create a new MigraDoc document
                 var doc = new Document();
-                doc.Info.Title = String.Concat(config.ProjectName, " - ", p.ProductName);
+                doc.Info.Title = String.Concat(config.ProjectName, " - ", product.ProductName);
                 doc.Info.Author = "Aleksej Vasinov";
 
                 DefineStyles(doc);
 
                 CreatePage(doc, layout);
 
-                FillContent(doc, p);
+                FillContent(doc, product, transaction);
 
                 PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always);
                 pdfRenderer.Document = doc;
@@ -92,7 +96,7 @@ namespace GiftService.Bll
             }
         }
 
-        private void FillContent(Document doc, ProductBdo product)
+        private void FillContent(Document doc, ProductBdo product, TransactionBdo transaction)
         {
             var p = doc.LastSection.AddParagraph();
             p.Format.SpaceBefore = "8cm";
@@ -129,9 +133,9 @@ namespace GiftService.Bll
                 .Format.Font.Bold = true;
             r.Cells[0].AddParagraph(product.PhoneForReservation);
 
-            r.Cells[1].AddParagraph("Trukme:")
-                .Format.Font.Bold = true;
-            //r.Cells[1].AddParagraph(product.)
+            //r.Cells[1].AddParagraph("Trukme:")
+            //    .Format.Font.Bold = true;
+            //r.Cells[1].AddParagraph(product.ProductDuration);
 
             r = t.AddRow();
             r.Cells[0].AddParagraph("Aptarnavimo vieta:")
@@ -141,10 +145,34 @@ namespace GiftService.Bll
             r.Cells[0].AddParagraph(product.PosAddress);
             r.Cells[0].AddParagraph(product.PosCity);
 
+            //r.Cells[1].AddParagraph("Kuponas galioja:")
+            //    .Format.Font.Bold = true;
+            //r.Cells[1].AddParagraph(product.ValidTill.ToShortDateString())
+            //    .Format.Font.Color = Colors.Red;
+
+            var orderTable = doc.LastSection.AddTable();
+            orderTable.Borders.DistanceFromLeft = "2cm";
+
+            column = orderTable.AddColumn("10cm");
+            column.Format.Alignment = ParagraphAlignment.Left;
+
+            //column = orderTable.AddColumn("3cm");
+            //column.Format.Alignment = ParagraphAlignment.Left;
+            column = orderTable.AddColumn("7cm");
+            column.Format.Alignment = ParagraphAlignment.Left;
+
+            r = orderTable.AddRow();
+            r.Cells[0].AddParagraph("Kupono numeris:")
+                .Format.Font.Bold = true;
+            r.Cells[0].AddParagraph(transaction.OrderNr.ToUpper())
+                .Format.Font = new Font { Size = 13, Color = Colors.Red };
+
             r.Cells[1].AddParagraph("Kuponas galioja:")
                 .Format.Font.Bold = true;
             r.Cells[1].AddParagraph(product.ValidTill.ToShortDateString())
-                .Format.Font.Color = Colors.Red;
+                .Format.Font = new Font { Size = 13, Color = Colors.Red };
+
+            //r.Cells[1].AddImage("c:\\temp\\qr1.png");
 
             var desription = doc.LastSection.AddParagraph();
             desription.Format.SpaceBefore = "1cm";
@@ -152,10 +180,6 @@ namespace GiftService.Bll
             desription.Format.Font.Size = 10;
             desription.AddText(product.ProductDescription);
 
-            var orderId = doc.LastSection.AddParagraph();
-            orderId.Format.SpaceBefore = "1cm";
-            orderId.Format.Font.Size = 13;
-            orderId.AddText(product.ProductUid.ToUpper());
         }
 
         private void CreatePage(Document doc, PosPdfLayout layout)
@@ -197,7 +221,7 @@ namespace GiftService.Bll
                     image.RelativeHorizontal = RelativeHorizontal.Page;
                     image.Top = ShapePosition.Bottom;
                     image.Left = ShapePosition.Right;
-                    image.WrapFormat.Style = WrapStyle.Through; 
+                    image.WrapFormat.Style = WrapStyle.Through;
                 }
                 else
                 {
@@ -209,8 +233,10 @@ namespace GiftService.Bll
             p.Format.Alignment = ParagraphAlignment.Right;
             p.Format.RightIndent = 0;
             p.Format.Font.Size = 7;
-            p.Format.SpaceAfter = "0.5cm";
+            p.Format.SpaceAfter = 0;
+            p.Format.SpaceBefore = 0;
             p.AddText(config.ProjectDomain);
+
         }
 
         private void DefineStyles(Document doc)
