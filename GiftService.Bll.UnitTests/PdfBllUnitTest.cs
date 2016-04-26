@@ -22,8 +22,7 @@ namespace GiftService.Bll.UnitTests
         Mock<IProductsDal> _productsDalMock = new Mock<IProductsDal>();
         Mock<IPosDal> _posDalMock = new Mock<IPosDal>();
         Mock<IConfigurationBll> _configBllMock = null;
-
-        IEnumerable<ProductBdo> _products = null;
+        Mock<ITransactionsBll> _transactionsbllMock = new Mock<ITransactionsBll>();
 
         [TestInitialize]
         public void Init()
@@ -61,8 +60,22 @@ namespace GiftService.Bll.UnitTests
 
             _productsBll = new ProductsBll(_productsDalMock.Object, DalFactory.Current.PosDal);
 
+            _transactionsbllMock.Setup(x => x.GetTransactionByPaySystemUid(It.IsAny<string>()))
+                .Returns((string paySystemUid) =>
+                {
+                    var p = ProductsDalFake.GetProducts().First(x => x.PaySystemUid == paySystemUid);
+                    return new TransactionBdo
+                    {
+                        PaySystemUid = paySystemUid,
+                        ProductUid = p.ProductUid,
+                        OrderNr = String.Concat(p.ProductUid.Substring(0, 3), "-", p.ProductUid.Substring(3, 6)),
+                        IsPaymentProcessed = true,
+                        IsTestPayment = true
+                    };
+                });
+
             //_pdfBll = new PdfBll(_configBllMock.Object, _productsDalMock.Object);
-            _pdfSharpBll = new PdfShartBll(_configBllMock.Object, _productsBll);
+            _pdfSharpBll = new PdfShartBll(_configBllMock.Object, _productsBll, _transactionsbllMock.Object);
 
             _communicationBll = new CommunicationBll();
         }
@@ -100,6 +113,18 @@ namespace GiftService.Bll.UnitTests
 
             Assert.IsNotNull(ba);
             File.WriteAllBytes("c:\\temp\\gs_" + posId + ".pdf", ba);
+        }
+
+        [TestMethod]
+        public void Test_Pdf_Coupon_As_Gift_Melisanda()
+        {
+            int posId = 1007;
+            var p = ProductsDalFake.GetProducts().First(x => x.PosId == posId);
+
+            byte[] ba = _pdfSharpBll.GeneratProductPdf(p.ProductUid, true);
+
+            Assert.IsNotNull(ba);
+            File.WriteAllBytes("c:\\temp\\gs_gift_" + posId + ".pdf", ba);
         }
 
         [TestMethod]

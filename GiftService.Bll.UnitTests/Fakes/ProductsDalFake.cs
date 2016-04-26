@@ -28,9 +28,9 @@ namespace GiftService.Bll.UnitTests.Fakes
                 PosUserUid = Guid.NewGuid().ToString("N"),
 
                 PosId = 1006,
-                PosName = "Knygynai.lt",
-                PosCity = "Vilnius",
-                PosAddress = "Goštauto g. 12-146",
+                PosName = "Knygynas \"Humanitas\"",
+                PosCity = "Kaunas",
+                PosAddress = "Butrimonių g. 9",
                 PosUrl = "www.knygynai.lt",
 
                 CustomerName = "Aleksej Vvvv",
@@ -40,6 +40,7 @@ namespace GiftService.Bll.UnitTests.Fakes
 
                 ProductName = "100 istorinių Vilniaus reliktų - Darius Pocevičius",
                 ProductDescription = "Per pastaruosius 100 metų valdžia Vilniuje keitėsi net 14 kartų. Kiekviena trynė ankstesniųjų paliktus ženklus ir kūrė savuosius. Daug senienų sunaikino urbanizacija ir laikas. Vis dėlto mieste išliko daugybė istorinių reliktų, menančių LDK ir ATR epochas, Rusijos imperijos ir tarpukario laikotarpius. Ši knyga kviečia atrasti gyvąją miesto istoriją, kurią pasakoja fundacinės lentelės, statinių likučiai, užrašai, monogramos, herbai, paminklai, dekoro elementai. Jų atskleista senojo Vilniaus istorija skiriasi nuo perdėm romantizuotos, mitologizuotos ir lituanizuotos versijos, dažnai sutinkamos istorinėse apybraižose ir turistinėse brošiūrose. Istorinį detektyvą primenancios reliktų paieškos smarkiai išplečia turistinę miesto topografiją, paprastai apsiribojančia 10–15 lankytinų vietų, ir ragina pasidairyti toliau nuo centrinių gatvių. Tą padaryti padės leidinyje patalpinti 59 žemėlapiai, 72 dokumentų atvaizdai, 122 piešiniai, 195 brėžiniai, 272 fotografijos, 941 naudotos literatūros ir archyvinių dokumentų",
+                //ProductDuration = "2-3 dienos",
                 ProductPrice = 12345.67m,
                 CurrencyCode = "EUR",
 

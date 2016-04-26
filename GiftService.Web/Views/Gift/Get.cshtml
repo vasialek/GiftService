@@ -52,7 +52,19 @@
                 @Model.PaymentDate.ToShortDateString()</button>
                 <button id="BtnDownload" class="btn btn-default">@Resources.Language.Gift_Get_DownloadCoupon</button>
                 <button id="BtnPrint" class="btn btn-default">@Resources.Language.Gift_Get_PrintCoupon</button>
+                @*<button id="BtnGift" class="btn btn-default">Dovanu cekis</button>*@
             </div>
+            @*<div class="panel panel-group">
+                <div class="panel-body">
+
+                    <input type="email" placeholder="Enter e-mail" class="input-sm form-control" /><br />
+                    <textarea type="email" placeholder="Enter congrats" class="input-lg form-control"></textarea><br />
+                    <div class="btn-group">
+                        <button class="btn btn-xs btn-primary">E-mail</button>
+                        <button class="btn btn-xs btn-primary">Download</button>
+                    </div>
+                </div>
+            </div>*@
         }
         else if (Model.PaymentStatus == GiftService.Models.PaymentStatusIds.AcceptedButNotExecuted)
         {

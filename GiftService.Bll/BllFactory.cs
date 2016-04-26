@@ -133,7 +133,7 @@ namespace GiftService.Bll
                 if (_pdfBll == null)
                 {
                     //_pdfBll = new PdfBll(ConfigurationBll, DalFactory.Current.ProductsDal);
-                    _pdfBll = new PdfShartBll(ConfigurationBll, GiftsBll);
+                    _pdfBll = new PdfShartBll(ConfigurationBll, GiftsBll, TransactionsBll);
                 }
                 return _pdfBll;
             }

@@ -168,12 +168,14 @@ namespace GiftService.Dal
                     PaySystemUid = t.pay_system_uid,
                     ProductId = t.product_id,
                     ProductUid = t.product_uid,
+                    OrderNr = t.order_nr,
 
                     PaymentStatus = paymentStatus,
                     PaymentSystem = paymentSystem,
 
                     CreatedAt = t.created_at,
-                    PaySystemResponseAt = t.pay_system_response_at.HasValue ? t.pay_system_response_at.Value : DateTime.MinValue
+                    PaySystemResponseAt = t.pay_system_response_at.HasValue ? t.pay_system_response_at.Value : DateTime.MinValue,
+                    ResponseFromPaymentSystem = t.response_from_payment
                 };
             }
 

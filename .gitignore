@@ -244,3 +244,4 @@ GiftService.Web.Tests/Scripts/jasmine/boot.js
 GiftService.Web.Tests/Scripts/jasmine/jasmine.js
 GiftService.Web.Tests/Content/jasmine/jasmine_favicon.png
 GiftService.Web.Tests/Scripts/jasmine/*.*
+*.bak
