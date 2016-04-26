@@ -39,8 +39,9 @@ namespace GiftService.Bll
         //private IPosBll _posBll = null;
         private IConfigurationBll _configurationBll = null;
         private IProductsBll _productsBll = null;
+        private ITransactionsBll _transactionsBll = null;
 
-        public PdfShartBll(IConfigurationBll configurationBll, IProductsBll productBll)
+        public PdfShartBll(IConfigurationBll configurationBll, IProductsBll productBll, ITransactionsBll transactionsBll)
         {
             if (configurationBll == null)
             {
@@ -50,9 +51,14 @@ namespace GiftService.Bll
             {
                 throw new ArgumentNullException("productBll");
             }
+            if (transactionsBll == null)
+            {
+                throw new ArgumentNullException("transactionsBll");
+            }
 
             _productsBll = productBll;
             _configurationBll = configurationBll;
+            _transactionsBll = transactionsBll;
         }
 
         public byte[] GeneratProductPdf(string productUid)
