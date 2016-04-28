@@ -123,6 +123,9 @@
   <data name="Gift_Get_DownloadCoupon" xml:space="preserve">
     <value>Atsisiųsti kuponą</value>
   </data>
+  <data name="Gift_Get_NoDescription" xml:space="preserve">
+    <value>&lt;span class="non-attractive"&gt;Aprašymas nenurodytas&lt;/span&gt;</value>
+  </data>
   <data name="Gift_Get_PaidAt" xml:space="preserve">
     <value>Sumokėta</value>
   </data>

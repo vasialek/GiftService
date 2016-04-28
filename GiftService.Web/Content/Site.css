@@ -50,3 +50,8 @@ textarea.input-validation-error, input.input-validation-error {
     margin-left: -38px;
     font-size: small;
 }
+
+.non-attractive {
+    color: #aaa;
+    font-size: smaller;
+}

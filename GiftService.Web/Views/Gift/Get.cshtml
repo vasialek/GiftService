@@ -22,7 +22,7 @@
         <p>
             @Resources.Language.Gift_Get_ServiceLabel<br />
             @Html.Raw(Model.Product.ProductName)<br />
-            @Model.Product.ProductDescription</p>
+            @Html.DisplayOrNotSet(Model.Product.ProductDescription, Resources.Language.Gift_Get_NoDescription)</p>
 
         <p>
             @Resources.Language.Gift_Get_ProductDurationLabel

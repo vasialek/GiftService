@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;span class=&quot;non-attractive&quot;&gt;Aprašymas nenurodytas&lt;/span&gt;.
+        /// </summary>
+        internal static string Gift_Get_NoDescription {
+            get {
+                return ResourceManager.GetString("Gift_Get_NoDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sumokėta.
         /// </summary>
         internal static string Gift_Get_PaidAt {
