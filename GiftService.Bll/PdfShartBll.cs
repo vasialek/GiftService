@@ -152,7 +152,7 @@ namespace GiftService.Bll
             if (asGift == false)
             {
                 //r.Cells[0].AddParagraph(product.CustomerName);
-                r.Cells[0].AddParagraph("Jus gavote dovana");
+                //r.Cells[0].AddParagraph("Jus gavote dovana");
                 r.Cells[0].AddParagraph("Pirkejas:")
                     .Format.Font.Bold = true;
                 r.Cells[0].AddParagraph(product.CustomerName);
