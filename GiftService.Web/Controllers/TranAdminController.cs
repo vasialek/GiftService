@@ -183,6 +183,41 @@ namespace GiftService.Web.Controllers
             });
         }
 
+        // POST: /TranAdmin/DoParsePsRequest
+        public ActionResult DoParsePsRequest()
+        {
+            bool isOk = false;
+            string msg = "";
+            Dictionary<string, string> ar = null;
+            string r = String.Empty;
+
+            try
+            {
+                string data = Request["data"];
+                if (String.IsNullOrEmpty(data))
+                {
+                    throw new ArgumentNullException("data", "No data from PS request is provided");
+                }
+
+                ar = Factory.PayseraBll.ParseRequestData(data);
+                r = RenderPartialView("_PsRequestPartial", ar);
+                isOk = true;
+                msg = "Request from PS is parserd";
+            }
+            catch (Exception ex)
+            {
+                isOk = false;
+                msg = ex.Message;
+            }
+
+            return Json(new
+            {
+                Status = isOk,
+                Message = msg,
+                Response = r
+            });
+        }
+
         protected string RenderPartialView(string partialName, object model)
         {
             ViewData.Model = model;

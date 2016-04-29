@@ -30,7 +30,10 @@
 
 <div class="container">
     @Html.LoaderDiv()
-    <button id="BtnParsePs" class="btn btn-sm btn-primary">Parse Paysera data</button>
+    <div class="btn btn-group">
+        <button id="BtnParseRequestPs" class="btn btn-sm btn-success">Parse Paysera request data</button>
+        <button id="BtnParsePs" class="btn btn-sm btn-primary">Parse Paysera response data</button>
+    </div>
     <div id="ResponsePopup" style="display: none;">
         <div class="text-right">
             <button id="BtnCloseResponse">x</button>
@@ -71,11 +74,19 @@
 
     <script type="text/javascript">
         $(function () {
+            $("#BtnParseRequestPs").click(function (e) {
+                e.preventDefault();
+                if (psData = prompt("Input request data to PS")) {
+                    getParsedPs("PsRq", psData);
+                }
+            });
+
             $("#BtnParsePs").click(function (e) {
                 e.preventDefault();
-                $("#LoaderDiv").show();
-                $("#ResponsePopup").hide();
-                if (data = prompt("Input data from PS")) {
+                if (psData = prompt("Input response data to PS")) {
+                    getParsedPs("PsResp", psData);
+                }
+                @*if (data = prompt("Input data from PS")) {
                     $.post("@Url.Action("DoParsePs", "TranAdmin")", "data=" + data, function (data) {
                         $("#ResponseDiv").html(data.Response);
                         $("#ResponsePopup").show();
@@ -90,7 +101,7 @@
                     }).always(function () {
                         $("#LoaderDiv").hide();
                     });
-                }
+                }*@
             });
 
             $("#BtnCloseResponse").click(function (e) {
@@ -98,6 +109,66 @@
                 $("#ResponsePopup").hide();
             })
         });
+
+        function getParsedPs(dataType, psData) {
+            var url = "";
+            switch (dataType) {
+                case "PsRq":
+                    url = "@Url.Action("DoParsePsRequest", "TranAdmin")";
+                    break;
+                case "PsResp":
+                    url = "@Url.Action("DoParsePs", "TranAdmin")";
+                    break;
+                default:
+                    alert("Bad data type to parse: " + dataType);
+                    return;
+                    break;
+            }
+
+            $("#LoaderDiv").show();
+            $("#ResponsePopup").hide();
+
+            console.log("Sending data: " + psData);
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    data: psData,
+                    type: dataType
+                },
+                success: function (data) {
+                    $("#ResponseDiv").html(data.Response);
+                    $("#ResponsePopup").show();
+                    $("#ResponseMessage")
+                        .removeClass("alert-danger")
+                        .removeClass("alert-success")
+                        .addClass(data.Status ? "alert-success" : "alert-danger")
+                        .html(data.Message);
+                },
+                error: function () {
+                    alert("Error parsing PS data");
+                },
+                complete: function () {
+                    $("#LoaderDiv").hide();
+                }
+            });
+
+            //$.post(url, function (data) {
+            //    $("#ResponseDiv").html(data.Response);
+            //    $("#ResponsePopup").show();
+            //    $("#ResponseMessage")
+            //        .removeClass("alert-danger")
+            //        .removeClass("alert-success")
+            //        .addClass(data.Status ? "alert-success" : "alert-danger")
+            //        .html(data.Message);
+            //    //console.log(data.Response);
+            //}).error(function () {
+            //    alert("Error parsing PS data");
+            //}).always(function () {
+            //    $("#LoaderDiv").hide();
+            //});
+        }
+
     </script>
 
 }

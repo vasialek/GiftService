@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GiftService.Models.Logs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,8 @@ namespace GiftService.Web.Controllers
         // GET: Logs/List
         public ActionResult List()
         {
-            var logs = Factory.LogsBll.GetLastLogs(0, 100);
+            IEnumerable<LogBdo> logs = Factory.LogsBll.GetLastLogs(0, 100);
+            //IEnumerable<LogBdo> logs = new List<LogBdo>();
             return View("List", "_LayoutAdmin", logs);
         }
     }

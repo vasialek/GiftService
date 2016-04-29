@@ -56,6 +56,38 @@ namespace GiftService.Bll
             return BuildResponseFromHttpParameters(pars);
         }
 
+        public Dictionary<string, string> ParseRequestData(string data)
+        {
+            if (String.IsNullOrEmpty(data))
+            {
+                throw new ArgumentNullException("data", "Request to payment system should not be empty");
+            }
+
+            int pos = data.IndexOf("data=", StringComparison.Ordinal);
+            if (pos >= 0)
+            {
+                data = data.Substring(pos + "data=".Length);
+            }
+
+            data = data.Replace('-', '+')
+                .Replace('_', '/');
+
+            data = data.Replace("%3D", "=");
+            byte[] ba = Convert.FromBase64String(data);
+            string s = Encoding.UTF8.GetString(ba);
+
+            // Got string like this: "orderid=bfaafc61900b456c87310cc8756d80ab&amount=1&currency=EUR&country=LT&test=1&payment=nordealt&p_email=it%40interateitis.lt&p_firstname=Aleksej&p_lastname=Vasinov&p_phone=%2B370+5+2166481&p_comment=Just+test+payment&p_ip=&p_agent=&p_file=&version=1.6&projectid=76457&lang=lit&paytext=U%C5%BEsakymas+nr%3A+bfaafc61900b456c87310cc8756d80ab+http%3A%2F%2Fwww.dovanukuponai.com+projekte.+%28Pardav%C4%97jas%3A+Rita+%C5%BDibutien%C4%97%29&m_pay_restored=90685289&status=1&requestid=90685289&payamount=1&paycurrency=EUR"
+            var pars = HttpUtility.ParseQueryString(s);
+
+            Dictionary<string, string> ar = new Dictionary<string, string>();
+            foreach (string key in pars.AllKeys)
+            {
+                ar[key] = pars[key];
+            }
+
+            return ar;
+        }
+
         public void ValidateSs1(string payseraPassword, string data, string ss1)
         {
             string calculatedSs1 = "";
