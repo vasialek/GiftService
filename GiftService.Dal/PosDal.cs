@@ -76,13 +76,15 @@ namespace GiftService.Dal
             p.Id = 1007;
             p.Name = "Melisanda.lt";
             p.Description = "Sveikatos ir Grožio Išsaugojimo Centras \"Melisanda\"";
-            p.PayseraPayerId = "80213";
-            p.PayseraPassword = "87ff85458a1104dcacebe8eb9dec3a82";
+            p.PayseraPayerId = "82190";
+            p.PayseraPassword = "89b85f944790639e8d6d5096b1909082";
+            //p.PayseraPayerId = "80213";
+            //p.PayseraPassword = "87ff85458a1104dcacebe8eb9dec3a82";
             p.PosUrl = new Uri("http://www.melisanda.lt/");
             //p.ValidateUrl = new Uri("http://localhost:8079/gspclient/gsinfo.php?posUid=");
             p.ValidateUrl = new Uri("http://www.melisanda.lt/lt/price/info/posUid/");
-            p.IsTest = true;
-            p.UseTestPayment = true;
+            p.IsTest = false;
+            p.UseTestPayment = false;
             _poses.Add(p);
         }
 

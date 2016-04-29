@@ -12,9 +12,9 @@ body {
 }
 
 .body {
-    background: url(bg.jpg) no-repeat;
+    /*background: url(bg.jpg) no-repeat;
     background-size: 200px 663px;
-    background-position: 1204px 172px;
+    background-position: 1204px 172px;*/
 }
 
 a {
