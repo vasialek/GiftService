@@ -153,7 +153,7 @@ namespace GiftService.Bll
             {
                 //r.Cells[0].AddParagraph(product.CustomerName);
                 //r.Cells[0].AddParagraph("Jus gavote dovana");
-                r.Cells[0].AddParagraph("Pirkejas:")
+                r.Cells[0].AddParagraph("Pirkėjas:")
                     .Format.Font.Bold = true;
                 r.Cells[0].AddParagraph(product.CustomerName);
 
@@ -162,25 +162,39 @@ namespace GiftService.Bll
                 r.Cells[1].AddParagraph(String.Concat(product.ProductPrice.ToString("### ##0.00"), " ", product.CurrencyCode));
             }
 
-            r = t.AddRow();
-            r.Cells[0].AddParagraph("Privalote užsiregistruoti:")
-                .Format.Font.Bold = true;
-            r.Cells[0].AddParagraph(product.PhoneForReservation);
+            //r = t.AddRow();
+            //r.Cells[0].AddParagraph("Privalote užsiregistruoti:")
+            //    .Format.Font.Bold = true;
+            //r.Cells[0].AddParagraph(product.PhoneForReservation);
 
-            if (String.IsNullOrEmpty(product.ProductDuration) == false)
-            {
-                r.Cells[1].AddParagraph("Trukme:")
-                        .Format.Font.Bold = true;
-                r.Cells[1].AddParagraph(product.ProductDuration); 
-            }
+            //if (String.IsNullOrEmpty(product.ProductDuration) == false)
+            //{
+            //    r.Cells[1].AddParagraph("Trukme:")
+            //            .Format.Font.Bold = true;
+            //    r.Cells[1].AddParagraph(product.ProductDuration); 
+            //}
 
             r = t.AddRow();
             r.Cells[0].AddParagraph("Aptarnavimo vieta:")
                 .Format.Font.Bold = true;
             r.Cells[0].AddParagraph(product.PosName);
-            //r.Cells[0].AddParagraph(String.Concat(product.PosAddress, ", ", product.PosCity));
             r.Cells[0].AddParagraph(product.PosAddress);
             r.Cells[0].AddParagraph(product.PosCity);
+
+            r.Cells[1].AddParagraph("Privalote užsiregistruoti:")
+                .Format.Font.Bold = true;
+            r.Cells[1].AddParagraph(product.PhoneForReservation);
+
+            if (String.IsNullOrEmpty(product.ProductDuration) == false)
+            {
+                r.Cells[1].AddParagraph("Trukme:")
+                    .Format = new ParagraphFormat {
+                        SpaceBefore = "0.5cm",
+                        Font = new Font { Bold = true }
+                    };
+                r.Cells[1].AddParagraph(product.ProductDuration);
+            }
+
 
             //r.Cells[1].AddParagraph("Kuponas galioja:")
             //    .Format.Font.Bold = true;
