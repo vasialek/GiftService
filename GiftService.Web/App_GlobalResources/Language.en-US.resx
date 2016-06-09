@@ -118,106 +118,105 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Gift_Get_ButtonDownloadAsPdf" xml:space="preserve">
-    <value>Atsisiusti PDF</value>
+    <value>Download as PDF</value>
   </data>
   <data name="Gift_Get_ButtonSendAsEmail" xml:space="preserve">
-    <value>Issiusti el.pastu</value>
+    <value>Send by email</value>
   </data>
   <data name="Gift_Get_CouponIsValidTill" xml:space="preserve">
-    <value>Kuponas galioja iki</value>
+    <value>Coupon is valid till</value>
   </data>
   <data name="Gift_Get_DownloadCoupon" xml:space="preserve">
-    <value>Atsisiųsti kuponą</value>
+    <value>Download coupon</value>
   </data>
   <data name="Gift_Get_GiftEmailLabel" xml:space="preserve">
     <value>Siusti dovanu ceki el.pastu:</value>
   </data>
   <data name="Gift_Get_NoDescription" xml:space="preserve">
-    <value>&lt;span class="non-attractive"&gt;Aprašymas nenurodytas&lt;/span&gt;</value>
+    <value>&lt;span class="non-attractive"&gt;No description&lt;/span&gt;</value>
   </data>
   <data name="Gift_Get_PaidAt" xml:space="preserve">
-    <value>Sumokėta</value>
+    <value>Paid</value>
   </data>
   <data name="Gift_Get_PaymentIsProcessing" xml:space="preserve">
-    <value>Apmokėjimas vykdomas, prašome palaukti</value>
+    <value>Payment is in progress, please wait</value>
   </data>
   <data name="Gift_Get_PaymentWasNot" xml:space="preserve">
-    <value>Apmokėjimas nebuvo atliktas</value>
+    <value>No payment is got</value>
   </data>
   <data name="Gift_Get_PrintCoupon" xml:space="preserve">
-    <value>Atsispausdinti kuponą</value>
+    <value>Print coupon</value>
   </data>
   <data name="Gift_Get_ProductDurationLabel" xml:space="preserve">
-    <value>Trukmė:</value>
+    <value>Duration:</value>
   </data>
   <data name="Gift_Get_ProductDurationNotSet" xml:space="preserve">
-    <value>Nenurodyta</value>
+    <value>Not set</value>
   </data>
   <data name="Gift_Get_ServiceLabel" xml:space="preserve">
-    <value>Paslauga:</value>
+    <value>Service:</value>
   </data>
   <data name="Gift_Get_ThankYouForUsingUs" xml:space="preserve">
-    <value>Dėkojame, kad naudojatės mūsų paslaugomis!</value>
+    <value>Thank you for using our service!</value>
   </data>
   <data name="Gift_Get_YouMustReserve" xml:space="preserve">
-    <value>Privalote užsiregistruoti:</value>
+    <value>Register here, please</value>
   </data>
   <data name="Home_AboutUs_Title" xml:space="preserve">
-    <value>Sistemos prezentacija</value>
+    <value>Presentation of gift coupon system</value>
   </data>
   <data name="Home_ContactUs_MessageIsSentOk" xml:space="preserve">
-    <value>Aciū, Jūsų užklausa išsiusta</value>
+    <value>You request is sent. Thank you!</value>
   </data>
   <data name="Menu_Contacts" xml:space="preserve">
-    <value>Kontaktai</value>
+    <value>Contacts</value>
   </data>
   <data name="Menu_Presentation" xml:space="preserve">
-    <value>Pristatymas</value>
+    <value>Coupon system presentation</value>
   </data>
   <data name="Menu_Rules" xml:space="preserve">
-    <value>Taisyklės</value>
+    <value>Gift coupons rules</value>
   </data>
   <data name="Payment_Cancel_BackToProductPage" xml:space="preserve">
-    <value>Atgal į parduotuvę</value>
+    <value>Back to shop</value>
   </data>
   <data name="Payment_Cancel_YouCancelledYourPayment" xml:space="preserve">
-    <value>Jūsų mokėjimas atšauktas</value>
+    <value>Your payment is canceled</value>
   </data>
   <data name="Payment_Checkout_ChooseLocation" xml:space="preserve">
-    <value>Pasirinkite aptarnavimo vietą</value>
+    <value>Choose point of service</value>
   </data>
   <data name="Payment_Checkout_DurationNotSet" xml:space="preserve">
-    <value>Nenurodyta</value>
+    <value>Not set</value>
   </data>
   <data name="Payment_ErrorProcessingTransaction" xml:space="preserve">
-    <value>Klaida vykdant apmokėjimą. Mūsų darbuotojai susisieks su Jumis.</value>
+    <value>Error processing transaction. Call our service, please.</value>
   </data>
   <data name="Payment_Incorrect_ErrorMakingPayment" xml:space="preserve">
-    <value>Klaida apdorojant mokėjimo duomenis</value>
+    <value>Error making payment</value>
   </data>
   <data name="Payment_Make_Error_IncorrectPriceFromRequest" xml:space="preserve">
-    <value>Neteisinga prekės kaina, todėl pirkimo procesas sustabdytas.
-Susisiekite su administracija.</value>
+    <value>Product price is incorrect, payment is stopped. Please contact administrator.</value>
   </data>
   <data name="Payment_PaymentIsOk" xml:space="preserve">
-    <value>Sveikiname, Jūs įsigijote kuponą.</value>
+    <value>You got coupon, congratulations!</value>
   </data>
   <data name="Pos_OurClients_NoResults" xml:space="preserve">
-    <value>Siuo metu klientai nerodomi</value>
+    <value>No clients</value>
   </data>
   <data name="Pos_OurClients_Title" xml:space="preserve">
-    <value>Mūsų klientai</value>
+    <value>Our clients</value>
   </data>
   <data name="SystemMessage_NotFound" xml:space="preserve">
-    <value>Atsiprašome, vyksta techniniai darbai ir informaciją nerasta.</value>
+    <value>We are sorry, but this page is under construction.</value>
   </data>
   <data name="SystemMessage_WeWillContactYouOnError" xml:space="preserve">
-    <value>Mūsų darbuotojai su Jumis susisieks.</value>
+    <value>We contact you, as soon as possible</value>
   </data>
   <data name="TranAdmin_Validate_ButtonCheck" xml:space="preserve">
-    <value>Tikrinti</value>
+    <value>Check</value>
   </data>
   <data name="TranAdmin_Validate_EnterTransactionCode" xml:space="preserve">
-    <value>Iveskite kupono unikalu koda arba numeri</value>
+    <value>You should input transaction code or number</value>
   </data>
 </root>

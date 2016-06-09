@@ -61,6 +61,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Atsisiusti PDF.
+        /// </summary>
+        internal static string Gift_Get_ButtonDownloadAsPdf {
+            get {
+                return ResourceManager.GetString("Gift_Get_ButtonDownloadAsPdf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Issiusti el.pastu.
+        /// </summary>
+        internal static string Gift_Get_ButtonSendAsEmail {
+            get {
+                return ResourceManager.GetString("Gift_Get_ButtonSendAsEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kuponas galioja iki.
         /// </summary>
         internal static string Gift_Get_CouponIsValidTill {
@@ -75,6 +93,15 @@ namespace Resources {
         internal static string Gift_Get_DownloadCoupon {
             get {
                 return ResourceManager.GetString("Gift_Get_DownloadCoupon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Siusti dovanu ceki el.pastu:.
+        /// </summary>
+        internal static string Gift_Get_GiftEmailLabel {
+            get {
+                return ResourceManager.GetString("Gift_Get_GiftEmailLabel", resourceCulture);
             }
         }
         
@@ -183,6 +210,33 @@ namespace Resources {
         internal static string Home_ContactUs_MessageIsSentOk {
             get {
                 return ResourceManager.GetString("Home_ContactUs_MessageIsSentOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontaktai.
+        /// </summary>
+        internal static string Menu_Contacts {
+            get {
+                return ResourceManager.GetString("Menu_Contacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pristatymas.
+        /// </summary>
+        internal static string Menu_Presentation {
+            get {
+                return ResourceManager.GetString("Menu_Presentation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taisyklės.
+        /// </summary>
+        internal static string Menu_Rules {
+            get {
+                return ResourceManager.GetString("Menu_Rules", resourceCulture);
             }
         }
         
