@@ -36,8 +36,12 @@ namespace GiftService.Web.Controllers
         // GET: /Gift/Get/UniqueGiftId
         public ActionResult Get(string id)
         {
-            var model = new ProductInformationModel();
+            if (String.IsNullOrEmpty(id))
+            {
+                return new RedirectResult(Url.Action("Index", "Home"));
+            }
 
+            var model = new ProductInformationModel();
             try
             {
                 TransactionBdo transaction = null;
@@ -96,6 +100,11 @@ namespace GiftService.Web.Controllers
 
         private ActionResult OutputFile(string productUid, bool forceDownload)
         {
+            if (String.IsNullOrEmpty(productUid))
+            {
+                return new RedirectResult(Url.Action("Index", "Home"));
+            }
+
             try
             {
                 //byte[] pdf = Factory.PdfBll.GetProductPdf(productUid);
