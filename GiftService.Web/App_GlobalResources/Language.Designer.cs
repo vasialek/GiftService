@@ -214,6 +214,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Titullinis.
+        /// </summary>
+        internal static string Home_Index_Title {
+            get {
+                return ResourceManager.GetString("Home_Index_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apie mus.
+        /// </summary>
+        internal static string Menu_AboutUs {
+            get {
+                return ResourceManager.GetString("Menu_AboutUs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontaktai.
         /// </summary>
         internal static string Menu_Contacts {

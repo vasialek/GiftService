@@ -25,6 +25,10 @@
                     <li>@Html.ActionLink(Resources.Language.Menu_Contacts, "Contact", "Home")</li>
                     <li>@Html.ActionLink(Resources.Language.Menu_Presentation, "About", "Home")</li>
                 </ul>
+                <p class="navbar-link navbar-right">
+                    <a href="@Url.Action("Index", "Home", new { culture = "en" })"><img src="@Url.Content("~/content/images/us.png")" alt="English" title="English" width="16" height="11" /></a>
+                    <a href="@Url.Action("Index", "Home", new { culture = "lt" })"><img src="@Url.Content("~/content/images/lt.png")" alt="Lietuviu" title="Lietuviu" width="16" height="11" /></a>
+                </p>
             </div>
         </div>
     </div>
