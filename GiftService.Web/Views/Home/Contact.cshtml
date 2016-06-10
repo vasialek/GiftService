@@ -1,7 +1,7 @@
 ﻿@model GiftService.Models.ContactUsModel
 
 @{
-    ViewBag.Title = "Kontaktai";
+    ViewBag.Title = Resources.Language.Home_ContactUs_Title;
 
     Html.EnableClientValidation(true);
     Html.EnableUnobtrusiveJavaScript(true);
@@ -26,28 +26,28 @@ else
                 </td>
             </tr>
             <tr>
-                <td align="right">@Html.LabelFor(x => x.Subject)</td>
+                <td align="right">@Html.LabelFor(x => x.Subject, Resources.Language.Home_ContactUs_Subject)</td>
                 <td>
                     @Html.TextBoxFor(x => x.Subject, new { @class = "form-control input-sm" })<br />
                 </td>
             </tr>
             <tr>
-                <td align="right">@Html.LabelFor(x => x.Name)</td>
+                <td align="right">@Html.LabelFor(x => x.Name, Resources.Language.Home_ContactUs_Name)</td>
                 <td>@Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm" })</td>
             </tr>
             <tr>
-                <td align="right">@Html.LabelFor(x => x.Email)</td>
+                <td align="right">@Html.LabelFor(x => x.Email, Resources.Language.Home_ContactUs_Email)</td>
                 <td>
                     @Html.TextBoxFor(x => x.Email, new { @class = "form-control input-sm" })<br />
                     @Html.ValidationMessageFor(x => x.Email)
                 </td>
             </tr>
             <tr>
-                <td align="right">@Html.LabelFor(x => x.SiteUrl)</td>
+                <td align="right">@Html.LabelFor(x => x.SiteUrl, Resources.Language.Home_ContactUs_SiteUrl)</td>
                 <td>@Html.TextBoxFor(x => x.SiteUrl, new { @class = "form-control input-sm" })</td>
             </tr>
             <tr>
-                <td align="right">@Html.LabelFor(x => x.Text)</td>
+                <td align="right">@Html.LabelFor(x => x.Text, Resources.Language.Home_ContactUs_Text)</td>
                 <td>
                     @Html.TextAreaFor(x => x.Text, new { @class = "form-control" })<br />
                     @Html.ValidationMessageFor(x => x.Text)
@@ -71,5 +71,5 @@ else
 </address>
 
 <address>
-    <strong>Reikia pagalbos? </strong>   <a href="mailto:vida@dovanukuponai.com">vida@dovanukuponai.com</a><br />
+    <strong>@Resources.Language.Home_ContactUs_DoYouNeedHelp</strong>   <a href="mailto:vida@dovanukuponai.com">vida@dovanukuponai.com</a><br />
 </address>

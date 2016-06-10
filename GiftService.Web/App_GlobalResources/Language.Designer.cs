@@ -205,6 +205,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reikia pagalbos?.
+        /// </summary>
+        internal static string Home_ContactUs_DoYouNeedHelp {
+            get {
+                return ResourceManager.GetString("Home_ContactUs_DoYouNeedHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jūsų el. paštas.
+        /// </summary>
+        internal static string Home_ContactUs_Email {
+            get {
+                return ResourceManager.GetString("Home_ContactUs_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aciū, Jūsų užklausa išsiusta.
         /// </summary>
         internal static string Home_ContactUs_MessageIsSentOk {
@@ -214,11 +232,65 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jūsų vardas.
+        /// </summary>
+        internal static string Home_ContactUs_Name {
+            get {
+                return ResourceManager.GetString("Home_ContactUs_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jūsų svetainės adresas.
+        /// </summary>
+        internal static string Home_ContactUs_SiteUrl {
+            get {
+                return ResourceManager.GetString("Home_ContactUs_SiteUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tema.
+        /// </summary>
+        internal static string Home_ContactUs_Subject {
+            get {
+                return ResourceManager.GetString("Home_ContactUs_Subject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Užklausa.
+        /// </summary>
+        internal static string Home_ContactUs_Text {
+            get {
+                return ResourceManager.GetString("Home_ContactUs_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontaktai.
+        /// </summary>
+        internal static string Home_ContactUs_Title {
+            get {
+                return ResourceManager.GetString("Home_ContactUs_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Titullinis.
         /// </summary>
         internal static string Home_Index_Title {
             get {
                 return ResourceManager.GetString("Home_Index_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kupono įsigijimo taisyklės.
+        /// </summary>
+        internal static string Home_Rules_Title {
+            get {
+                return ResourceManager.GetString("Home_Rules_Title", resourceCulture);
             }
         }
         

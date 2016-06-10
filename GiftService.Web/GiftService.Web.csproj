@@ -167,6 +167,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\html\index.html" />
     <Content Include="Content\html\_AboutUs_lt.html" />
+    <Content Include="Content\html\_CouponRules_en.html" />
+    <Content Include="Content\html\_CouponRules_lt.html" />
     <Content Include="Content\html\_Index_en.html" />
     <Content Include="Content\html\_Index_lt.html" />
     <Content Include="Content\images\dovanu_kuponu_kontaktai.png" />

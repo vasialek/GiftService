@@ -4,6 +4,7 @@ using GiftService.Models.Web;
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -69,6 +70,14 @@ namespace GiftService.Web.Controllers
                 }
 
                 return _sessionStore;
+            }
+        }
+
+        protected CultureInfo CultureUi
+        {
+            get
+            {
+                return System.Threading.Thread.CurrentThread.CurrentUICulture;
             }
         }
 

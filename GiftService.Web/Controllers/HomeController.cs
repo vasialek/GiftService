@@ -27,38 +27,16 @@ namespace GiftService.Web.Controllers
 
         public ActionResult Index()
         {
-            TextModule tm = null;
-
-            try
-            {
-                tm = Factory.TextModuleBll.GetByLabel("Index", System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName);
-            }
-            catch (Exception ex)
-            {
-                Logger.Error("TextModule with `Index` is not found, use default", ex);
-                tm = new TextModule();
-                tm.Title = Resources.Language.Home_Index_Title;
-                tm.Text = Resources.Language.SystemMessage_NotFound;
-            }
+            TextModule tm = GetTextByLabel("Index", CultureUi.TwoLetterISOLanguageName);
+            tm.Title = Resources.Language.Home_Index_Title;
 
             return View("Index", tm);
         }
 
         public ActionResult About()
         {
-            TextModule tm = null;
-
-            try
-            {
-                tm = Factory.TextModuleBll.GetByLabel("AboutUs", System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName);
-            }
-            catch (Exception ex)
-            {
-                Logger.Error("TextModule with `AboutUs` is not found, use default", ex);
-                tm = new TextModule();
-                tm.Title = Resources.Language.Home_AboutUs_Title;
-                tm.Text = Resources.Language.SystemMessage_NotFound;
-            }
+            TextModule tm = GetTextByLabel("AboutUs", CultureUi.TwoLetterISOLanguageName);
+            tm.Title = Resources.Language.Home_AboutUs_Title;
 
             return View(tm);
         }
@@ -66,7 +44,9 @@ namespace GiftService.Web.Controllers
         // GET: /Home/Rules
         public ActionResult Rules()
         {
-            return View("Rules");
+            var tm = GetTextByLabel("CouponRules", CultureUi.TwoLetterISOLanguageName);
+            tm.Title = Resources.Language.Home_Rules_Title;
+            return View("Rules", tm);
         }
 
         // GET: /Home/Contact
@@ -85,6 +65,24 @@ namespace GiftService.Web.Controllers
                 model.IsSent = true;
             }
             return View("Contact", model);
+        }
+
+        private TextModule GetTextByLabel(string label, string culture)
+        {
+            TextModule tm = null;
+
+            try
+            {
+                tm = Factory.TextModuleBll.GetByLabel(label, culture);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"TextModule with `{label}` (culture: {culture}) is not found, use default", ex);
+                tm = new TextModule();
+                tm.Text = Resources.Language.SystemMessage_NotFound;
+            }
+
+            return tm;
         }
     }
 }
