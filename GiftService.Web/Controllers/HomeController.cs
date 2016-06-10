@@ -27,7 +27,21 @@ namespace GiftService.Web.Controllers
 
         public ActionResult Index()
         {
-            return View("Index");
+            TextModule tm = null;
+
+            try
+            {
+                tm = Factory.TextModuleBll.GetByLabel("Index", System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("TextModule with `Index` is not found, use default", ex);
+                tm = new TextModule();
+                tm.Title = Resources.Language.Home_Index_Title;
+                tm.Text = Resources.Language.SystemMessage_NotFound;
+            }
+
+            return View("Index", tm);
         }
 
         public ActionResult About()
@@ -36,7 +50,7 @@ namespace GiftService.Web.Controllers
 
             try
             {
-                tm = Factory.TextModuleBll.GetByLabel("AboutUs", "lt");
+                tm = Factory.TextModuleBll.GetByLabel("AboutUs", System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName);
             }
             catch (Exception ex)
             {

@@ -167,12 +167,16 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\html\index.html" />
     <Content Include="Content\html\_AboutUs_lt.html" />
+    <Content Include="Content\html\_Index_en.html" />
+    <Content Include="Content\html\_Index_lt.html" />
     <Content Include="Content\images\dovanu_kuponu_kontaktai.png" />
     <Content Include="Content\images\dovanu_kuponu_apmokejimo_pasirinkimas.png" />
     <Content Include="Content\images\dovanu_kuponu_gavimas.png" />
     <Content Include="Content\images\dovanu_kuponu_pasirinkimas.png" />
     <Content Include="Content\images\loader.gif" />
+    <Content Include="Content\images\lt.png" />
     <Content Include="Content\images\posnologo.png" />
+    <Content Include="Content\images\us.png" />
     <Content Include="Content\p1005\footer-bg.png" />
     <Content Include="Content\p1005\logo-text.png" />
     <Content Include="Content\p1005\logo.png" />
