@@ -128,6 +128,19 @@ namespace GiftService.Bll.UnitTests
         }
 
         [TestMethod]
+        public void Test_Pdf_Coupon_With_Empty_CustomerName()
+        {
+            int posId = 1007;
+            var p = ProductsDalFake.GetProducts().First(x => x.PosId == posId);
+            p.CustomerName = null;
+
+            byte[] ba = _pdfSharpBll.GeneratProductPdf(p.ProductUid, false);
+
+            Assert.IsNotNull(ba);
+            File.WriteAllBytes("c:\\temp\\gs_gift_empty_" + posId + ".pdf", ba);
+        }
+
+        [TestMethod]
         public void Test_Send_Email_To_Client_Success()
         {
             var p = _productsDalMock.Object.GetProductByUid(Guid.NewGuid().ToString("N"));

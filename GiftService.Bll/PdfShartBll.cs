@@ -113,7 +113,7 @@ namespace GiftService.Bll
                 pMessage.Format.Font.Bold = false;
                 pMessage.Format.Font.Italic = true;
                 pMessage.Format.Alignment = ParagraphAlignment.Center;
-                pMessage.AddText("Sveikinimo dovana");
+                pMessage.AddText(product.TextForGift);
                 //pMessage.AddText("Kazkos ilgas tekstas su sveikinimu ir t.t.t.t.t.t. Kazkos ilgas tekstas su sveikinimu ir t.t.t.t.t.t. Kazkos ilgas tekstas su sveikinimu ir t.t.t.t.t.t. ");
             }
 
@@ -155,7 +155,15 @@ namespace GiftService.Bll
                 //r.Cells[0].AddParagraph("Jus gavote dovana");
                 r.Cells[0].AddParagraph("Pirkėjas:")
                     .Format.Font.Bold = true;
-                r.Cells[0].AddParagraph(product.CustomerName);
+                // TODO: Extract info from payment or make custome name mandatory field
+                if (String.IsNullOrEmpty(product.CustomerName))
+                {
+                    r.Cells[0].AddParagraph("-");
+                }
+                else
+                {
+                    r.Cells[0].AddParagraph(product.CustomerName);
+                }
 
                 r.Cells[1].AddParagraph("Kaina:")
                     .Format.Font.Bold = true;

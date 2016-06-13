@@ -21,7 +21,7 @@
     <div id="GiftInfo" class="col-md-5">
         <p>
             @Resources.Language.Gift_Get_ServiceLabel<br />
-            @Html.Raw(Model.Product.ProductName)<br />
+            <strong>@Html.Raw(Model.Product.ProductName)<br /></strong>
             @Html.DisplayOrNotSet(Model.Product.ProductDescription, Resources.Language.Gift_Get_NoDescription)</p>
 
         <p>
@@ -37,14 +37,14 @@
             <div>
                 @Resources.Language.Gift_Get_CouponIsValidTill @Model.Product.ValidTill.ToShortDateString()
             </div>
-            <p class="alert alert-danger">@Resources.Language.Gift_Get_YouMustReserve<br />
+            <p class=""><span style="color: #f00;">@Resources.Language.Gift_Get_YouMustReserve</span><br />
                 @Html.Raw(String.Join("<br />", new string[] { Model.Product.PhoneForReservation, Model.Product.EmailForReservation }))
             </p>
         }
 
-        <p>@Resources.Language.Gift_Get_ThankYouForUsingUs</p>
+        @*<p>@Resources.Language.Gift_Get_ThankYouForUsingUs</p>*@
     </div>
-    <div id="GiftActions" class="col-md-3">
+    <div id="GiftActions" class="col-md-5">
         @if (Model.IsPaidOk)
         {
             <div class="btn-group-vertical">
@@ -54,15 +54,13 @@
                 <button id="BtnPrint" class="btn btn-default">@Resources.Language.Gift_Get_PrintCoupon</button>
                 @*<button id="BtnGift" class="btn btn-default">Dovanu cekis</button>*@
             </div>
-            @*<div class="panel panel-group">
+            @*<div id="CongratsDiv" class="panel panel-group" style="display: none;">
                 <div class="panel-body">
-
-                    <input type="email" placeholder="Enter e-mail" class="input-sm form-control" /><br />
-                    <textarea type="email" placeholder="Enter congrats" class="input-lg form-control"></textarea><br />
-                    <div class="btn-group">
-                        <button class="btn btn-xs btn-primary">E-mail</button>
-                        <button class="btn btn-xs btn-primary">Download</button>
-                    </div>
+                    <label for="email">@Resources.Language.Gift_Get_GiftEmailLabel</label>
+                    <input type="email" placeholder="Enter e-mail" class="input-sm form-control" value="@Model.Product.CustomerEmail" /><br />
+                    <textarea type="email" placeholder="Enter congrats" class="input-sm form-control" maxlength="230"></textarea><br />
+                    <button class="btn btn-xs btn-primary">@Resources.Language.Gift_Get_ButtonSendAsEmail</button>
+                    <button class="btn btn-xs btn-primary">@Resources.Language.Gift_Get_ButtonDownloadAsPdf</button>
                 </div>
             </div>*@
         }
@@ -82,6 +80,10 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-5 col-md-offset-1">@Resources.Language.Gift_Get_ThankYouForUsingUs</div>
+</div>
+
 
 @section scripts
 {
@@ -96,6 +98,11 @@
                 e.preventDefault();
                 window.location.href = "@Url.Action("Download", "Gift", new { id = Model.Product.ProductUid })";
             });
+
+            $("#BtnGift").click(function (e) {
+                e.preventDefault();
+                $("#CongratsDiv").toggle();
+            })
         });
 
     </script>    
