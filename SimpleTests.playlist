@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="GiftService.Bll.UnitTests.SmallTests.LocationUnitTest.Test_NameAddress_Complete" /><Add Test="GiftService.Bll.UnitTests.SmallTests.LocationUnitTest.Test_NameAddress_Without_Name" /></Playlist>

@@ -65,6 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecurityBllUnitTest.cs" />
     <Compile Include="CommunicationBllUnitTest.cs" />
+    <Compile Include="SmallTests\LocationUnitTest.cs" />
     <Compile Include="TransactionBllUnitTest.cs" />
     <Compile Include="HelperBllUnitTest.cs" />
     <Compile Include="ConfigurationBllUnitTest.cs" />

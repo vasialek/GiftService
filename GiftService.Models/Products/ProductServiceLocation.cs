@@ -18,5 +18,19 @@ namespace GiftService.Models.Products
         public string EmailReservation { get; set; }
         public string PhoneReservation { get; set; }
         public string LatLng { get; set; }
+
+        public string NameAddress
+        {
+            get
+            {
+                string s = String.IsNullOrEmpty(this.Name.Trim()) ? "" : String.Concat(Name.Trim(), ". ");
+
+                s = String.Concat(s, Address);
+
+                s = String.Concat(s, ", ", City);
+
+                return s;
+            }
+        }
     }
 }
