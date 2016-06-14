@@ -137,10 +137,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\Language.en-US.Designer.cs">
+    <Compile Include="App_GlobalResources\Language.en.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Language.en-US.resx</DependentUpon>
+      <DependentUpon>Language.en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Language.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Language.ru.resx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\AutoMapperConfigWeb.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -209,11 +214,15 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EmbeddedResource Include="App_GlobalResources\Language.en-US.resx">
+    <EmbeddedResource Include="App_GlobalResources\Language.en.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Language.en-US.Designer.cs</LastGenOutput>
+      <LastGenOutput>Language.en.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Content Include="App_GlobalResources\Language.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Language.ru.designer.cs</LastGenOutput>
+    </Content>
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Properties\PublishProfiles\Prod.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
