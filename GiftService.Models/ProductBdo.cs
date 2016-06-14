@@ -59,6 +59,8 @@ namespace GiftService.Models
         public string PhoneForReservation { get; set; }
 
         public string EmailForReservation { get; set; }
-        
+
+        public string TextForGift { get; set; }
+
     }
 }
