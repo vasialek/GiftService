@@ -104,7 +104,9 @@ namespace GiftService.Bll.UnitTests.Fakes
                 ValidFrom = DateTime.UtcNow,
                 ValidTill = DateTime.UtcNow.AddMonths(3),
 
-                PhoneForReservation = "+370 630 06009"
+                PhoneForReservation = "+370 630 06009",
+
+                TextForGift = "Sveikinu, Henrika su alkotesteriu :) Sveikinu, Henrika su alkotesteriu :) Sveikinu, Henrika su alkotesteriu :) Sveikinu, Henrika su alkotesteriu :) Sveikinu, Henrika su alkotesteriu :) Sveikinu, Henrika su alkotesteriu :) Sveikinu, Henrika"
             });
 
             return _products;

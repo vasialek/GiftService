@@ -61,6 +61,8 @@
   <ItemGroup>
     <Compile Include="AutoMapperConfigDal.cs" />
     <Compile Include="DalFactory.cs" />
+    <Compile Include="Fakes\FakeProductsDal.cs" />
+    <Compile Include="Fakes\FakeTransactionsDal.cs" />
     <Compile Include="GiftServiceModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -124,6 +126,7 @@
       <LastGenOutput>GiftServiceModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

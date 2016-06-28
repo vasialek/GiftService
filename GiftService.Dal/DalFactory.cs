@@ -39,7 +39,8 @@ namespace GiftService.Dal
             {
                 if (_transactionDal == null)
                 {
-                    _transactionDal = new TransactionDal();
+                    _transactionDal = new Fakes.FakeTransactionsDal();
+                    //_transactionDal = new TransactionDal();
                 }
                 return _transactionDal;
             }
@@ -63,7 +64,8 @@ namespace GiftService.Dal
             {
                 if (_productsDal == null)
                 {
-                    _productsDal = new ProductsDal();
+                    _productsDal = new Fakes.FakeProductsDal();
+                    //_productsDal = new ProductsDal();
                 }
                 return _productsDal;
             }
