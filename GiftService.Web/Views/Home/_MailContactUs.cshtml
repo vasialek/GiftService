@@ -1,0 +1,29 @@
+﻿@model GiftService.Models.ContactUsModel
+
+<table cellpadding="2" cellspacing="0" style="border: none !important;">
+    <tr>
+        <td>Tema:</td>
+        <td>
+            @Model.Subject<br />
+        </td>
+    </tr>
+    <tr>
+        <td>Vardas</td>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <td>El. pastas</td>
+        <td>
+            @Model.Email
+        </td>
+    </tr>
+    <tr>
+        <td>Adresas</td>
+        <td>@Model.SiteUrl</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Model.Text
+        </td>
+    </tr>
+</table>

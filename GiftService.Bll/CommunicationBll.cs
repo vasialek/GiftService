@@ -17,6 +17,7 @@ namespace GiftService.Bll
         T GetJsonResponse<T>(Uri jsonUrl) where T : BaseResponse;
         T ParseJson<T>(string json) where T : BaseResponse;
         void SendEmailToClientOnSuccess(ProductBdo product);
+        void SendEmailToManager(string subject, string body);
     }
 
     public class CommunicationBll : ICommunicationBll
@@ -36,6 +37,17 @@ namespace GiftService.Bll
             }
         }
 
+        private IConfigurationBll _configurationBll = null;
+
+        public CommunicationBll(IConfigurationBll configurationBll)
+        {
+            if (configurationBll == null)
+            {
+                throw new ArgumentNullException("configurationBll");
+            }
+
+            _configurationBll = configurationBll;
+        }
 
         public T GetJsonResponse<T>(Uri jsonUrl) where T : BaseResponse
         {
@@ -71,6 +83,32 @@ namespace GiftService.Bll
             catch (Exception ex)
             {
 
+                throw;
+            }
+        }
+
+        public void SendEmailToManager(string subject, string body)
+        {
+            try
+            {
+                Logger.Info("Sending email to manager");
+
+                var ms = _configurationBll.Get();
+
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.From = new MailAddress("webmaster@DovanuKuponai.com", "DovanuKuponai");
+                mailMessage.To.Add(new MailAddress(ms.Mails.ManagerEmail, "DK manager"));
+                //mailMessage.To.Add(new MailAddress("proglamer@gmail.com"));
+                mailMessage.Bcc.Add(new MailAddress("proglamer@gmail.com"));
+                mailMessage.Subject = subject;
+                mailMessage.Body = body;
+                mailMessage.IsBodyHtml = true;
+
+                SendEmail(mailMessage);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error sending e-mail to manager", ex);
                 throw;
             }
         }
@@ -135,6 +173,16 @@ Ačiū, kad pirkote!");
             sb.Replace(Environment.NewLine, "<br />");
 
             return sb.ToString();
+        }
+
+        protected void SendEmail(MailMessage mailMessage)
+        {
+            SmtpClient client = new SmtpClient("mail.dovanukuponai.com");
+            client.EnableSsl = false;
+            client.UseDefaultCredentials = false;
+            //client.Credentials = new NetworkCredential("RitosMasazai@dovanukuponai.com", "7sSVYyT_8Wpz");
+            client.Credentials = new NetworkCredential("webmaster@dovanukuponai.com", "DovanKup_Wmaster29");
+            client.Send(mailMessage);
         }
     }
 }

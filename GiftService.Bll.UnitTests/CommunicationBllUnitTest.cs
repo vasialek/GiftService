@@ -8,7 +8,7 @@ namespace GiftService.Bll.UnitTests
     [TestClass]
     public class CommunicationBllUnitTest
     {
-        private ICommunicationBll _communicationBll = new CommunicationBll();
+        private ICommunicationBll _communicationBll = new CommunicationBll(BllFactory.Current.ConfigurationBll);
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]

@@ -71,7 +71,7 @@ namespace GiftService.Bll
             {
                 if (_communicationBll == null)
                 {
-                    _communicationBll = new CommunicationBll();
+                    _communicationBll = new CommunicationBll(ConfigurationBll);
                 }
                 return _communicationBll;
             }

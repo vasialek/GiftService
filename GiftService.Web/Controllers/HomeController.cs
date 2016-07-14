@@ -62,7 +62,16 @@ namespace GiftService.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.IsSent = true;
+                try
+                {
+                    string s = RenderPartialView("_MailContactUs", model);
+                    Factory.CommunicationBll.SendEmailToManager("DK kliento uzklausymas", s);
+                    model.IsSent = true;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error("Error sending e-mail", ex);
+                }
             }
             return View("Contact", model);
         }

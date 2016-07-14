@@ -218,19 +218,5 @@ namespace GiftService.Web.Controllers
             });
         }
 
-        protected string RenderPartialView(string partialName, object model)
-        {
-            ViewData.Model = model;
-
-            using (StringWriter sw = new StringWriter())
-            {
-                ViewEngineResult vr = ViewEngines.Engines.FindPartialView(this.ControllerContext, partialName);
-                //ViewEngineResult vr = new ViewEngineResult(new List<string> { partialName });
-                ViewContext vc = new ViewContext(this.ControllerContext, vr.View, this.ViewData, this.TempData, sw);
-                vc.View.Render(vc, sw);
-
-                return sw.ToString();
-            }
-        }
     }
 }

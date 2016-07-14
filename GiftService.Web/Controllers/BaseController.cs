@@ -122,5 +122,19 @@ namespace GiftService.Web.Controllers
             Logger.Warn("[404] Unknown action: " + actionName + ". Request is: " + Request.RawUrl);
             base.HandleUnknownAction(actionName);
         }
+
+        protected string RenderPartialView(string partialName, object model)
+        {
+            ViewData.Model = model;
+
+            using (System.IO.StringWriter sw = new System.IO.StringWriter())
+            {
+                ViewEngineResult vr = ViewEngines.Engines.FindPartialView(this.ControllerContext, partialName);
+                ViewContext vc = new ViewContext(this.ControllerContext, vr.View, this.ViewData, this.TempData, sw);
+                vc.View.Render(vc, sw);
+
+                return sw.ToString();
+            }
+        }
     }
 }

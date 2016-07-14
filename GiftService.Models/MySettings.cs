@@ -8,6 +8,15 @@ namespace GiftService.Models
 {
     public class MySettings
     {
+        public class MailAddresses
+        {
+            public string WebmasterEmail { get; set; }
+
+            public string ManagerEmail { get; set; }
+        }
+
+        public MailAddresses Mails { get; set; }
+
         public string ProjectDomain { get; set; }
 
         public string ProjectName { get; set; }
@@ -44,6 +53,11 @@ namespace GiftService.Models
             UseTestPayment = false;
             PayseraPaymentUrl = new Uri("https://www.mokejimai.lt/pay/");
             MaxLengthOfPayseraNote = 255;
+
+            Mails = new MailAddresses();
+            Mails.ManagerEmail = "p.roglamer@gmail.com";
+            Mails.WebmasterEmail = "p.roglamer@gmail.com";
+            
         }
     }
 }

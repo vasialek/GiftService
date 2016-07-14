@@ -77,7 +77,7 @@ namespace GiftService.Bll.UnitTests
             //_pdfBll = new PdfBll(_configBllMock.Object, _productsDalMock.Object);
             _pdfSharpBll = new PdfShartBll(_configBllMock.Object, _productsBll, _transactionsbllMock.Object);
 
-            _communicationBll = new CommunicationBll();
+            _communicationBll = new CommunicationBll(BllFactory.Current.ConfigurationBll);
         }
 
         [TestMethod]
