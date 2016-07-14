@@ -205,6 +205,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Užduokite klausimą.
+        /// </summary>
+        internal static string Home_ContactUs_Ask {
+            get {
+                return ResourceManager.GetString("Home_ContactUs_Ask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reikia pagalbos?.
         /// </summary>
         internal static string Home_ContactUs_DoYouNeedHelp {
@@ -237,6 +246,15 @@ namespace Resources {
         internal static string Home_ContactUs_Name {
             get {
                 return ResourceManager.GetString("Home_ContactUs_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Siųsti.
+        /// </summary>
+        internal static string Home_ContactUs_Send {
+            get {
+                return ResourceManager.GetString("Home_ContactUs_Send", resourceCulture);
             }
         }
         

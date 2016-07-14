@@ -214,11 +214,11 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EmbeddedResource Include="App_GlobalResources\Language.en.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+    <Content Include="App_GlobalResources\Language.en.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Language.en.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
+    </Content>
     <Content Include="App_GlobalResources\Language.ru.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Language.ru.designer.cs</LastGenOutput>
@@ -300,6 +300,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Shared\_LayoutPos_1007.cshtml" />
     <Content Include="Views\TranAdmin\_PsRequestPartial.cshtml" />
+    <Content Include="Views\Home\_MailContactUs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -4,8 +4,9 @@
     //ViewBag.Title = "KUPONO ĮSIGIJIMO TAISYKLĖS";
     ViewBag.Title = Model.Title;
 }
-<h2>@ViewBag.Title</h2>
 
-@Html.Raw(Model.Text)
-
+<div class="container">
+    <h4>@ViewBag.Title</h4>
+    @Html.Raw(Model.Text)
+</div>
 

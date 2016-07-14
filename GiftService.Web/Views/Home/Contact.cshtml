@@ -6,7 +6,14 @@
     Html.EnableClientValidation(true);
     Html.EnableUnobtrusiveJavaScript(true);
 }
-<h2>@ViewBag.Title</h2>
+
+<style>
+    .table tbody > tr > td {
+        border: none;
+    }
+</style>
+
+<h4>@ViewBag.Title</h4>
 
 @if (Model.IsSent)
 {
@@ -15,61 +22,71 @@
 else
 {
 
-    using (Html.BeginForm(/*new AjaxOptions { AllowCache = false }*/))
-    {
+    <div class="row">
+        <div class="col-md-5 col-md-offset-0">
+            <strong>@Resources.Language.Home_ContactUs_Ask</strong>
+            @using (Html.BeginForm(/*new AjaxOptions { AllowCache = false }*/))
+            {
 
-        <table class="table">
-            <tr>
-                <td></td>
-                <td>
-                    @Html.ValidationSummary(true)
-                </td>
-            </tr>
-            <tr>
-                <td align="right">@Html.LabelFor(x => x.Subject, Resources.Language.Home_ContactUs_Subject)</td>
-                <td>
-                    @Html.TextBoxFor(x => x.Subject, new { @class = "form-control input-sm" })<br />
-                </td>
-            </tr>
-            <tr>
-                <td align="right">@Html.LabelFor(x => x.Name, Resources.Language.Home_ContactUs_Name)</td>
-                <td>@Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm" })</td>
-            </tr>
-            <tr>
-                <td align="right">@Html.LabelFor(x => x.Email, Resources.Language.Home_ContactUs_Email)</td>
-                <td>
-                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control input-sm" })<br />
-                    @Html.ValidationMessageFor(x => x.Email)
-                </td>
-            </tr>
-            <tr>
-                <td align="right">@Html.LabelFor(x => x.SiteUrl, Resources.Language.Home_ContactUs_SiteUrl)</td>
-                <td>@Html.TextBoxFor(x => x.SiteUrl, new { @class = "form-control input-sm" })</td>
-            </tr>
-            <tr>
-                <td align="right">@Html.LabelFor(x => x.Text, Resources.Language.Home_ContactUs_Text)</td>
-                <td>
-                    @Html.TextAreaFor(x => x.Text, new { @class = "form-control" })<br />
-                    @Html.ValidationMessageFor(x => x.Text)
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><button class="btn btn-primary btn-sm">OK</button></td>
-            </tr>
-        </table>
+                <table class="table table-condensed" style="border: none !important;">
+                    <colgroup>
+                        <col width="80%" />
+                    </colgroup>
+                    <tr>
+                        <td></td>
+                        <td>
+                            @Html.ValidationSummary(true)
+                        </td>
+                    </tr>
+                    <tr>
+                        @*<td>@Html.LabelFor(x => x.Subject, Resources.Language.Home_ContactUs_Subject)</td>*@
+                        <td>
+                            @Html.TextBoxFor(x => x.Subject, new { @class = "form-control input-sm", placeholder = Resources.Language.Home_ContactUs_Subject })<br />
+                        </td>
+                    </tr>
+                    <tr>
+                        @*<td>@Html.LabelFor(x => x.Name, Resources.Language.Home_ContactUs_Name)</td>*@
+                        <td>@Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm", placeholder = Resources.Language.Home_ContactUs_Name })</td>
+                    </tr>
+                    <tr>
+                        @*<td>@Html.LabelFor(x => x.Email, Resources.Language.Home_ContactUs_Email)</td>*@
+                        <td>
+                            @Html.TextBoxFor(x => x.Email, new { @class = "form-control input-sm", placeholder = Resources.Language.Home_ContactUs_Email })
+                            @Html.ValidationMessageFor(x => x.Email)
+                        </td>
+                    </tr>
+                    <tr>
+                        @*<td>@Html.LabelFor(x => x.SiteUrl, Resources.Language.Home_ContactUs_SiteUrl)</td>*@
+                        <td>@Html.TextBoxFor(x => x.SiteUrl, new { @class = "form-control input-sm", placeholder = Resources.Language.Home_ContactUs_SiteUrl })</td>
+                    </tr>
+                    <tr>
+                        @*<td>@Html.LabelFor(x => x.Text, Resources.Language.Home_ContactUs_Text)</td>*@
+                        <td>
+                            @Html.TextAreaFor(x => x.Text, new { @class = "form-control", placeholder = Resources.Language.Home_ContactUs_Text })
+                            @Html.ValidationMessageFor(x => x.Text)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><button class="btn btn-primary btn-sm">@Resources.Language.Home_ContactUs_Send</button></td>
+                    </tr>
+                </table>
 
-    }
+            }
+        </div>
+        <div class="col-md-4">
+            <address>
+                <strong>
+                    Vida
+                </strong>
+                <br />
+                <strong>
+                    +370 612 17534
+                </strong><br />
+                @*<strong>@Resources.Language.Home_ContactUs_DoYouNeedHelp</strong>*@
+                <strong><a href="mailto:vida@dovanukuponai.com">vida@dovanukuponai.com</a></strong><br />
+            </address>
+        </div>
+    </div>
+
 }
 
-
-
-
-<address>
-    Vida<br />
-    +370 612 17534
-</address>
-
-<address>
-    <strong>@Resources.Language.Home_ContactUs_DoYouNeedHelp</strong>   <a href="mailto:vida@dovanukuponai.com">vida@dovanukuponai.com</a><br />
-</address>

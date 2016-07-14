@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 0px;
     padding-bottom: 20px;
 }
 
@@ -54,4 +54,8 @@ textarea.input-validation-error, input.input-validation-error {
 .non-attractive {
     color: #aaa;
     font-size: smaller;
+}
+
+.body-content {
+    margin-top: 50px !important;
 }

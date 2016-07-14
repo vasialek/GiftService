@@ -66,14 +66,14 @@
         }
         else if (Model.PaymentStatus == GiftService.Models.PaymentStatusIds.AcceptedButNotExecuted)
         {
-            <button class="btn btn-warning">
+            <div class="alert alert-warning text-center">
                 @Resources.Language.Gift_Get_PaymentIsProcessing
-            </button>
+            </div>
         }else
         {
-            <button class="btn btn-danger">
+            <div class="alert alert-danger text-center">
                 @Resources.Language.Gift_Get_PaymentWasNot
-            </button>
+            </div>
         }
 
 
