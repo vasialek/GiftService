@@ -123,14 +123,20 @@
   <data name="Gift_Get_ButtonSendAsEmail" xml:space="preserve">
     <value>Send by email</value>
   </data>
+  <data name="Gift_Get_CouponByEmail" xml:space="preserve">
+    <value>E-mail gift</value>
+  </data>
   <data name="Gift_Get_CouponIsValidTill" xml:space="preserve">
     <value>Coupon is valid till</value>
   </data>
   <data name="Gift_Get_DownloadCoupon" xml:space="preserve">
     <value>Download coupon</value>
   </data>
+  <data name="Gift_Get_EnterCongratulations" xml:space="preserve">
+    <value>Enter congratulation text</value>
+  </data>
   <data name="Gift_Get_GiftEmailLabel" xml:space="preserve">
-    <value>Siusti dovanu ceki el.pastu:</value>
+    <value>Send gift coupon by e-mail:</value>
   </data>
   <data name="Gift_Get_NoDescription" xml:space="preserve">
     <value>&lt;span class="non-attractive"&gt;No description&lt;/span&gt;</value>
@@ -222,8 +228,29 @@
   <data name="Payment_Checkout_ChooseLocation" xml:space="preserve">
     <value>Choose point of service</value>
   </data>
+  <data name="Payment_Checkout_CouponIsValidTill" xml:space="preserve">
+    <value>Coupon is valid till</value>
+  </data>
+  <data name="Payment_Checkout_CustomerEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Payment_Checkout_CustomerName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Payment_Checkout_CustomerPhone" xml:space="preserve">
+    <value>Phone number</value>
+  </data>
   <data name="Payment_Checkout_DurationNotSet" xml:space="preserve">
     <value>Not set</value>
+  </data>
+  <data name="Payment_Checkout_PayButton" xml:space="preserve">
+    <value>Pay</value>
+  </data>
+  <data name="Payment_Checkout_Payment" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="Payment_Checkout_Remarks" xml:space="preserve">
+    <value>Remarks</value>
   </data>
   <data name="Payment_ErrorProcessingTransaction" xml:space="preserve">
     <value>Error processing transaction. Call our service, please.</value>

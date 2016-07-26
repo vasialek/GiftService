@@ -70,11 +70,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Issiusti el.pastu.
+        ///   Looks up a localized string similar to Išsiųsti el.paštu.
         /// </summary>
         internal static string Gift_Get_ButtonSendAsEmail {
             get {
                 return ResourceManager.GetString("Gift_Get_ButtonSendAsEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dovanų čekis.
+        /// </summary>
+        internal static string Gift_Get_CouponByEmail {
+            get {
+                return ResourceManager.GetString("Gift_Get_CouponByEmail", resourceCulture);
             }
         }
         
@@ -97,7 +106,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Siusti dovanu ceki el.pastu:.
+        ///   Looks up a localized string similar to Įveskite svekinimą.
+        /// </summary>
+        internal static string Gift_Get_EnterCongratulations {
+            get {
+                return ResourceManager.GetString("Gift_Get_EnterCongratulations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Siųsti dovanų čekį el. paštu:.
         /// </summary>
         internal static string Gift_Get_GiftEmailLabel {
             get {
@@ -232,7 +250,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aciū, Jūsų užklausa išsiusta.
+        ///   Looks up a localized string similar to Ačiū, Jūsų užklausa išsiųsta.
         /// </summary>
         internal static string Home_ContactUs_MessageIsSentOk {
             get {
@@ -376,11 +394,74 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kuponas galioja iki.
+        /// </summary>
+        internal static string Payment_Checkout_CouponIsValidTill {
+            get {
+                return ResourceManager.GetString("Payment_Checkout_CouponIsValidTill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El. paštas.
+        /// </summary>
+        internal static string Payment_Checkout_CustomerEmail {
+            get {
+                return ResourceManager.GetString("Payment_Checkout_CustomerEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vardas.
+        /// </summary>
+        internal static string Payment_Checkout_CustomerName {
+            get {
+                return ResourceManager.GetString("Payment_Checkout_CustomerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tel. nr..
+        /// </summary>
+        internal static string Payment_Checkout_CustomerPhone {
+            get {
+                return ResourceManager.GetString("Payment_Checkout_CustomerPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nenurodyta.
         /// </summary>
         internal static string Payment_Checkout_DurationNotSet {
             get {
                 return ResourceManager.GetString("Payment_Checkout_DurationNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mokėti.
+        /// </summary>
+        internal static string Payment_Checkout_PayButton {
+            get {
+                return ResourceManager.GetString("Payment_Checkout_PayButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apmokėjimas.
+        /// </summary>
+        internal static string Payment_Checkout_Payment {
+            get {
+                return ResourceManager.GetString("Payment_Checkout_Payment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pastabos.
+        /// </summary>
+        internal static string Payment_Checkout_Remarks {
+            get {
+                return ResourceManager.GetString("Payment_Checkout_Remarks", resourceCulture);
             }
         }
         
@@ -422,7 +503,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Siuo metu klientai nerodomi.
+        ///   Looks up a localized string similar to Šiuo metu klientai nerodomi.
         /// </summary>
         internal static string Pos_OurClients_NoResults {
             get {
@@ -440,7 +521,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Atsiprašome, vyksta techniniai darbai ir informaciją nerasta..
+        ///   Looks up a localized string similar to Atsiprašome, vyksta techniniai darbai ir informacija nerasta..
         /// </summary>
         internal static string SystemMessage_NotFound {
             get {
@@ -467,7 +548,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Iveskite kupono unikalu koda arba numeri.
+        ///   Looks up a localized string similar to Įveskite kupono unikalų kodą arba numerį.
         /// </summary>
         internal static string TranAdmin_Validate_EnterTransactionCode {
             get {

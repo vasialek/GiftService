@@ -2,6 +2,9 @@
 
 @{
     ViewBag.Title = String.Concat(Model.Pos.Name, " - ", Model.Product.ProductName);
+
+    var friendEmail = new GiftService.Web.Models.Gifts.GiftToFriendModel();
+    friendEmail.ProductUid = Model.Product.ProductUid;
 }
 
 
@@ -52,17 +55,21 @@
                 @Model.PaymentDate.ToShortDateString()</button>
                 <button id="BtnDownload" class="btn btn-default">@Resources.Language.Gift_Get_DownloadCoupon</button>
                 <button id="BtnPrint" class="btn btn-default">@Resources.Language.Gift_Get_PrintCoupon</button>
-                @*<button id="BtnGift" class="btn btn-default">Dovanu cekis</button>*@
+                <button id="BtnGift" class="btn btn-default">@Resources.Language.Gift_Get_CouponByEmail</button>
             </div>
-            @*<div id="CongratsDiv" class="panel panel-group" style="display: none;">
-                <div class="panel-body">
-                    <label for="email">@Resources.Language.Gift_Get_GiftEmailLabel</label>
-                    <input type="email" placeholder="Enter e-mail" class="input-sm form-control" value="@Model.Product.CustomerEmail" /><br />
-                    <textarea type="email" placeholder="Enter congrats" class="input-sm form-control" maxlength="230"></textarea><br />
-                    <button class="btn btn-xs btn-primary">@Resources.Language.Gift_Get_ButtonSendAsEmail</button>
-                    <button class="btn btn-xs btn-primary">@Resources.Language.Gift_Get_ButtonDownloadAsPdf</button>
-                </div>
-            </div>*@
+            <div id="CongratsDiv" class="panel panel-group" style="display: none;">
+                @using (Html.BeginForm("Friend", "Gift"))
+                {
+                    @Html.Hidden("ProductUid", friendEmail.ProductUid)
+                    <div class="panel-body">
+                        <label for="email">@Resources.Language.Gift_Get_GiftEmailLabel</label>
+                        <input name="FriendEmail" type="email" placeholder="Enter e-mail" class="input-sm form-control" value="@Model.Product.CustomerEmail" /><br />
+                        <textarea name="Text" type="email" placeholder="@Resources.Language.Gift_Get_EnterCongratulations" class="input-sm form-control" maxlength="230"></textarea><br />
+                        <button name="BtnEmailGift" id="BtnEmailGift" class="btn btn-xs btn-primary">@Resources.Language.Gift_Get_ButtonSendAsEmail</button>
+                        <button name="BtnDownloadGift" id="BtnDownloadGift" class="btn btn-xs btn-primary">@Resources.Language.Gift_Get_ButtonDownloadAsPdf</button>
+                    </div>
+                }
+            </div>
         }
         else if (Model.PaymentStatus == GiftService.Models.PaymentStatusIds.AcceptedButNotExecuted)
         {
@@ -97,6 +104,13 @@
             $("#BtnDownload").click(function (e) {
                 e.preventDefault();
                 window.location.href = "@Url.Action("Download", "Gift", new { id = Model.Product.ProductUid })";
+            });
+            @*$("#BtnDownloadGift").click(function (e) {
+                e.preventDefault();
+                window.location.href = "@Url.Action("Friend", "Gift", new { id = Model.Product.ProductUid })";
+            });*@
+            $("#BtnEmailGift").click(function (e) {
+                e.preventDefault();
             });
 
             $("#BtnGift").click(function (e) {

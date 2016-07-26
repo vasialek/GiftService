@@ -11,7 +11,7 @@
     @Html.HiddenFor(x => Model.PaymentSystem)
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 
                 <div id="ProductInformation" class="row">
                     <div class="col-md-12">
@@ -34,27 +34,27 @@
 
                 <div id="CustomerInformation" class="form-horizontal">
                     <div class="form-group">
-                        @Html.LabelFor(x => Model.CustomerName, new { @class = "control-label col-sm-3" })
+                        @Html.LabelFor(x => Model.CustomerName, Resources.Language.Payment_Checkout_CustomerName, new { @class = "control-label col-sm-3" })
                         <div class="col-sm-6">
                             @Html.TextBoxFor(x => Model.CustomerName, new { @class = "form-control input-sm" })
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(x => Model.CustomerPhone, new { @class = "control-label col-sm-3" })
+                        @Html.LabelFor(x => Model.CustomerPhone, Resources.Language.Payment_Checkout_CustomerPhone, new { @class = "control-label col-sm-3" })
                         <div class="col-sm-6">
                             @Html.TextBoxFor(x => Model.CustomerPhone, new { @class = "form-control input-sm" })
                             @Html.ValidationMessageFor(x => Model.CustomerPhone)
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(x => Model.CustomerEmail, new { @class = "control-label col-sm-3" })
+                        @Html.LabelFor(x => Model.CustomerEmail, Resources.Language.Payment_Checkout_CustomerEmail, new { @class = "control-label col-sm-3" })
                         <div class="col-sm-6">
                             @Html.TextBoxFor(x => Model.CustomerEmail, new { @class = "form-control input-sm" })
                             @Html.ValidationMessageFor(x => Model.CustomerEmail)
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(x => Model.Remarks, new { @class = "control-label col-sm-3" })
+                        @Html.LabelFor(x => Model.Remarks, Resources.Language.Payment_Checkout_Remarks, new { @class = "control-label col-sm-3" })
                         <div class="col-sm-6">
                             @Html.TextAreaFor(x => Model.Remarks, new { @class = "form-control" })
                         </div>
@@ -78,16 +78,17 @@
                 </ul>
 
                 <div class="alert alert-warning">
-                    Kuponas galioja @Model.ProductValidTill.ToShortDateString()
+                    @Resources.Language.Payment_Checkout_CouponIsValidTill
+                    @Model.ProductValidTill.ToShortDateString()
                 </div>
 
                 <table class="table table-bordered table-condensed">
                     <tr>
-                        <th colspan="2">Apmokėjimas</th>
+                        <th colspan="2">@Resources.Language.Payment_Checkout_Payment</th>
                     </tr>
                     <tr>
                         <td><img src="https://www.paysera.com/new/upload/plan_payment_types/rf54608784edf5c/Paysera_logotype_internet2.png" alt="Paysera" width="100" /></td>
-                        <td><a href="@Url.Action("Checkout", "Payment", new { id = Model.PosUserUid })" class="gs-pay-link" data-id="@((int)GiftService.Models.PaymentSystems.Paysera)">Mokėti</a></td>
+                        <td><a href="@Url.Action("Checkout", "Payment", new { id = Model.PosUserUid })" class="gs-pay-link" data-id="@((int)GiftService.Models.PaymentSystems.Paysera)">@Resources.Language.Payment_Checkout_PayButton</a></td>
                     </tr>
                     @*<tr>
                         <td><img src="https://www.paypalobjects.com/webstatic/en_US/btn/btn_buynow_pp_142x27.png" alt="PayPal" width="100" /></td>

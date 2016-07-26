@@ -121,7 +121,10 @@
     <value>Atsisiusti PDF</value>
   </data>
   <data name="Gift_Get_ButtonSendAsEmail" xml:space="preserve">
-    <value>Issiusti el.pastu</value>
+    <value>Išsiųsti el.paštu</value>
+  </data>
+  <data name="Gift_Get_CouponByEmail" xml:space="preserve">
+    <value>Dovanų čekis</value>
   </data>
   <data name="Gift_Get_CouponIsValidTill" xml:space="preserve">
     <value>Kuponas galioja iki</value>
@@ -129,8 +132,11 @@
   <data name="Gift_Get_DownloadCoupon" xml:space="preserve">
     <value>Atsisiųsti kuponą</value>
   </data>
+  <data name="Gift_Get_EnterCongratulations" xml:space="preserve">
+    <value>Įveskite svekinimą</value>
+  </data>
   <data name="Gift_Get_GiftEmailLabel" xml:space="preserve">
-    <value>Siusti dovanu ceki el.pastu:</value>
+    <value>Siųsti dovanų čekį el. paštu:</value>
   </data>
   <data name="Gift_Get_NoDescription" xml:space="preserve">
     <value>&lt;span class="non-attractive"&gt;Aprašymas nenurodytas&lt;/span&gt;</value>
@@ -175,7 +181,7 @@
     <value>Jūsų el. paštas</value>
   </data>
   <data name="Home_ContactUs_MessageIsSentOk" xml:space="preserve">
-    <value>Aciū, Jūsų užklausa išsiusta</value>
+    <value>Ačiū, Jūsų užklausa išsiųsta</value>
   </data>
   <data name="Home_ContactUs_Name" xml:space="preserve">
     <value>Jūsų vardas</value>
@@ -222,8 +228,29 @@
   <data name="Payment_Checkout_ChooseLocation" xml:space="preserve">
     <value>Pasirinkite aptarnavimo vietą</value>
   </data>
+  <data name="Payment_Checkout_CouponIsValidTill" xml:space="preserve">
+    <value>Kuponas galioja iki</value>
+  </data>
+  <data name="Payment_Checkout_CustomerEmail" xml:space="preserve">
+    <value>El. paštas</value>
+  </data>
+  <data name="Payment_Checkout_CustomerName" xml:space="preserve">
+    <value>Vardas</value>
+  </data>
+  <data name="Payment_Checkout_CustomerPhone" xml:space="preserve">
+    <value>Tel. nr.</value>
+  </data>
   <data name="Payment_Checkout_DurationNotSet" xml:space="preserve">
     <value>Nenurodyta</value>
+  </data>
+  <data name="Payment_Checkout_PayButton" xml:space="preserve">
+    <value>Mokėti</value>
+  </data>
+  <data name="Payment_Checkout_Payment" xml:space="preserve">
+    <value>Apmokėjimas</value>
+  </data>
+  <data name="Payment_Checkout_Remarks" xml:space="preserve">
+    <value>Pastabos</value>
   </data>
   <data name="Payment_ErrorProcessingTransaction" xml:space="preserve">
     <value>Klaida vykdant apmokėjimą. Mūsų darbuotojai susisieks su Jumis.</value>
@@ -239,13 +266,13 @@ Susisiekite su administracija.</value>
     <value>Sveikiname, Jūs įsigijote kuponą.</value>
   </data>
   <data name="Pos_OurClients_NoResults" xml:space="preserve">
-    <value>Siuo metu klientai nerodomi</value>
+    <value>Šiuo metu klientai nerodomi</value>
   </data>
   <data name="Pos_OurClients_Title" xml:space="preserve">
     <value>Mūsų klientai</value>
   </data>
   <data name="SystemMessage_NotFound" xml:space="preserve">
-    <value>Atsiprašome, vyksta techniniai darbai ir informaciją nerasta.</value>
+    <value>Atsiprašome, vyksta techniniai darbai ir informacija nerasta.</value>
   </data>
   <data name="SystemMessage_WeWillContactYouOnError" xml:space="preserve">
     <value>Mūsų darbuotojai su Jumis susisieks.</value>
@@ -254,6 +281,6 @@ Susisiekite su administracija.</value>
     <value>Tikrinti</value>
   </data>
   <data name="TranAdmin_Validate_EnterTransactionCode" xml:space="preserve">
-    <value>Iveskite kupono unikalu koda arba numeri</value>
+    <value>Įveskite kupono unikalų kodą arba numerį</value>
   </data>
 </root>
