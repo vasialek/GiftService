@@ -19,6 +19,7 @@ namespace GiftService.Bll
         ProductBdo GetProductByPaySystemUid(string paySystemUid);
         ProductBdo SaveProductInformationFromPos(string posUserUid, PaymentRequestValidationResponse posResponse, ProductCheckoutModel checkout);
         string GetUniqueOrderId(int posId);
+        void MakeCouponGift(string productUid, string friendEmail, string text);
     }
 
     public class ProductsBll : IProductsBll
@@ -40,21 +41,41 @@ namespace GiftService.Bll
 
         private IProductsDal _productsDal = null;
         private IPosDal _posDal = null;
+        private ISecurityBll _securityBll = null;
 
-        public ProductsBll(IProductsDal productsDal, IPosDal posDal)
+        public ProductsBll(ISecurityBll securityBll, IProductsDal productsDal, IPosDal posDal)
         {
             if (productsDal == null)
             {
                 throw new ArgumentNullException("productsDal");
             }
-
             if (posDal == null)
             {
                 throw new ArgumentNullException("posDal");
             }
+            if (securityBll == null)
+            {
+                throw new ArgumentNullException("securityBll");
+            }
 
             _productsDal = productsDal;
             _posDal = posDal;
+            _securityBll = securityBll;
+        }
+
+        public void MakeCouponGift(string productUid, string friendEmail, string text)
+        {
+            _securityBll.ValidateUid(productUid);
+
+            var p = _productsDal.GetProductByUid(productUid);
+
+            _securityBll.EnsureProductIsValid(p);
+
+            Logger.InfoFormat("Making procut #{0} gift for e-mail: `{1}`", productUid, friendEmail);
+            p.TextForGift = text;
+            p.EmailForGift = friendEmail;
+
+            _productsDal.MakeProductGift(p, friendEmail.Trim(), text.Trim());
         }
 
         public ProductInformationModel GetProductInformationByUid(string productUid)

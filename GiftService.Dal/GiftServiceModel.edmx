@@ -51,6 +51,8 @@ warning 6002: The table/view 'DB_96601_giftservice.dbo.gslog' does not have a pr
           <Property Name="remarks" Type="nvarchar" MaxLength="1024" />
           <Property Name="product_duration" Type="nvarchar" MaxLength="256" />
           <Property Name="custom_json" Type="varchar" MaxLength="4096" />
+          <Property Name="gift_email" Type="varchar" MaxLength="256" />
+          <Property Name="gift_text" Type="nvarchar" MaxLength="512" />
         </EntityType>
         <EntityType Name="transaction">
           <Key>
@@ -169,6 +171,8 @@ warning 6002: The table/view 'DB_96601_giftservice.dbo.gslog' does not have a pr
           <Property Name="remarks" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
           <Property Name="product_duration" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="custom_json" Type="String" MaxLength="4096" FixedLength="false" Unicode="false" />
+          <Property Name="gift_email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="gift_text" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="gslog">
           <Key>
@@ -227,6 +231,8 @@ warning 6002: The table/view 'DB_96601_giftservice.dbo.gslog' does not have a pr
           <EntitySetMapping Name="products">
             <EntityTypeMapping TypeName="GiftServiceModel.product">
               <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="gift_text" ColumnName="gift_text" />
+                <ScalarProperty Name="gift_email" ColumnName="gift_email" />
                 <ScalarProperty Name="custom_json" ColumnName="custom_json" />
                 <ScalarProperty Name="product_duration" ColumnName="product_duration" />
                 <ScalarProperty Name="remarks" ColumnName="remarks" />

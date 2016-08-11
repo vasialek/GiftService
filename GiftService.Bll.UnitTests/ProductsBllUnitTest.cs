@@ -28,7 +28,7 @@ namespace GiftService.Bll.UnitTests
                 .Setup(x => x.SaveProductInformationFromPos(It.IsAny<ProductBdo>(), It.IsAny<PosBdo>()))
                 .Returns((ProductBdo product, PosBdo pos) => product);
 
-            _productsBll = new ProductsBll(productsDal.Object, posDal.Object);
+            _productsBll = new ProductsBll(BllFactory.Current.SecurityBll, productsDal.Object, posDal.Object);
 
             _posResponse.PosId = 1005;
             _posResponse.ProductName = "Gilus prisilietimas";

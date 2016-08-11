@@ -83,7 +83,7 @@ namespace GiftService.Bll
             {
                 if (_productsBll == null)
                 {
-                    _productsBll = new ProductsBll(DalFactory.Current.ProductsDal, DalFactory.Current.PosDal);
+                    _productsBll = new ProductsBll(Current.SecurityBll, DalFactory.Current.ProductsDal, DalFactory.Current.PosDal);
                 }
                 return _productsBll;
             }

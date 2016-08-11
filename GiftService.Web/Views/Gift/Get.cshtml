@@ -1,10 +1,15 @@
 ﻿@model GiftService.Models.ProductInformationModel
 
 @{
+
     ViewBag.Title = String.Concat(Model.Pos.Name, " - ", Model.Product.ProductName);
 
     var friendEmail = new GiftService.Web.Models.Gifts.GiftToFriendModel();
     friendEmail.ProductUid = Model.Product.ProductUid;
+    if (String.IsNullOrEmpty(friendEmail.FriendEmail))
+    {
+        friendEmail.FriendEmail = Model.Product.CustomerEmail;
+    }
 }
 
 
@@ -58,13 +63,19 @@
                 <button id="BtnGift" class="btn btn-default">@Resources.Language.Gift_Get_CouponByEmail</button>
             </div>
             <div id="CongratsDiv" class="panel panel-group" style="display: none;">
-                @using (Html.BeginForm("Friend", "Gift"))
+                @using (Html.BeginForm("Friend", "Gift", FormMethod.Post, new { id = "FriendForm" }))
                 {
-                    @Html.Hidden("ProductUid", friendEmail.ProductUid)
+                    @Html.HiddenFor(x => friendEmail.ProductUid)
                     <div class="panel-body">
                         <label for="email">@Resources.Language.Gift_Get_GiftEmailLabel</label>
-                        <input name="FriendEmail" type="email" placeholder="Enter e-mail" class="input-sm form-control" value="@Model.Product.CustomerEmail" /><br />
-                        <textarea name="Text" type="email" placeholder="@Resources.Language.Gift_Get_EnterCongratulations" class="input-sm form-control" maxlength="230"></textarea><br />
+                        @Html.TextBoxFor(x => friendEmail.FriendEmail, new { type = "email", placeholder = "Enter e-mail", @class="input-sm form-control" })
+                        @Html.ValidationMessageFor(x => friendEmail.FriendEmail)
+                        @*<textarea name="Text" placeholder="@Resources.Language.Gift_Get_EnterCongratulations" class="input-sm form-control" maxlength="230"></textarea><br />*@
+
+                        @Html.TextAreaFor(x => friendEmail.Text, new { placeholder = Resources.Language.Gift_Get_EnterCongratulations, @class="input-sm form-control", maxlength="230" })
+                        @Html.ValidationMessageFor(x => friendEmail.Text)
+                        <br />
+
                         <button name="BtnEmailGift" id="BtnEmailGift" class="btn btn-xs btn-primary">@Resources.Language.Gift_Get_ButtonSendAsEmail</button>
                         <button name="BtnDownloadGift" id="BtnDownloadGift" class="btn btn-xs btn-primary">@Resources.Language.Gift_Get_ButtonDownloadAsPdf</button>
                     </div>
@@ -111,6 +122,7 @@
             });*@
             $("#BtnEmailGift").click(function (e) {
                 e.preventDefault();
+                Gift.sendGiftEmail();
             });
 
             $("#BtnGift").click(function (e) {
@@ -119,5 +131,45 @@
             })
         });
 
-    </script>    
+        var Gift = {
+            isSent: true,
+
+            sendGiftEmail: function () {
+                if (this.isSent) {
+                    this.isSent = false;
+
+                    var self = this;
+
+                    $.ajax({
+                        url: "@Url.Action("EmailFriend", "Gift")",
+                        method: "POST",
+                        data: $("#FriendForm").serialize(),
+                        success: function (data) {
+                            if (data.Status == true) {
+                                $("#FriendForm").html(data.Message);
+                                $("#BtnEmailGift").remove();
+                            } else {
+                                self.displayError(data.Message.length > 0 ? data.Message : "Error sending e-mail");
+                            }
+                        },
+                        error: function (x) {
+                            self.displayError("@Resources.Language.SystemMessage_WeWillContactYouOnError");
+                        },
+                        complete: function () {
+                            self.isSent = true;
+                        }
+                    });
+                }
+            },
+
+            displayError: function (msg) {
+                alert(msg);
+            }
+        };
+
+    </script>
+
+
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+
 }

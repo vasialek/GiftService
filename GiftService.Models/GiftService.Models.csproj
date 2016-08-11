@@ -41,9 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContactUsModel.cs" />
     <Compile Include="Exceptions\BadResponseException.cs" />
     <Compile Include="Exceptions\IncorrectPaymentParamersException.cs" />
+    <Compile Include="Exceptions\InvalidProductException.cs" />
     <Compile Include="Exceptions\TransactionDoesNotExist.cs" />
     <Compile Include="Exceptions\TransactionStatusException.cs" />
     <Compile Include="Infrastructure\PhoneByCountryAttribute.cs" />

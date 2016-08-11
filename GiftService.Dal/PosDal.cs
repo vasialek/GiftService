@@ -69,7 +69,7 @@ namespace GiftService.Dal
             //p.ValidateUrl = new Uri("http://localhost:8079/gspclient/gsinfo.php?posUid=");
             p.ValidateUrl = new Uri("http://knygynai.lt/gsinfo.php?posUid=");
             p.IsTest = false;
-            p.UseTestPayment = true;
+            p.UseTestPayment = false;
             _poses.Add(p);
 
             p = new PosBdo();

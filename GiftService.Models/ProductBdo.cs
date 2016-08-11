@@ -62,5 +62,6 @@ namespace GiftService.Models
 
         public string TextForGift { get; set; }
 
+        public string EmailForGift { get; set; }
     }
 }

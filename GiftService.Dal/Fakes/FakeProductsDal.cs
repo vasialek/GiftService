@@ -96,6 +96,11 @@ namespace GiftService.Dal.Fakes
             throw new NotImplementedException();
         }
 
+        public void MakeProductGift(ProductBdo product, string friendEmail, string text)
+        {
+            throw new NotImplementedException();
+        }
+
         public ProductBdo SaveProductInformationFromPos(ProductBdo product, PosBdo pos)
         {
             throw new NotImplementedException();

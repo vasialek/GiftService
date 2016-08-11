@@ -163,6 +163,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\CultureFilter.cs" />
+    <Compile Include="Models\ContactUsModel.cs" />
+    <Compile Include="Models\Gifts\GiftToFriendModel.cs" />
     <Compile Include="MyHtmlHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebsiteVersion.cs" />
@@ -171,6 +173,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\html\index.html" />
+    <Content Include="Content\html\_AboutUs_en.html" />
     <Content Include="Content\html\_AboutUs_lt.html" />
     <Content Include="Content\html\_CouponRules_en.html" />
     <Content Include="Content\html\_CouponRules_lt.html" />
@@ -180,9 +183,23 @@
     <Content Include="Content\images\dovanu_kuponu_apmokejimo_pasirinkimas.png" />
     <Content Include="Content\images\dovanu_kuponu_gavimas.png" />
     <Content Include="Content\images\dovanu_kuponu_pasirinkimas.png" />
+    <Content Include="Content\images\gift_coupon_choose_service.png" />
+    <Content Include="Content\images\gift_coupon_customer_contacts.png" />
+    <Content Include="Content\images\gift_coupon_customer_information.png" />
+    <Content Include="Content\images\gift_coupon_download.png" />
+    <Content Include="Content\images\gift_coupon_payment_methods.png" />
+    <Content Include="Content\images\gift_coupon_send_friend.png" />
     <Content Include="Content\images\loader.gif" />
     <Content Include="Content\images\lt.png" />
     <Content Include="Content\images\posnologo.png" />
+    <Content Include="Content\images\thumb01en.jpg" />
+    <Content Include="Content\images\thumb01lt.jpg" />
+    <Content Include="Content\images\thumb02en.jpg" />
+    <Content Include="Content\images\thumb02lt.jpg" />
+    <Content Include="Content\images\thumb03en.jpg" />
+    <Content Include="Content\images\thumb03lt.jpg" />
+    <Content Include="Content\images\thumb04en.jpg" />
+    <Content Include="Content\images\thumb04lt.jpg" />
     <Content Include="Content\images\us.png" />
     <Content Include="Content\p1005\footer-bg.png" />
     <Content Include="Content\p1005\logo-text.png" />
@@ -227,6 +244,8 @@
     <None Include="Properties\PublishProfiles\Prod.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\checkout.js" />
+    <Content Include="Scripts\content-slider.slider\img\a07.png" />
+    <Content Include="Scripts\content-slider.slider\js\jssor.slider.mini.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -301,12 +320,12 @@
     <Content Include="Views\Shared\_LayoutPos_1007.cshtml" />
     <Content Include="Views\TranAdmin\_PsRequestPartial.cshtml" />
     <Content Include="Views\Home\_MailContactUs.cshtml" />
+    <Content Include="Views\Gift\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\coupons\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

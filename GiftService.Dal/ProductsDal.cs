@@ -14,6 +14,7 @@ namespace GiftService.Dal
         ProductBdo GetProductByUid(string productUid);
         ProductBdo GetProductByPaySystemUid(string paySystemUid);
         ProductBdo SaveProductInformationFromPos(ProductBdo product, PosBdo pos);
+        void MakeProductGift(ProductBdo product, string friendEmail, string text);
         string GetUniqueOrderId(int posId);
     }
 
@@ -80,7 +81,10 @@ namespace GiftService.Dal
                         PosUrl = p.pos_url,
 
                         EmailForReservation = p.email_reservation,
-                        PhoneForReservation = p.phone_reservation
+                        PhoneForReservation = p.phone_reservation,
+
+                        EmailForGift = p.gift_email,
+                        TextForGift = p.gift_text
                     };
                 }
 
@@ -90,6 +94,27 @@ namespace GiftService.Dal
             {
                 Logger.Error("Error searching product by UID: " + productUid, ex);
                 throw;
+            }
+        }
+
+        public void MakeProductGift(ProductBdo product, string friendEmail, string text)
+        {
+            using (var db = new GiftServiceEntities())
+            {
+                var p = db.products.First(x => x.product_uid == product.ProductUid);
+                if (String.IsNullOrEmpty(p.gift_email) == false)
+                {
+                    // Throw exception if product was sent to other e-mail
+                    if (p.gift_email.Equals(friendEmail, StringComparison.OrdinalIgnoreCase) == false)
+                    {
+                        throw new Models.Exceptions.InvalidProductException(String.Concat("Product was sent to other e-mail: ", p.gift_email), Models.Exceptions.InvalidProductException.Reasons.ProductIsGiftAlready);
+                    }
+                }
+
+                p.gift_email = friendEmail;
+                p.gift_text = text;
+
+                db.SaveChanges();
             }
         }
 

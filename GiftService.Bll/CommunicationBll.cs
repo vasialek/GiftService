@@ -18,6 +18,7 @@ namespace GiftService.Bll
         T ParseJson<T>(string json) where T : BaseResponse;
         void SendEmailToClientOnSuccess(ProductBdo product);
         void SendEmailToManager(string subject, string body);
+        void SendCouponAsGift(string friendEmail, byte[] pdf, ProductInformationModel product);
     }
 
     public class CommunicationBll : ICommunicationBll
@@ -83,6 +84,44 @@ namespace GiftService.Bll
             catch (Exception ex)
             {
 
+                throw;
+            }
+        }
+
+        public void SendCouponAsGift(string friendEmail, byte[] pdf, ProductInformationModel product)
+        {
+            if (pdf == null)
+            {
+                throw new ArgumentNullException("pdf");
+            }
+
+            try
+            {
+                Logger.Info("Sending email with gift coupon to friend: " + friendEmail);
+
+                var ms = _configurationBll.Get();
+
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.From = new MailAddress("webmaster@DovanuKuponai.com", "DovanuKuponai");
+                //mailMessage.To.Add(new MailAddress(ms.Mails.ManagerEmail, "DK manager"));
+                mailMessage.To.Add(new MailAddress(friendEmail));
+                mailMessage.Bcc.Add(new MailAddress("proglamer@gmail.com"));
+                mailMessage.Subject = String.Concat("Draugo dovana is ", ms.ProjectName);
+                mailMessage.Body = "Jusu draugas siuncia Jums dovanu kupona. " + ms.ProjectName;
+
+                using (var s = new System.IO.MemoryStream(pdf))
+                {
+                    Attachment a = null;
+                    a = new Attachment(s, "DovanuKuponas.pdf", "application/pdf");
+                    mailMessage.Attachments.Add(a);
+                    mailMessage.IsBodyHtml = false;
+
+                    SendEmail(mailMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error sending coupon as gift to: " + friendEmail, ex);
                 throw;
             }
         }

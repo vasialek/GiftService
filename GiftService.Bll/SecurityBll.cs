@@ -17,6 +17,7 @@ namespace GiftService.Bll
         void ValidateCurrencyCode(string currencyCode, PosBdo pos);
         void ValidateUid(string uid);
         void ValidateOrderNr(string orderId);
+        void EnsureProductIsValid(ProductBdo p);
     }
 
     public class SecurityBll : ISecurityBll
@@ -136,6 +137,14 @@ namespace GiftService.Bll
             if (orderId.Length != len)
             {
                 throw new ArgumentOutOfRangeException("orderId", "Length of payment order ID should be exactly: " + len);
+            }
+        }
+
+        public void EnsureProductIsValid(ProductBdo p)
+        {
+            if (p.ValidTill < DateTime.UtcNow)
+            {
+                throw new InvalidProductException("Product is expired", InvalidProductException.Reasons.ProductExpired);
             }
         }
     }
