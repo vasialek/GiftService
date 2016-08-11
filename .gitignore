@@ -245,3 +245,6 @@ GiftService.Web.Tests/Scripts/jasmine/jasmine.js
 GiftService.Web.Tests/Content/jasmine/jasmine_favicon.png
 GiftService.Web.Tests/Scripts/jasmine/*.*
 *.bak
+GiftService.Web/Content/images/2016-08-06_1341.png
+GiftService.Web/Content/images/dovanu_kuponu_kontaktai..bakpng
+GiftService.Web/Content/images/ritosmasazai_prices_en.png
