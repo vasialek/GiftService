@@ -167,7 +167,7 @@ namespace GiftService.Web.Controllers
                 if (posResponse.Status != true)
                 {
                     Logger.ErrorFormat("POS returns false on request. " + posResponse.Message);
-                    throw new Models.Exceptions.BadResponseException(posResponse.Message);
+                    throw new BadResponseException(posResponse.Message);
                 }
 
                 this.Session["__Product"] = posResponse;

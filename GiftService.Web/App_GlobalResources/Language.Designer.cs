@@ -331,6 +331,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to būtinas.
+        /// </summary>
+        internal static string Label_RequiredMale {
+            get {
+                return ResourceManager.GetString("Label_RequiredMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apie mus.
         /// </summary>
         internal static string Menu_AboutUs {

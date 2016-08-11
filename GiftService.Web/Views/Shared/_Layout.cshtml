@@ -6,7 +6,6 @@
     <meta name="verify-paysera" content="de91719cdc27d111d304b2a81571b461">
     <title>@ViewBag.Title - Dovanu kuponai. @WebsiteVersion.Version</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -40,6 +39,7 @@
         </footer>
     </div>
 
+    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

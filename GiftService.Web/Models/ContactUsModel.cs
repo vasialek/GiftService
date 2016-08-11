@@ -22,11 +22,11 @@ namespace GiftService.Models
 
         [Display(Name = "Jūsų el. paštas")]
         [DataType(DataType.EmailAddress)]
-        [Required(ErrorMessage = "butinas")]
+        [Required(ErrorMessageResourceName = "Label_RequiredMale", ErrorMessageResourceType = typeof(Resources.Language))]
         public string Email { get; set; }
 
         [Display(Name = "Užklausa")]
-        [Required(ErrorMessage = "butinas")]
+        [Required(ErrorMessageResourceName = "Label_RequiredMale", ErrorMessageResourceType = typeof(Resources.Language))]
         [MinLength(20)]
         [MaxLength(1024)]
         public string Text { get; set; }
