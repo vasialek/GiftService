@@ -11,6 +11,7 @@ namespace GiftService.Bll
     {
         private static BllFactory _bllFactory = null;
 
+        private IValidationBll _validationBll = null;
         private IConfigurationBll _configurationBll = null;
         private ISecurityBll _securityBll = null;
         private ICommunicationBll _communicationBll = null;
@@ -39,6 +40,17 @@ namespace GiftService.Bll
             }
         }
 
+        public IValidationBll ValidationBll
+        {
+            get
+            {
+                if (_validationBll == null)
+                {
+                    _validationBll = new ValidationBll();
+                }
+                return _validationBll;
+            }
+        }
 
         public IConfigurationBll ConfigurationBll
         {
@@ -83,7 +95,7 @@ namespace GiftService.Bll
             {
                 if (_productsBll == null)
                 {
-                    _productsBll = new ProductsBll(Current.SecurityBll, DalFactory.Current.ProductsDal, DalFactory.Current.PosDal);
+                    _productsBll = new ProductsBll(Current.ValidationBll, Current.SecurityBll, DalFactory.Current.ProductsDal, DalFactory.Current.PosDal);
                 }
                 return _productsBll;
             }

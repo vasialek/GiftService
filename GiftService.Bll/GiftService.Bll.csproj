@@ -93,6 +93,7 @@
     <Compile Include="SecurityBll.cs" />
     <Compile Include="TextModuleBll.cs" />
     <Compile Include="TransactionsBll.cs" />
+    <Compile Include="ValidationBll.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GiftService.Dal\GiftService.Dal.csproj">
