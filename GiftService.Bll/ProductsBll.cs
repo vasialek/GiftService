@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GiftService.Dal;
 using GiftService.Models;
+using GiftService.Models.Exceptions;
 using GiftService.Models.JsonModels;
 using GiftService.Models.Products;
 using log4net;
@@ -38,13 +39,17 @@ namespace GiftService.Bll
             }
         }
 
-
+        private GiftValidationBll _giftValidationBll = null;
         private IProductsDal _productsDal = null;
         private IPosDal _posDal = null;
         private ISecurityBll _securityBll = null;
 
-        public ProductsBll(ISecurityBll securityBll, IProductsDal productsDal, IPosDal posDal)
+        public ProductsBll(GiftValidationBll giftValidationBll, ISecurityBll securityBll, IProductsDal productsDal, IPosDal posDal)
         {
+            if (giftValidationBll == null)
+            {
+                throw new ArgumentNullException("validationBll");
+            }
             if (productsDal == null)
             {
                 throw new ArgumentNullException("productsDal");
@@ -58,6 +63,7 @@ namespace GiftService.Bll
                 throw new ArgumentNullException("securityBll");
             }
 
+            _giftValidationBll = giftValidationBll;
             _productsDal = productsDal;
             _posDal = posDal;
             _securityBll = securityBll;
@@ -65,7 +71,9 @@ namespace GiftService.Bll
 
         public void MakeCouponGift(string productUid, string friendEmail, string text)
         {
-            _securityBll.ValidateUid(productUid);
+            //_securityBll.ValidateUid(productUid);
+
+            _giftValidationBll.EnsureMakeCouponGiftIsValid(text, friendEmail);
 
             var p = _productsDal.GetProductByUid(productUid);
 

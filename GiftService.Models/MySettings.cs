@@ -38,6 +38,10 @@ namespace GiftService.Models
 
         public string PathToPdfStorage { get; set; }
 
+        public int MinGiftCongratulationsLength { get; set; }
+
+        public int MaxGiftCongratulationsLength { get; set; }
+
         /// <summary>
         /// Path to all content related to POS (CSS, images, PDF)
         /// </summary>
@@ -57,7 +61,9 @@ namespace GiftService.Models
             Mails = new MailAddresses();
             Mails.ManagerEmail = "p.roglamer@gmail.com";
             Mails.WebmasterEmail = "p.roglamer@gmail.com";
-            
+
+            MinGiftCongratulationsLength = 5;
+            MaxGiftCongratulationsLength = 230;
         }
     }
 }

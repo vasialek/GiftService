@@ -58,7 +58,7 @@ namespace GiftService.Bll.UnitTests
                     return p;
                 });
 
-            _productsBll = new ProductsBll(BllFactory.Current.SecurityBll, _productsDalMock.Object, DalFactory.Current.PosDal);
+            _productsBll = new ProductsBll(BllFactory.Current.GiftValidationBll, BllFactory.Current.SecurityBll, _productsDalMock.Object, DalFactory.Current.PosDal);
 
             _transactionsbllMock.Setup(x => x.GetTransactionByPaySystemUid(It.IsAny<string>()))
                 .Returns((string paySystemUid) =>

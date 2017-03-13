@@ -19,15 +19,15 @@ namespace GiftService.Bll
         {
             if (String.IsNullOrEmpty(s))
             {
-                throw new ArgumentNullException("Text is empty");
+                throw new ArgumentNullException("s", "Text is empty");
             }
             if (s.Length < min)
             {
-                throw new ArgumentOutOfRangeException("s", "Text is too short. Required at least " + min);
+                throw new ValidationException("Text is too short. Required at least " + min, ValidationErrors.TooShort);
             }
             if (s.Length < max)
             {
-                throw new ArgumentOutOfRangeException("s", "Text is too long. Max is " + max);
+                throw new ValidationException("Text is too long. Max is " + max, ValidationErrors.TooLong);
             }
         }
 

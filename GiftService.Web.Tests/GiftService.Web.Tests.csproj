@@ -103,6 +103,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GiftService.Models\GiftService.Models.csproj">
+      <Project>{9869B9F4-70D1-41D5-9D0D-8AA04389C61B}</Project>
+      <Name>GiftService.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GiftService.Web\GiftService.Web.csproj">
       <Project>{660EF5F4-87B4-48BF-9F80-89D23ED80B95}</Project>
       <Name>GiftService.Web</Name>

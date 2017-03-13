@@ -23,6 +23,7 @@ namespace GiftService.Bll
         private IHelperBll _helperBll = null;
         private ILogsBll _logsBll = null;
         private ITextModuleBll _textModuleBll = null;
+        private GiftValidationBll _giftValidationBll = null;
 
         private BllFactory()
         {
@@ -95,7 +96,7 @@ namespace GiftService.Bll
             {
                 if (_productsBll == null)
                 {
-                    _productsBll = new ProductsBll(Current.ValidationBll, Current.SecurityBll, DalFactory.Current.ProductsDal, DalFactory.Current.PosDal);
+                    _productsBll = new ProductsBll(Current.GiftValidationBll, Current.SecurityBll, DalFactory.Current.ProductsDal, DalFactory.Current.PosDal);
                 }
                 return _productsBll;
             }
@@ -188,5 +189,16 @@ namespace GiftService.Bll
             }
         }
 
+        public GiftValidationBll GiftValidationBll
+        {
+            get
+            {
+                if (_giftValidationBll == null)
+                {
+                    _giftValidationBll = new GiftValidationBll(Current.ValidationBll, Current.ConfigurationBll);
+                }
+                return _giftValidationBll;
+            }
+        }
     }
 }

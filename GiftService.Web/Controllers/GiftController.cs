@@ -108,8 +108,6 @@ namespace GiftService.Web.Controllers
             TryUpdateModel<GiftToFriendModel>(model, "friendEmail");
             Logger.DebugFormat("  friend e-mail:   `{0}`", model.FriendEmail);
             Logger.DebugFormat("  text for friend: `{0}`", model.Text);
-            Logger.DebugFormat("  BtnDownloadGift: `{0}`", model.BtnDownloadGift);
-            Logger.DebugFormat("  BtnEmailGift:    `{0}`", model.BtnEmailGift);
 
             try
             {
@@ -142,18 +140,32 @@ namespace GiftService.Web.Controllers
         {
             bool isOk = false;
             string msg = "";
+            string[] errors = new string[0];
 
             Logger.Info("Preparing gift coupon for friend...");
             var model = new GiftToFriendModel();
             TryUpdateModel<GiftToFriendModel>(model, "friendEmail");
             Logger.DebugFormat("  friend e-mail:   `{0}`", model.FriendEmail);
             Logger.DebugFormat("  text for friend: `{0}`", model.Text);
-            Logger.DebugFormat("  BtnDownloadGift: `{0}`", model.BtnDownloadGift);
-            Logger.DebugFormat("  BtnEmailGift:    `{0}`", model.BtnEmailGift);
 
             try
             {
                 Factory.GiftsBll.MakeCouponGift(model.ProductUid, model.FriendEmail, model.Text);
+
+                var pdf = Factory.PdfBll.GeneratProductPdf(model.ProductUid, true);
+                var product = Factory.GiftsBll.GetProductInformationByUid(model.ProductUid);
+                Factory.CommunicationBll.SendCouponAsGift(model.FriendEmail, pdf, product);
+
+                isOk = true;
+                msg = String.Concat("PDF coupon is successfully sent to your friend email ", model.FriendEmail);
+            }
+            catch (ValidationListException vex)
+            {
+                msg = Resources.Language.Gift_EmailFriend_IncorrectParameters;
+                if (vex.Errors != null)
+                {
+                    errors = vex.Errors.Select(x => x.ErrMessage).ToArray();
+                }
             }
             catch (InvalidProductException ipex)
             {
@@ -170,27 +182,33 @@ namespace GiftService.Web.Controllers
                         break;
                 }
             }
-
-            try
-            {
-                var pdf = Factory.PdfBll.GeneratProductPdf(model.ProductUid, true);
-                var product = Factory.GiftsBll.GetProductInformationByUid(model.ProductUid);
-                Factory.CommunicationBll.SendCouponAsGift(model.FriendEmail, pdf, product);
-
-                isOk = true;
-                msg = String.Concat("PDF coupon is successfully sent to your friend email ", model.FriendEmail);
-            }
             catch (Exception ex)
             {
-                Logger.Error("Error sending PDF coupon as gift", ex);
-                msg = ex.Message;
+                Logger.Error("Error making gift coupon for user", ex);
+                msg = "Error sending e-mail";
             }
 
             return Json(new
             {
                 Status = isOk,
-                Message = msg
+                Message = msg,
+                Errors = errors
             });
+        }
+
+        protected IEnumerable<string> TranslateValidationExceptions(IEnumerable<ValidationError> errors)
+        {
+            List<string> translatedErrors = new List<string>();
+
+            Logger.Error("Validation exception list:");
+            foreach (var e in errors)
+            {
+                Logger.DebugFormat("  {0,-16} {1,-16} {2,-8} {3}", e.ErrCode, e.FieldName, e.SubErrCode, e.ErrMessage);
+            }
+
+
+
+            return translatedErrors;
         }
 
         private ActionResult OutputFile(string productUid, bool asGift, bool forceDownload)

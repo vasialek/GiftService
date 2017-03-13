@@ -19,14 +19,31 @@ namespace GiftService.Models.Exceptions
 
     public class ValidationException : Exception
     {
+        public ValidationError Error { get; private set; }
+
+        public ValidationException(string msg, ValidationErrors errCode)
+            : base(msg)
+        {
+            Error = new ValidationError(errCode, msg);
+        }
+
+        public ValidationException(string msg, ValidationError error)
+            : base(msg)
+        {
+            Error = error;
+        }
+    }
+
+    public class ValidationListException : Exception
+    {
         public IEnumerable<ValidationError> Errors { get; private set; }
 
-        public ValidationException(string msg)
+        public ValidationListException(string msg)
             : this(msg, null)
         {
         }
 
-        public ValidationException(string msg, IEnumerable<ValidationError> errors)
+        public ValidationListException(string msg, IEnumerable<ValidationError> errors)
             : base(msg)
         {
             Errors = errors;
@@ -37,7 +54,7 @@ namespace GiftService.Models.Exceptions
     {
         public ValidationErrors ErrCode { get; set; }
         public string ErrMessage { get; set; }
-        public int SubErrCode { get; set; }
+        public GsErrorCodes SubErrCode { get; set; }
 
         /// <summary>
         /// Set form field name if any
@@ -45,29 +62,27 @@ namespace GiftService.Models.Exceptions
         public string FieldName { get; set; }
 
         public ValidationError(ValidationErrors errCode, string errMessage)
-        //: this(errCode, errMessage, 0, "")
+        : this(errCode, errMessage, "")
+        {
+        }
+
+        public ValidationError(ValidationErrors errCode, string errMessage, GsErrorCodes subErrCode)
+        : this(errCode, errMessage, subErrCode, "")
+        {
+        }
+
+        public ValidationError(ValidationErrors errCode, string errMessage, string fieldName)
+        : this(errCode, errMessage, GsErrorCodes.None, fieldName)
+        {
+        }
+
+        public ValidationError(ValidationErrors errCode, string errMessage, GsErrorCodes subErrCode, string fieldName)
         {
             ErrCode = errCode;
             ErrMessage = errMessage;
+            SubErrCode = subErrCode;
+            FieldName = fieldName;
         }
-
-        //public ValidationError(ValidationErrors errCode, string errMessage, int subErrCode)
-        //: this(errCode, errMessage, subErrCode, "")
-        //{
-        //}
-
-        //public ValidationError(ValidationErrors errCode, string errMessage, string fieldName)
-        //: this(errCode, errMessage, 0, fieldName)
-        //{
-        //}
-
-        //public ValidationError(ValidationErrors errCode, string errMessage, int subErrCode, string fieldName)
-        //{
-        //    ErrCode = errCode;
-        //    ErrMessage = errMessage;
-        //    SubErrCode = subErrCode;
-        //    FieldName = fieldName;
-        //}
 
     }
 }

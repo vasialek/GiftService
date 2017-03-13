@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Neteisingai uzpildyti dovanos laukai.
+        /// </summary>
+        internal static string Gift_EmailFriend_IncorrectParameters {
+            get {
+                return ResourceManager.GetString("Gift_EmailFriend_IncorrectParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Atsisiusti PDF.
         /// </summary>
         internal static string Gift_Get_ButtonDownloadAsPdf {
