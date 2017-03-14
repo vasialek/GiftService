@@ -241,6 +241,7 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Language.ru.designer.cs</LastGenOutput>
     </Content>
+    <Content Include="ConnectionStrings.config" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Properties\PublishProfiles\Prod.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -281,6 +282,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="sorry.htm" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -324,6 +326,7 @@
     <Content Include="Views\Home\_MailContactUs.cshtml" />
     <Content Include="Views\Gift\Error.cshtml" />
     <Content Include="Views\Test\ValidationErrors.cshtml" />
+    <Content Include="Views\Home\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

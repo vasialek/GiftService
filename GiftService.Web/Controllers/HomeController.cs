@@ -75,6 +75,11 @@ namespace GiftService.Web.Controllers
             }
             return View("Contact", model);
         }
+        public ActionResult NotFound()
+        {
+            Logger.Warn("[404] error occurred, failed URL is: " + Request.RawUrl);
+            return View("NotFound", LayoutDk);
+        }
 
         private TextModule GetTextByLabel(string label, string culture)
         {

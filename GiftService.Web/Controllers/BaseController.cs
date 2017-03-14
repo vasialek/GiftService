@@ -81,6 +81,8 @@ namespace GiftService.Web.Controllers
             }
         }
 
+        protected string LayoutDk { get; private set; } = "_Layout";
+
         public BaseController()
         {
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("lt-LT");
@@ -103,7 +105,7 @@ namespace GiftService.Web.Controllers
             }
 
             //Logger.Debug("Default Layout: _Layout");
-            return "_Layout";
+            return LayoutDk;
         }
 
         protected void SetTempMessage(string msg)
