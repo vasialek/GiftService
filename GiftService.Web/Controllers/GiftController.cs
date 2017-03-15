@@ -61,6 +61,7 @@ namespace GiftService.Web.Controllers
                 }
 
                 model.Product = Factory.GiftsBll.GetProductByPaySystemUid(transaction.PaySystemUid);
+                model.Product.PosLatLng.LatLngString = Factory.HelperBll.GetLatLngString(model.Product.PosLatLng, MapTypes.YandexMap);
                 model.Pos = Factory.PosBll.GetById(model.Product.PosId);
 
                 model.PaymentStatus = transaction.PaymentStatus;

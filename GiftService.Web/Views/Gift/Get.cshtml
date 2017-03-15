@@ -12,7 +12,6 @@
     }
 }
 
-
 @Html.DisplayTempMessage()
 
 <div class="row">
@@ -37,7 +36,10 @@
             @Html.DisplayOrNotSet(Model.Product.ProductDuration, Resources.Language.Payment_Checkout_DurationNotSet)
         </p>
 
-        <p>@Html.Raw(Model.PosAddress)</p>
+        <p>@Html.Raw(Model.PosAddress)
+            <i class="glyphicon glyphicon-globe" style="color: @(Model.HasLatLng ? "#077117" : "#ddd"); vertical-align: baseline; cursor: pointer;" data-latlng="@Model.Product.PosLatLng.LatLngString" data-title="@Model.PosAddress" title="@Model.PosAddress"> </i>
+        </p>
+        
         @*<div>Price: @Model.Product.ProductPrice.ToString("N2") @Model.Product.CurrencyCode</div>*@
         
         @if (Model.IsPaidOk)
@@ -102,9 +104,31 @@
     <div class="col-md-5 col-md-offset-1">@Resources.Language.Gift_Get_ThankYouForUsingUs</div>
 </div>
 
+<div class="modal fade" id="MapDiv" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="MapTitle">Map window</h4>
+            </div>
+            <div class="modal-body text-center" id="MapImage">
+
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/map.js"></script>
     <script type="text/javascript">
 
         $(function () {
@@ -166,6 +190,8 @@
                 alert(msg);
             }
         };
+
+        @Html.Raw(Model.HasLatLng ? "GsMap.bindToLatLng('i.glyphicon-globe');" : "" )
 
     </script>
 

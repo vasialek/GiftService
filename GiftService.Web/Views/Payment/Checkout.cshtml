@@ -3,8 +3,9 @@
 @{
     ViewBag.Title = "Checkout";
     Layout = "~/Views/Shared/_LayoutPos.cshtml";
-}
 
+    object htmlAttributesChecked = new { @checked = "checked" };
+}
 
 @using (Html.BeginForm("Checkout", "Payment", new { id = Model.PosUserUid }, FormMethod.Post, new { id = "PaymentForm" }))
 {
@@ -22,9 +23,18 @@
                             {
                                 <li class="list-group-item">
                                     <label>
-                                        @Html.RadioButtonFor(x => Model.LocationId, l.Id)
+                                        @Html.RadioButtonFor(x => Model.LocationId, l.Id, l.IsDefault ? htmlAttributesChecked : null)
                                         @l.NameAddress
                                     </label>
+                                    @if (l.LatLngCoordinates != null && l.LatLngCoordinates.IsSet)
+                                    {
+                                        <i class="glyphicon glyphicon-globe" style="color: #077117; vertical-align: baseline; cursor: pointer;" data-latlng="@l.LatLngCoordinates.LatLngString" data-title="@l.NameAddress" title="@l.NameAddress"> </i>
+                                    }
+                                    else
+                                    {
+                                        <i class="glyphicon glyphicon-globe" style="color: #ddd; vertical-align: baseline;" title="@l.NameAddress" @(l.IsDefault ? " checked=\"checked\"" : "")> </i>
+                                    }
+
                                 </li>
                             }
                         </ul>
@@ -87,7 +97,7 @@
                         <th colspan="2">@Resources.Language.Payment_Checkout_Payment</th>
                     </tr>
                     <tr>
-                        <td><img src="https://www.paysera.com/new/upload/plan_payment_types/rf54608784edf5c/Paysera_logotype_internet2.png" alt="Paysera" width="100" /></td>
+                        <td><img src="~/Content/images/Paysera_logotype_internet2.png" alt="Paysera" width="100" /></td>
                         <td><a href="@Url.Action("Checkout", "Payment", new { id = Model.PosUserUid })" class="gs-pay-link" data-id="@((int)GiftService.Models.PaymentSystems.Paysera)">@Resources.Language.Payment_Checkout_PayButton</a></td>
                     </tr>
                     @*<tr>
@@ -102,10 +112,30 @@
 
 }
 
+<div class="modal fade" id="MapDiv" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="MapTitle">Map window</h4>
+            </div>
+            <div class="modal-body text-center" id="MapImage">
+                
+            </div>
+            @*<div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>*@
+        </div>
+    </div>
+</div>
+
 @section scripts
 {
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/map.js"></script>
     <script src="~/Scripts/checkout.js"></script>
     <script type="text/javascript">
 
@@ -116,6 +146,7 @@
         });
 
         Checkout.init(".gs-pay-link");
+        GsMap.bindToLatLng("i.glyphicon-globe");
 
     </script>
 }

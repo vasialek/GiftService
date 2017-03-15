@@ -29,6 +29,7 @@ namespace GiftService.Dal.Fakes
                     PosCity = "Vilnius",
                     PosName = "RitosMasazai.lt",
                     PosUrl = "http://www.ritosmasazai.lt",
+                    PosLatLng = new LatLng { Lng = 25.279559, Lat = 54.692797 },
 
                     ProductName = "Lengvas masazas",
                     ProductDescription = "Super lengvas atpalaidojantis masazas",

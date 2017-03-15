@@ -42,5 +42,10 @@ namespace GiftService.Models.JsonModels
         public string EmailForReservation { get; set; }
 
         public IList<ProductServiceLocation> Locations { get; set; }
+
+        public PaymentRequestValidationResponse()
+        {
+            Locations = new List<ProductServiceLocation>();
+        }
     }
 }

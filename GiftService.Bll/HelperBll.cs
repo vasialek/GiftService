@@ -1,6 +1,9 @@
-﻿using System;
+﻿using GiftService.Models;
+using GiftService.Models.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,11 +22,79 @@ namespace GiftService.Bll
         string GenerateProductUid(int posId);
         Dictionary<string, object> DynamicObjectToDictionaryInsensitive(object o);
         Dictionary<string, object> DynamicObjectToDictionary(object o);
+
+        string GetLatLngString(LatLng latLng);
+        string GetLatLngString(LatLng latLng, MapTypes mapType);
+        LatLng ParseLatLng(string s, MapTypes mapType);
     }
 
     public class HelperBll : IHelperBll
     {
         private static char[] HX = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+
+        public LatLng ParseLatLng(string s, MapTypes mapType)
+        {
+            // Assume that coordinates are comma or slash separated. And decimal separator is dot
+            string[] ar = s.Split(",/".ToCharArray());
+            if (ar?.Length != 2)
+            {
+                throw new ValidationException("Expected 2 coordinates, separated with comma or slash. Error parsing incorrect string: " + s, ValidationErrors.NotEqual);
+            }
+
+            var ll = new LatLng();
+
+            switch (mapType)
+            {
+                case MapTypes.YandexMap:
+                    break;
+                case MapTypes.GoogleMap:
+                    // Expected lattiude/longtitude
+                    ll.Lat = Double.Parse(ar[0], CultureInfo.InvariantCulture);
+                    ll.Lng = Double.Parse(ar[1], CultureInfo.InvariantCulture);
+                    break;
+                default:
+                    throw new ValidationException("Could not parse string to LatLng for map type: " + mapType.ToString(), ValidationErrors.IncorrectType);
+            }
+
+            return ll;
+        }
+
+        public string GetLatLngString(LatLng latLng)
+        {
+            return GetLatLngString(latLng, MapTypes.YandexMap);
+        }
+
+        public string GetLatLngString(LatLng latLng, MapTypes map)
+        {
+            if (latLng == null)
+            {
+                throw new ValidationException("LatLng object is NULL", ValidationErrors.Empty);
+            }
+
+            if (latLng.IsSet == false)
+            {
+                return "0.000000,0.000000";
+            }
+
+            double[] ar = new double[2];
+            switch (map)
+            {
+                case MapTypes.YandexMap:
+                    // Longitude and latitude in degrees;
+                    ar[0] = latLng.Lng;
+                    ar[1] = latLng.Lat;
+                    break;
+                case MapTypes.GoogleMap:
+                    // comma-separated {latitude,longitude} pair
+                    ar[0] = latLng.Lat;
+                    ar[1] = latLng.Lng;
+                    break;
+                default:
+                    throw new ValidationException("Could not convert LatLng to string for map: " + map.ToString(), ValidationErrors.IncorrectType);
+            }
+
+            return String.Concat(ar[0].ToString("0.000000", CultureInfo.InvariantCulture), ",", ar[1].ToString("0.000000", CultureInfo.InvariantCulture));
+        }
 
         public Dictionary<string, object> DynamicObjectToDictionaryInsensitive(object o)
         {

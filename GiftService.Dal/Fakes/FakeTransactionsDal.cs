@@ -86,7 +86,7 @@ namespace GiftService.Dal.Fakes
 
         public TransactionBdo GetTransactionByOrderNr(string orderNr)
         {
-            throw new NotImplementedException();
+            return _transactions.First(x => orderNr.Equals(x.OrderNr));
         }
 
         public TransactionBdo GetTransactionByPaySystemUid(string paySystemUid)

@@ -97,6 +97,15 @@ namespace GiftService.Bll
 
                 ValidateCurrencyCode(response.CurrencyCode, pos);
 
+                // model.Locations = posResponse.Locations ?? new List<ProductServiceLocation>();
+                foreach (var l in response.Locations)
+                {
+                    if (String.IsNullOrEmpty(l.LatLng) == false)
+                    {
+                        l.LatLngCoordinates = BllFactory.Current.HelperBll.ParseLatLng(l.LatLng, MapTypes.GoogleMap);
+                    }
+                }
+
                 return response;
             }
             catch (InvalidCastException icex)

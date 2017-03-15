@@ -27,6 +27,11 @@ namespace GiftService.Models
             }
         }
 
+        public bool HasLatLng
+        {
+            get { return Product != null && Product.PosLatLng.IsSet; }
+        }
+
         /// <summary>
         /// Information about product/service - name, price, valid, etc
         /// </summary>

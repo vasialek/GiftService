@@ -56,6 +56,8 @@ namespace GiftService.Models
 
         public string PosCity { get; set; }
 
+        public LatLng PosLatLng { get; set; }
+
         public string PhoneForReservation { get; set; }
 
         public string EmailForReservation { get; set; }

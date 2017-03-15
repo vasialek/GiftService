@@ -50,6 +50,7 @@
     <Compile Include="GsErrorCodes.cs" />
     <Compile Include="Infrastructure\PhoneByCountryAttribute.cs" />
     <Compile Include="JsonModels\PaymentRequestValidationResponse.cs" />
+    <Compile Include="LatLng.cs" />
     <Compile Include="Logs\LogBdo.cs" />
     <Compile Include="PaymentStatusIds.cs" />
     <Compile Include="PaymentSystems.cs" />

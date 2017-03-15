@@ -181,7 +181,12 @@ namespace GiftService.Web.Controllers
                 model.ProductValidTill = Factory.HelperBll.ConvertFromUnixTimestamp(posResponse.ProductValidTillTm);
                 model.RequestedAmount = posResponse.RequestedAmountMinor / 100m;
                 //model.CurrencyCode = posResponse.CurrencyCode;
-                model.Locations = posResponse.Locations ?? new List<ProductServiceLocation>();
+
+                //model.Locations = posResponse.Locations ?? new List<ProductServiceLocation>();
+                foreach (var l in model.Locations)
+                {
+                    l.LatLngCoordinates.LatLngString = Factory.HelperBll.GetLatLngString(l.LatLngCoordinates, MapTypes.YandexMap);
+                }
 
                 return View("Checkout", GetLayoutForPos(posId), model);
             }
