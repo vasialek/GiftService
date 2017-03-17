@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auth\RoleModel.cs" />
+    <Compile Include="Auth\User.cs" />
     <Compile Include="Exceptions\BadResponseException.cs" />
     <Compile Include="Exceptions\IncorrectPaymentParamersException.cs" />
     <Compile Include="Exceptions\InvalidProductException.cs" />

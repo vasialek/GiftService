@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthBll.cs" />
     <Compile Include="BllFactory.cs" />
     <Compile Include="CommunicationBll.cs" />
     <Compile Include="ConfigurationBll.cs" />

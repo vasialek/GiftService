@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GiftService.Models.Auth;
 
 namespace GiftService.Bll
 {
@@ -38,6 +39,39 @@ namespace GiftService.Bll
             sb.AppendFormat("{0,-16}: `{1}`", "ValidFrom", p.ValidFrom).AppendLine();
             sb.AppendFormat("{0,-16}: `{1}`", "ValidTill", p.ValidTill).AppendLine();
             sb.AppendFormat("{0,-16}: `{1}`", "PaymentSystem", p.PaymentSystem).AppendLine();
+
+            return sb.ToString();
+        }
+
+        public static string Dump(IEnumerable<RoleModel> roles, string title)
+        {
+            int maxLenOfName = roles.Max(x => x.Name.Length);
+            // +---------------------------+
+            // | Role name | Is set | Guid |
+            int len = maxLenOfName + 53;
+            string separator = String.Concat("+".PadRight(len - 2, '-'), "+");
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(separator);
+
+            if (String.IsNullOrEmpty(title) == false)
+            {
+                sb.AppendFormat("|{0}|", title.PadRight(len - 3));
+                sb.AppendLine();
+                sb.AppendLine(separator);
+            }
+
+            sb.AppendFormat("| {0} | Is set | {1} |", "    Role name".PadRight(maxLenOfName), "          Role ID".PadRight(36));
+            sb.AppendLine();
+            sb.AppendLine(separator);
+
+            foreach (var r in roles)
+            {
+                sb.AppendFormat("| {0} |   {1}    | {2} |", r.Name.PadRight(maxLenOfName), r.Selected ? "+" : "-", r.Id);
+                sb.AppendLine();
+            }
+
+            sb.AppendLine(separator);
 
             return sb.ToString();
         }

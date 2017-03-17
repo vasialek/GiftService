@@ -151,6 +151,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\GiftController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -163,6 +164,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\CultureFilter.cs" />
+    <Compile Include="Models\Auths\LoginModel.cs" />
     <Compile Include="Models\ContactUsModel.cs" />
     <Compile Include="Models\Gifts\GiftToFriendModel.cs" />
     <Compile Include="MyHtmlHelper.cs" />
@@ -327,6 +329,7 @@
     <Content Include="Views\Gift\Error.cshtml" />
     <Content Include="Views\Test\ValidationErrors.cshtml" />
     <Content Include="Views\Home\NotFound.cshtml" />
+    <Content Include="Views\Auth\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

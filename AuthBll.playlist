@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="GiftService.Bll.UnitTests.AuthBllUnitTest.WebLogin_Exception_On_Email_Wo_Tld" /><Add Test="GiftService.Bll.UnitTests.AuthBllUnitTest.WebLogin_ValidationException_On_Empty_Email" /><Add Test="GiftService.Bll.UnitTests.AuthBllUnitTest.WebLogin_NoException_On_Empty_Password" /></Playlist>

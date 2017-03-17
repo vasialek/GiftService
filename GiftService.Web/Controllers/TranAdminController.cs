@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace GiftService.Web.Controllers
 {
+    [Authorize]
     public class TranAdminController : BaseController
     {
         private ILog _logger = null;

@@ -1,0 +1,57 @@
+﻿@model GiftService.Web.Models.Auths.LoginModel
+
+<style>
+    .table tbody > tr > td {
+        border: none;
+    }
+</style>
+
+<p></p>
+<div class="row">
+
+    <div class="col-md-5 col-md-offset-2">
+        <strong>@Resources.Language.Auth_Login_Title</strong>
+        @using (Html.BeginForm())
+            {
+
+            <table class="table table-condensed" style="border: none !important;">
+                <colgroup>
+                    <col width="80%" />
+                </colgroup>
+                <tr>
+                    <td></td>
+                    <td>
+                        @Html.ValidationSummary(true)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control input-sm", placeholder = Resources.Language.Auth_Login_Email })<br />
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.PasswordFor(x => x.Password, new { @class = "form-control input-sm", placeholder = Resources.Language.Auth_Login_Password })</td>
+                </tr>
+                <tr>
+                    <td><button class="btn btn-primary btn-sm">@Resources.Language.Auth_Login_Submit</button></td>
+                </tr>
+            </table>
+
+        }
+    </div>
+</div>
+
+@section scripts {
+ 
+    <script type="text/javascript">
+
+        window.onload = function () {
+            var l = document.getElementById("Email");
+            if (l != null) {
+                l.focus();
+            }
+        }
+
+    </script>
+
+}

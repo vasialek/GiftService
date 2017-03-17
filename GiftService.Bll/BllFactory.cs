@@ -24,6 +24,7 @@ namespace GiftService.Bll
         private ILogsBll _logsBll = null;
         private ITextModuleBll _textModuleBll = null;
         private GiftValidationBll _giftValidationBll = null;
+        private IAuthBll _authBll = null;
 
         private BllFactory()
         {
@@ -84,6 +85,7 @@ namespace GiftService.Bll
             {
                 if (_communicationBll == null)
                 {
+                    //_communicationBll = new FakeCommunicationBll();
                     _communicationBll = new CommunicationBll(ConfigurationBll);
                 }
                 return _communicationBll;
@@ -198,6 +200,18 @@ namespace GiftService.Bll
                     _giftValidationBll = new GiftValidationBll(Current.ValidationBll, Current.ConfigurationBll);
                 }
                 return _giftValidationBll;
+            }
+        }
+
+        public IAuthBll AuthBll
+        {
+            get
+            {
+                if (_authBll == null)
+                {
+                    _authBll = new AuthBll(Current.ValidationBll);
+                }
+                return _authBll;
             }
         }
     }
