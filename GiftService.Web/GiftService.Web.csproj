@@ -328,7 +328,6 @@
     <Content Include="Views\TranAdmin\_PsRequestPartial.cshtml" />
     <Content Include="Views\Home\_MailContactUs.cshtml" />
     <Content Include="Views\Gift\Error.cshtml" />
-    <Content Include="Views\Test\ValidationErrors.cshtml" />
     <Content Include="Views\Home\NotFound.cshtml" />
     <Content Include="Views\Auth\Login.cshtml" />
   </ItemGroup>
