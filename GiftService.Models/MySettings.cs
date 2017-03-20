@@ -15,7 +15,14 @@ namespace GiftService.Models
             public string ManagerEmail { get; set; }
         }
 
+        public class Options
+        {
+            public bool UseFakeDatabase { get; set; }
+        }
+
         public MailAddresses Mails { get; set; }
+
+        public Options WeOptions { get; set; }
 
         public string ProjectDomain { get; set; }
 
@@ -64,6 +71,8 @@ namespace GiftService.Models
 
             MinGiftCongratulationsLength = 5;
             MaxGiftCongratulationsLength = 230;
+
+            WeOptions = new Options { UseFakeDatabase = false };
         }
     }
 }

@@ -53,6 +53,16 @@ namespace GiftService.Bll
                 //_settings.PathToPosContent = "c:\\_projects\\GiftService\\GiftService.Web\\Content\\";
                 _settings.LengthOfPosUid = 32;
                 _settings.LengthOfPdfDirectoryName = 5;
+
+                s = ConfigurationManager.AppSettings["UseFakeDatabase"];
+                if (Boolean.TryParse(s, out b))
+                {
+                    _settings.WeOptions.UseFakeDatabase = b;
+                }
+                else
+                {
+                    _settings.WeOptions.UseFakeDatabase = false;
+                }
             }
             return _settings;
         }
