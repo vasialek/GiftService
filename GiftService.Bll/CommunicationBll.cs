@@ -21,6 +21,36 @@ namespace GiftService.Bll
         void SendCouponAsGift(string friendEmail, byte[] pdf, ProductInformationModel product);
     }
 
+    public class FakeCommunicationBll : ICommunicationBll
+    {
+        public T GetJsonResponse<T>(Uri jsonUrl) where T : BaseResponse
+        {
+            string json = "{\"Version\":\"C\",\"Status\":\"true\",\"Message\":\"\",\"ResponseCode\":666,\"PosId\":0,\"ProductName\":\"Plauk\u0173 atstatomoji proced\u016bra Hialurono 50cm\",\"ProductDuration\":\"\",\"ProductDescription\":\"\",\"RequestedAmountMinor\":\"2000\",\"CurrencyCode\":\"EUR\",\"ProductValidTillTm\":1497502800,\"PosName\":\"\",\"PosUrl\":\"\",\"PosCity\":\"\",\"PosAddress\":\"\",\"PhoneForReservatio \":\"\",\"EmailForReservation\":\"\",\"Locations\":[{\"Id\":1,\"Name\":\"\",\"City\":\"Vilnius\",\"Address\":\"Kalvarij\u0173 g. 119, Apkas\u0173 g. 2\",\"LatLng\":\"\",\"EmailReservation\":\"\",\"PhoneReservation\":\"+370 630 06009\"}]}";
+
+            return (T)Newtonsoft.Json.JsonConvert.DeserializeObject<T>(json);
+        }
+
+        public T ParseJson<T>(string json) where T : BaseResponse
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SendCouponAsGift(string friendEmail, byte[] pdf, ProductInformationModel product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SendEmailToClientOnSuccess(ProductBdo product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SendEmailToManager(string subject, string body)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class CommunicationBll : ICommunicationBll
     {
 

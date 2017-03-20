@@ -158,7 +158,13 @@ namespace GiftService.Bll
 
             try
             {
-                return _productsDal.GetProductByPaySystemUid(paySystemUid);
+                var p = _productsDal.GetProductByPaySystemUid(paySystemUid);
+                if (p.PosLatLng == null)
+                {
+                    p.PosLatLng = new LatLng();
+                }
+
+                return p;
             }
             catch (Exception ex)
             {

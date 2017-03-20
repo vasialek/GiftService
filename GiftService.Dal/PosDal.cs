@@ -1,4 +1,5 @@
 ﻿using GiftService.Models;
+using GiftService.Models.Products;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace GiftService.Dal
         PosBdo GetById(int posId);
         PosBdo GetByPayerId(string payerId);
         IEnumerable<PosBdo> GetLastPos();
+
+        IEnumerable<ProductServiceLocation> GetLastLocations(int offset, int limit);
     }
 
     public class PosDal : IPosDal
@@ -106,5 +109,9 @@ namespace GiftService.Dal
             return _poses.Where(x => x.IsTest == false).OrderByDescending(x => x.Id).ToList();
         }
 
+        public IEnumerable<ProductServiceLocation> GetLastLocations(int offset, int limit)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

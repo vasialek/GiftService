@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "ValidationErrors";
+    Layout = "~/Views/Shared/_LayoutPos_1005.cshtml";
+}
+
+<style>
+    .gs-validation-error {
+        width: 16px;
+        height: 16px;
+        background-image: url('../../Content/images/../../Content/images/ve_bg.png');
+        display: none;
+    }
+</style>
+
+<h2>ValidationErrors</h2>
+
+<div class="btn-group-vertical">
+    <button class="btn btn-info">
+        @Resources.Language.Gift_Get_PaidAt
+</button>
+<button id="BtnDownload" class="btn btn-default">@Resources.Language.Gift_Get_DownloadCoupon</button>
+<button id="BtnPrint" class="btn btn-default">@Resources.Language.Gift_Get_PrintCoupon</button>
+<button id="BtnGift" class="btn btn-default">@Resources.Language.Gift_Get_CouponByEmail</button>
+</div>
+<div id="CongratsDiv" class="panel panel-group">
+    @using (Html.BeginForm("Friend", "Gift", FormMethod.Post, new { id = "FriendForm" }))
+    {
+        <div class="panel-body">
+            <label for="email">@Resources.Language.Gift_Get_GiftEmailLabel</label>
+            @Html.TextBox("FriendEmail", "", new { type = "email", placeholder = "Enter e-mail", @class = "input-sm form-control" })
+            @Html.ValidationMessage("FriendEmail")
+            <div class="gs-validation-error" id="VeFriendEmail"></div>
+
+            @Html.TextArea("Text", "", new { placeholder = Resources.Language.Gift_Get_EnterCongratulations, @class = "input-sm form-control", maxlength = "230" })
+            @Html.ValidationMessage("Text")
+            <div class="gs-validation-error" id="VeText"></div>
+            <br />
+
+            <button name="BtnEmailGift" id="BtnEmailGift" class="btn btn-xs btn-primary">@Resources.Language.Gift_Get_ButtonSendAsEmail</button>
+            <button name="BtnDownloadGift" id="BtnDownloadGift" class="btn btn-xs btn-primary">@Resources.Language.Gift_Get_ButtonDownloadAsPdf</button>
+        </div>
+    }
+</div>
+
+@section scripts {
+
+    <script type="text/javascript">
+
+        var ValidationErrors = {
+
+            formatError: function (veFieldSelector, errors) {
+                var self = this;
+                $(veFieldSelector).click(function (e) {
+                    self.showErrors(veFieldSelector, errors);
+                }).show();
+            },
+
+            showErrors: function (veFieldSelector, errors) {
+                alert(errors.join("\n"));
+            }
+
+        };
+
+        $(function () {
+            ValidationErrors.formatError("#VeFriendEmail", ["One", "Two"]);
+            ValidationErrors.formatError("#VeText", ["One2", "Two2"]);
+        });
+
+    </script>
+    
+}
+
+
+

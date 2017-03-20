@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace GiftService.Web.Controllers
 {
+    //[Authorize(Roles = "Developer")]
     public class TestController : BaseController
     {
         // Test products for shop
@@ -48,8 +49,10 @@ namespace GiftService.Web.Controllers
         }
 
         // GET: Test
+        [Authorize]
         public ActionResult Index()
         {
+            //throw new Exception();
             //Session["xxx"] = "13246579874651564645";
             //if (String.IsNullOrEmpty(Request["posId"]) == false)
             //{
@@ -73,40 +76,42 @@ namespace GiftService.Web.Controllers
         }
 
         // POST: /Test/Validate
-        [HttpPost]
+        //[HttpPost]
         public JsonResult Validate(string id)
         {
             var resp = new PaymentRequestValidationResponse();
             try
             {
-                var product = _products.First(x => x.ProductUid == id);
+                //var product = _products.First(x => x.ProductUid == id);
                 string[] errors = new string[0];
 
-                resp.Status = true;
-                resp.Message = "Ok";
-                resp.Errors = errors;
-                resp.ProductName = product.ProductName;
-                resp.RequestedAmountMinor = (int)(product.ProductPrice * 100);
-                resp.CurrencyCode = "EUR";
-                resp.Locations = new List<ProductServiceLocation>();
-                resp.Locations.Add(new ProductServiceLocation { Id = 666001, Name = "LocalShop", City = "Computer", Address = "127.0.0.1" });
-                //return Json(new PaymentRequestValidationResponse
-                //{
-                //    Status = true,
-                //    Message = "Ok",
-                //    Errors = errors,
-                //    RequestedAmountMinor = 666,
-                //    CurrencyCode = "EUR",
-                //    ProductName = "Massage #2",
-                //    ProductDescription = "Very good and sensitive"
-                //});
+                //resp.Status = true;
+                //resp.Message = "Ok";
+                //resp.Errors = errors;
+                //resp.ProductName = product.ProductName;
+                //resp.RequestedAmountMinor = (int)(product.ProductPrice * 100);
+                //resp.CurrencyCode = "EUR";
+                //resp.Locations = new List<ProductServiceLocation>();
+                //resp.Locations.Add(new ProductServiceLocation { Id = 666001, Name = "LocalShop", City = "Computer", Address = "127.0.0.1" });
+                return Json(new PaymentRequestValidationResponse
+                {
+                    Status = true,
+                    Message = "Ok",
+                    Errors = errors,
+                    RequestedAmountMinor = 2520,
+                    ProductDuration = "30 min.",
+                    ProductValidTillTm = Factory.HelperBll.GetUnixTimestamp(),// DateTime.Now.AddMonths(3),
+                    CurrencyCode = "EUR",
+                    ProductName = "Relax massage",
+                    ProductDescription = "Very good and sensitive"
+                });
             }
             catch (Exception ex)
             {
                 resp.Status = false;
                 resp.Errors = new string[] { ex.Message };
             }
-            return Json(resp);
+            return Json(resp, JsonRequestBehavior.AllowGet);
         }
 
         // GET: /Test/Shop
@@ -117,6 +122,11 @@ namespace GiftService.Web.Controllers
                 SessionStore.PosId = int.Parse(id);
             }
             return View("Shop", GetLayoutForPos(), _products);
+        }
+
+        public ActionResult ValidationErrors()
+        {
+            return View();
         }
     }
 }
