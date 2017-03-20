@@ -185,6 +185,7 @@
     <Content Include="Content\images\dovanu_kuponu_apmokejimo_pasirinkimas.png" />
     <Content Include="Content\images\dovanu_kuponu_gavimas.png" />
     <Content Include="Content\images\dovanu_kuponu_pasirinkimas.png" />
+    <Content Include="Content\images\Paysera_logotype_internet2.png" />
     <Content Include="Content\images\ve_bg.png" />
     <Content Include="Content\images\gift_coupon_choose_service.png" />
     <Content Include="Content\images\gift_coupon_customer_contacts.png" />
