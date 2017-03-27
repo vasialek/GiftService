@@ -126,8 +126,8 @@ namespace GiftService.Bll
                 product.PosName = location.Name;
                 product.PosCity = location.City;
                 product.PosAddress = location.Address;
-                product.PhoneForReservation = location.PhoneReservation;
-                product.EmailForReservation = location.EmailReservation;
+                product.PhoneForReservation = location.PhoneReservation ?? product.PhoneForReservation;
+                product.EmailForReservation = location.EmailReservation ?? product.EmailForReservation;
             }
 
 
