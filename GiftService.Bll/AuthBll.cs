@@ -53,34 +53,40 @@ namespace GiftService.Bll
             {
                 new User
                 {
-                    Email = "proglamer@gmail.com", Password = "123456",
+                    Email = "proglamer@gmail.com", Password = "Qaz12345",
                     UserId = "4a84fee3-6318-44fc-867e-5c1488717e35", IsLocked = false, Username = "DK admin",
                     Roles = developerRoles
                 },
                 new User
                 {
-                    Email = "henrika.vind@gmail.com", Password = "123456",
+                    Email = "henrika.vind@gmail.com", Password = "Qaz12345",
                     UserId = "7d153bb6-8139-453a-a931-0f1e79317fd1", IsLocked = false, Username = "Henrika (admin)",
                     Roles = adminRoles
                 },
                 new User
                 {
-                    Email = "vida.juodv@gmail.com", Password = "123456",
+                    Email = "vida.juodv@gmail.com", Password = "Qaz12345",
                     UserId = "4d9819f1-fc66-4315-8515-8d29d4ffe93f", IsLocked = false, Username = "Vida (Knygynai.lt)",
                     Roles = posRoles
                 },
                 new User
                 {
-                    Email = "ritazibutiene@gmail.com", Password = "123456",
+                    Email = "ritazibutiene@gmail.com", Password = "Qaz12345",
                     UserId = "833b1800-fe86-4fc1-92f7-022d2f003793", IsLocked = false, Username = "Rita (RitosMasazai.lt)",
                     Roles = posRoles
                 },
                 new User
                 {
-                    Email = "melisanda@info.lt", Password = "123456",
+                    Email = "melisanda@info.lt", Password = "Qaz12345",
                     UserId = "e20c60a5-13a2-49c3-ace9-b0135d34814f", IsLocked = false, Username = "Melisanda.lt",
                     Roles = posRoles
                 },
+                new User
+                {
+                    Email = "prog.lamer@gmail.com", Password = "Qaz12345",
+                    UserId = "24bfd99c-4eb0-4921-a6b5-9cf1bb2cbafa", IsLocked = false, Username = "Simple user",
+                    Roles = adminRoles.Where(x => x.Name.StartsWith("User"))
+                }
             };
 
             #endregion

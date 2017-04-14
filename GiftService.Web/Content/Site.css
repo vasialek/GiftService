@@ -59,3 +59,8 @@ textarea.input-validation-error, input.input-validation-error {
 .body-content {
     margin-top: 50px !important;
 }
+
+a.glyphicon {
+    text-decoration: none;
+}
+
