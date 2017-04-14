@@ -54,11 +54,21 @@ namespace GiftService.Web.Controllers
                 string s = Bll.DumpBll.Dump(user.Roles, String.Concat("User ", user.Username, " ", user.Email, " roles:"));
                 Logger.DebugFormat("{0}{1}", Environment.NewLine, s);
 
-                FormsAuthentication.SetAuthCookie(user.Username, false);
-                HttpContext.User = new System.Security.Principal.GenericPrincipal(User.Identity, user.Roles.Where(x => x.Selected).Select(x => x.Name).ToArray());
+                var claims = new List<System.Security.Claims.Claim>();
+                claims.Add(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.NameIdentifier, user.UserId));
+                claims.Add(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Name, user.Email));
 
-                //Logger.DebugFormat("  is in role `Developer`:     {0}", User.IsInRole("Developer"));
-                //Logger.DebugFormat("  is in role `Administrator`: {0}", User.IsInRole("Administrator"));
+                foreach (var r in user.Roles)
+                {
+                    claims.Add(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Role, r.Name));
+                }
+
+                var identity = new System.Security.Claims.ClaimsIdentity(claims, "ApplicationCookie");
+                HttpContext.GetOwinContext().Authentication.SignIn(
+                    new Microsoft.Owin.Security.AuthenticationProperties
+                    {
+                        AllowRefresh = true
+                    }, identity);
 
                 if (String.IsNullOrEmpty(model.ReturnUrl) == false && Url.IsLocalUrl(model.ReturnUrl))
                 {
@@ -69,13 +79,14 @@ namespace GiftService.Web.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Error("Error logging user", ex);
                 return View(model);
             }
         }
 
         public ActionResult Logout()
         {
-            System.Web.Security.FormsAuthentication.SignOut();
+            HttpContext.GetOwinContext().Authentication.SignOut();
             return new RedirectResult(Url.Action("Index", "Home"));
         }
 

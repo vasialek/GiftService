@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace GiftService.Web.Controllers
 {
+    [Authorize(Roles = "Developer")]
     public class TestController : BaseController
     {
         // Test products for shop
