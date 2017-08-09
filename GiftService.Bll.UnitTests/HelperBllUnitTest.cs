@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GiftService.Models;
+using System.Drawing;
+using System.Linq;
+using GiftService.Models.Exceptions;
 
 namespace GiftService.Bll.UnitTests
 {
@@ -82,6 +85,76 @@ namespace GiftService.Bll.UnitTests
             string sMap = _bll.GetLatLngString(ll, MapTypes.YandexMap);
 
             System.Diagnostics.Process.Start("chrome.exe", "http://static-maps.yandex.ru/1.x/?lang=lt&ll=" + sMap + "&size=500,450&z=15&l=map&pt=" + sMap + ",flag");
+        }
+
+        #region Full URL helpers
+
+        [TestMethod]
+        public void Get_Full_Url_No_Culture_No_Ssl()
+        {
+            BllFactory.Current.ConfigurationBll.Get().WebOptions.UseSsl = false;
+            BllFactory.Current.ConfigurationBll.Get().ProjectDomain = "www.DovanuKuponai.com";
+
+            string url = _bll.GetFullUrl();
+
+            Assert.AreEqual("http://www.dovanukuponai.com/", url);
+        }
+
+        [TestMethod]
+        public void Get_Full_Url_No_Culture_Sll()
+        {
+            BllFactory.Current.ConfigurationBll.Get().WebOptions.UseSsl = true;
+            BllFactory.Current.ConfigurationBll.Get().ProjectDomain = "www.DovanuKuponai.com";
+
+            string url = _bll.GetFullUrl();
+
+            Assert.AreEqual("https://www.dovanukuponai.com/", url);
+        }
+
+        [TestMethod]
+        public void Get_Full_Url_Lt_No_Ssl()
+        {
+            string webCulture = "lt";
+            BllFactory.Current.ConfigurationBll.Get().WebOptions.UseSsl = false;
+            BllFactory.Current.ConfigurationBll.Get().ProjectDomain = "www.DovanuKuponai.com";
+
+            string url = _bll.GetFullUrl(webCulture);
+
+            Assert.AreEqual(String.Concat("http://www.dovanukuponai.com/", webCulture, "/"), url);
+        }
+
+        [TestMethod]
+        public void Get_Full_Url_En_Ssl_Http()
+        {
+            BllFactory.Current.ConfigurationBll.Get().ProjectDomain = "https://www.dovanukuponai.com";
+
+            string url = _bll.GetFullUrl("en");
+
+            Assert.AreEqual("https://www.dovanukuponai.com/en/", url);
+        }
+
+        #endregion
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Exception_On_Incorrect_Product_Uid()
+        {
+            var p = new ProductBdo();
+
+            _bll.GetProductStatusQr(p, 10, "lt");
+        }
+
+        [TestMethod]
+        public void Generate_Qr_Code()
+        {
+            var p = Fakes.ProductsDalFake.GetProducts().First();
+            string filename = "c:\\temp\\empty_qr.png";
+
+            Bitmap bmp = _bll.GetProductStatusQr(p, 20, "lt");
+
+            bmp.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
+
+            System.Diagnostics.Process.Start("explorer.exe", filename);
         }
     }
 }

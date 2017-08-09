@@ -7,6 +7,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using QRCoder;
 
 namespace GiftService.Bll
 {
@@ -26,6 +28,20 @@ namespace GiftService.Bll
         string GetLatLngString(LatLng latLng);
         string GetLatLngString(LatLng latLng, MapTypes mapType);
         LatLng ParseLatLng(string s, MapTypes mapType);
+
+        /// <summary>
+        /// Generates simple QR code (black and white) to get product/service status - paid, used, invalid
+        /// </summary>
+        /// <param name="productBdo"></param>
+        /// <param name="pixelsPerModule">33 (or 25) px * <paramref name="pixelsPerModule"/></param>
+        /// <returns></returns>
+        Bitmap GetProductStatusQr(ProductBdo productBdo, int pixelsPerModule, string webCultureName);
+
+        /// <summary>
+        /// Full URL to project => http(s)://www.dk.com/
+        /// </summary>
+        /// <returns></returns>
+        string GetFullUrl(string webCultureName = null);
     }
 
     public class HelperBll : IHelperBll
@@ -246,6 +262,52 @@ namespace GiftService.Bll
             uid[10] = s[0];
 
             return new string(uid);
+        }
+
+        public Bitmap GetProductStatusQr(ProductBdo product, int pixelsPerModule, string webCultureName)
+        {
+            BllFactory.Current.SecurityBll.ValidateUid(product.ProductUid);
+
+            string url = String.Concat(GetFullUrl(webCultureName), "check/", product.ProductUid);
+
+            var qrData = new QRCodeGenerator().CreateQrCode(url, QRCodeGenerator.ECCLevel.H);
+            var qrCode = new QRCode(qrData);
+
+            return qrCode.GetGraphic(pixelsPerModule);
+        }
+
+        public string GetFullUrl(string webCultureName = null)
+        {
+            string s = "";
+            var c = BllFactory.Current.ConfigurationBll.Get();
+
+            if (c.ProjectDomain.StartsWith("http", StringComparison.OrdinalIgnoreCase) == false)
+            {
+                s = String.Concat(c.WebOptions.UseSsl ? "https://" : "http://", c.ProjectDomain);
+            }
+            else
+            {
+                s = c.ProjectDomain;
+            }
+
+            s = s.ToLower();
+
+            if (s.EndsWith("/") == false)
+            {
+                s = String.Concat(s, "/");
+            }
+
+            if (String.IsNullOrEmpty(webCultureName) == false)
+            {
+                s = String.Concat(s, webCultureName);
+            }
+
+            if (s.EndsWith("/") == false)
+            {
+                s = String.Concat(s, "/");
+            }
+
+            return s;
         }
     }
 }
