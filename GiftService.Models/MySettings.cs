@@ -18,11 +18,13 @@ namespace GiftService.Models
         public class Options
         {
             public bool UseFakeDatabase { get; set; }
+
+            public bool UseSsl { get; set; } = false;
         }
 
         public MailAddresses Mails { get; set; }
 
-        public Options WeOptions { get; set; }
+        public Options WebOptions { get; set; }
 
         public string ProjectDomain { get; set; }
 
@@ -72,7 +74,7 @@ namespace GiftService.Models
             MinGiftCongratulationsLength = 5;
             MaxGiftCongratulationsLength = 230;
 
-            WeOptions = new Options { UseFakeDatabase = false };
+            WebOptions = new Options { UseFakeDatabase = false };
         }
     }
 }

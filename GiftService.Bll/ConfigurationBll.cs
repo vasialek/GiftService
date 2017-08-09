@@ -57,11 +57,11 @@ namespace GiftService.Bll
                 s = ConfigurationManager.AppSettings["UseFakeDatabase"];
                 if (Boolean.TryParse(s, out b))
                 {
-                    _settings.WeOptions.UseFakeDatabase = b;
+                    _settings.WebOptions.UseFakeDatabase = b;
                 }
                 else
                 {
-                    _settings.WeOptions.UseFakeDatabase = false;
+                    _settings.WebOptions.UseFakeDatabase = false;
                 }
             }
             return _settings;
