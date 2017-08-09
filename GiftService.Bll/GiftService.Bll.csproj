@@ -92,6 +92,7 @@
     <Compile Include="DumpBll.cs" />
     <Compile Include="GiftValidationBll.cs" />
     <Compile Include="HelperBll.cs" />
+    <Compile Include="ImageHelperBll.cs" />
     <Compile Include="LogsBll.cs" />
     <Compile Include="PayseraBll.cs" />
     <Compile Include="PdfShartBll.cs" />

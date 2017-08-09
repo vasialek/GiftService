@@ -150,11 +150,29 @@ namespace GiftService.Bll.UnitTests
             var p = Fakes.ProductsDalFake.GetProducts().First();
             string filename = "c:\\temp\\empty_qr.png";
 
-            Bitmap bmp = _bll.GetProductStatusQr(p, 20, "lt");
+            Bitmap bmp = _bll.GetProductStatusQr(p, 6, "lt");
 
             bmp.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
 
             System.Diagnostics.Process.Start("explorer.exe", filename);
         }
+
+        #region ImageHelper tests
+
+        [TestMethod]
+        public void Resize_Image_To_300_300()
+        {
+            string originalFile = "c:\\temp\\empty_qr.png";
+            string resizedFile = "c:\\temp\\empty_qr_resized.png";
+            var original = Bitmap.FromFile(originalFile);
+
+            var resized = BllFactory.Current.ImageHelper.ResizeTo(original, 300, 300);
+            resized.Save(resizedFile);
+
+            System.Diagnostics.Process.Start("explorer.exe", resizedFile);
+        }
+
+        #endregion
+
     }
 }

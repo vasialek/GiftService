@@ -214,5 +214,18 @@ namespace GiftService.Bll
                 return _authBll;
             }
         }
+
+        private IImageHelperBll _imageHelperBll = null;
+        public IImageHelperBll ImageHelper
+        {
+            get
+            {
+                if (_imageHelperBll == null)
+                {
+                    _imageHelperBll = new ImageHelperBll();
+                }
+                return _imageHelperBll;
+            }
+        }
     }
 }

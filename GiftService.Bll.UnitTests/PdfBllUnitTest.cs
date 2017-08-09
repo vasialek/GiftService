@@ -147,5 +147,22 @@ namespace GiftService.Bll.UnitTests
 
             _communicationBll.SendEmailToClientOnSuccess(p);
         }
+
+        [TestMethod]
+        public void Generate_Pdf_With_Qr_Melisanda()
+        {
+            int posId = 1007;
+            string pdfFile = "c:\\temp\\gs_gift_1007_qr.pdf";
+
+            File.Delete(pdfFile);
+            var p = ProductsDalFake.GetProducts().First(x => x.PosId == posId);
+
+            byte[] ba = _pdfSharpBll.GeneratProductPdf(p.ProductUid, false);
+            Assert.IsNotNull(ba);
+
+            File.WriteAllBytes(pdfFile, ba);
+
+            System.Diagnostics.Process.Start("explorer.exe", pdfFile);
+        }
     }
 }
